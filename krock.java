@@ -1,3 +1,3 @@
-public void test(<input>){
+public void test(<putin>){
 
 }
