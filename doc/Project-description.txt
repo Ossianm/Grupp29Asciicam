@@ -1,0 +1,30 @@
+Projektplanering SoftwareEngineering AsciiKamera
+
+Varje vecka kommer att ha ett ungefär likadant schema där grupprum bokas tisdag, onsdag och
+fredag mellan 1 och 5 på eftermiddagen då vi kan samlas och ha scrum möten. Sprint planeringen
+kommer ske på tisdagens pass.
+
+Läsvecka3
+• Skapa produkt backlog under tisdagens pass.
+• Titta på vilka bibliotek som vi behöver använda och vilken licensering vi ska ha på
+projektet.
+• Alla ska ha lekt med git och testat det.
+• Projektet ska vara startat och finnas på git.
+
+Läsvecka4
+• Första sprinten är planerad för denna veckan.
+• Förhoppningsvis kan vi ha en app där vi kan visa vad som syns i kameran.
+
+Läsvecka5
+• Appen ska kunna ta en bild med kameran och spara den på telefonens minneskort.
+
+Läsvecka6
+• Filtret som ska ändra på bildens utseende ska fungera.
+
+Läsvecka7
+• Gå igenom nödvändig dokumentation.
+• Inställningar för filtret och kanske uppladdning till facebook/flickr/twitter för bilder som
+tagits.
+
+Läsvecka8
+• Redovisning!
