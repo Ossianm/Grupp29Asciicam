@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#101010"
+    >
+
+    <TextView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/logo"
+        android:textSize="70dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="italic"
+        android:textColor="#20e010"
+        />
+	<Button
+	    android:id="@+id/btn_pic"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/btn_pic"
+	    android:layout_marginTop="40dp"
+	    android:layout_centerHorizontal="true"
+	    android:layout_below="@id/logo"
+	    android:textSize="40dp"
+	    android:background="#e0008a"
+		android:textStyle="bold"
+	    />
+    
+	<Button
+	    android:id="@+id/btn_gallery"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/btn_gallery"
+	    android:layout_marginTop="30dp"
+	    android:layout_centerHorizontal="true"
+	    android:layout_below="@id/btn_pic"
+	    android:textSize="40dp"
+	    android:background="#e0008a"
+	    android:textStyle="bold"
+	    />
+	
+	<Button
+	    android:id="@+id/btn_options"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/btn_gallery"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="30dp"
+	    android:background="#e0008a"
+	    android:text="@string/btn_options"
+	    android:textSize="40dp"
+	    android:textStyle="bold"
+	    />
+
+	<Button
+	    android:id="@+id/btn_exit"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/btn_options"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="30dp"
+	    android:background="#e0008a"
+	    android:text="@string/btn_exit"
+	    android:textSize="40dp"
+	    android:textStyle="bold"
+	    />
+	
+	
+</RelativeLayout>
+
+
