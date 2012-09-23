@@ -21,6 +21,7 @@ public class MenuScreen extends Activity {
         /* Setting actionListeners to the buttons */
         take_Pic_B.setOnClickListener(new View.OnClickListener() {
 			
+        	/*Using the Intent class to open the phones camera */
 			public void onClick(View v) {
 				i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 				startActivityForResult(i, 0);
