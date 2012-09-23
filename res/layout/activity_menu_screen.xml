@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@drawable/bg_stars">
+
+    <Button
+        android:id="@+id/Take_pic_B"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="109dp"
+        android:background="@drawable/take_pic_button"
+        android:clickable="true" />
+
+    <Button
+        android:id="@+id/Load_pic_B"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/load_pic_button"
+        android:layout_alignLeft="@+id/Take_pic_B"
+        android:layout_below="@+id/Take_pic_B"
+        android:layout_marginTop="45dp" 
+        />
+
+    <Button
+        android:id="@+id/Options_B" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/options_button"
+        android:layout_alignLeft="@+id/Load_pic_B"
+        android:layout_below="@+id/Load_pic_B"
+        android:layout_marginTop="50dp"
+        />
+
+</RelativeLayout>

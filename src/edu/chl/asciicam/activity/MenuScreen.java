@@ -1,0 +1,44 @@
+package edu.chl.asciicam.activity;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+
+public class MenuScreen extends Activity {
+
+	Button take_Pic_B, load_Pic_B, optionsB;
+	Intent i;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_menu_screen);
+        take_Pic_B = (Button) findViewById(R.id.Take_pic_B);
+        load_Pic_B = (Button) findViewById(R.id.Load_pic_B);
+        
+        /* Setting actionListeners to the buttons */
+        take_Pic_B.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+				startActivityForResult(i, 0);
+				
+			}
+		});
+        load_Pic_B.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_menu_screen, menu);
+        return true;
+    }
+}
