@@ -10,7 +10,6 @@ import android.widget.Button;
 public class MenuScreen extends Activity {
 
 	Button take_Pic_B, load_Pic_B, optionsB;
-	Intent i;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,10 +21,13 @@ public class MenuScreen extends Activity {
         take_Pic_B.setOnClickListener(new View.OnClickListener() {
 			
         	/*Using the Intent class to open the phones camera */
+        	
 			public void onClick(View v) {
-				i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-				startActivityForResult(i, 0);
+				Intent i = new Intent(MenuScreen.this, CameraScreen.class);
+				startActivity(i);
 				
+//				i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//				startActivity ForResult(i, 0);
 			}
 		});
         load_Pic_B.setOnClickListener(new View.OnClickListener() {
