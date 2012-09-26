@@ -21,13 +21,12 @@ public class MenuScreen extends Activity {
         take_Pic_B.setOnClickListener(new View.OnClickListener() {
 			
         	/*Using the Intent class to open the phones camera */
-        	
 			public void onClick(View v) {
 				Intent i = new Intent(MenuScreen.this, CameraScreen.class);
 				startActivity(i);
 				
 //				i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-//				startActivity ForResult(i, 0);
+//				startActivity ForResult(i, 0);;
 			}
 		});
         load_Pic_B.setOnClickListener(new View.OnClickListener() {
