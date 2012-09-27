@@ -3,10 +3,11 @@
     <string name="app_name">AsciiCam</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_camera_screen">CameraScreen</string>
-    <string name="title_activity_menu_screen">MenuScreen</string>
+    <string name="title_activity_camera_screen">Take a picture :)</string>
+    <string name="title_activity_menu_screen">asciiCam</string>
     <string name="Take_pic">Take Picture</string>
     <string name="Load_pic">Load Picture</string>
     <string name="Options">Options</string>
+    <string name="CaptureButton">Capture</string>
 
 </resources>
