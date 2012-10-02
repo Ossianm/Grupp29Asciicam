@@ -12,10 +12,11 @@ import android.view.SurfaceView;
 /**
  * A basic camera preview class, base code from http://developer.android.com/guide/topics/media/camera.html#custom-camera
  * 
- * @author Braaf
+ * @author Grupp29
  *
  */
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
+	//For debugging
     private static final String TAG = "CameraPreview";
 	private SurfaceHolder mHolder;
     private Camera mCamera;
@@ -47,31 +48,41 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     }
 
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
-        // If your preview can change or rotate, take care of those events here.
-        // Make sure to stop the preview before resizing or reformatting it.
+    	// If your preview can change or rotate, take care of those events here.
+    	// Make sure to stop the preview before resizing or reformatting it.
 
-        if (mHolder.getSurface() == null){
-          // preview surface does not exist
-          return;
-        }
+    	if (mHolder.getSurface() == null){
+    		// preview surface does not exist
+    		return;
+    	}
 
-        // stop preview before making changes
-        try {
-            mCamera.stopPreview();
-        } catch (Exception e){
-          // ignore: tried to stop a non-existent preview
-        }
+    	if(mCamera != null){
+    		// stop preview before making changes
+    		try {
+    			mCamera.stopPreview();
+    		} catch (Exception e){
+    			// ignore: tried to stop a non-existent preview
+    		}
 
-        // set preview size and make any resize, rotate or
-        // reformatting changes here
+    		// set preview size and make any resize, rotate or
+    		// reformatting changes here
 
-        // start preview with new settings
-        try {
-            mCamera.setPreviewDisplay(mHolder);
-            mCamera.startPreview();
+    		// start preview with new settings
+    		try {
+    			mCamera.setPreviewDisplay(mHolder);
+    			mCamera.startPreview();
 
-        } catch (Exception e){
-            Log.d(TAG, "Error starting camera preview: " + e.getMessage());
-        }
+    		} catch (Exception e){
+    			Log.d(TAG, "Error starting camera preview: " + e.getMessage());
+    		}
+    	}
+    }
+    
+    /**
+     * Use this to null camera
+     * @param c
+     */
+    public void setCam(Camera c){
+    	mCamera = c;
     }
 }
