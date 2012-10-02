@@ -25,11 +25,16 @@
              </intent-filter> 
             
         </activity>
+        
         <activity
             android:name=".CameraScreen"
             android:label="@string/title_activity_camera_screen" 
             android:screenOrientation="portrait">
-            
+        </activity>
+        
+        <activity 
+        	android:name=".PreviewScreen">
+        	
         </activity>
         
     </application>

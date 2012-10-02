@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    android:background="@drawable/bg_stars">
+    android:background="@drawable/bg_green">
 
+    
     <Button
         android:id="@+id/Take_pic_B"
         android:layout_width="wrap_content"
@@ -12,14 +13,14 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="109dp"
-        android:background="@drawable/take_pic_button"
+        android:background="@drawable/custom_take"
         android:clickable="true" />
 
     <Button
         android:id="@+id/Load_pic_B"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/load_pic_button"
+        android:background="@drawable/custom_load"
         android:layout_alignLeft="@+id/Take_pic_B"
         android:layout_below="@+id/Take_pic_B"
         android:layout_marginTop="45dp" 
@@ -29,7 +30,7 @@
         android:id="@+id/Options_B" 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/options_button"
+        android:background="@drawable/custom_options"
         android:layout_alignLeft="@+id/Load_pic_B"
         android:layout_below="@+id/Load_pic_B"
         android:layout_marginTop="50dp"
