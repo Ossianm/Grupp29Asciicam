@@ -35,8 +35,9 @@ public class CameraScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_screen);
 
-        // Create an instance of Camera
+        // Create an instance of Camera and set it to portrait
         mCamera = getCameraInstance();
+        mCamera.setDisplayOrientation(90);
         
         //Find buttons
         capture = (Button) findViewById(R.id.button_capture);
@@ -44,7 +45,7 @@ public class CameraScreen extends Activity {
 
         // Create our Preview view and set it as the content of our activity.
         mPreview = new CameraPreview(this, mCamera);
-        FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
+        FrameLayout preview = (FrameLayout) findViewById(R.id.preview);
         preview.addView(mPreview);
         
       //Find buttons
@@ -100,4 +101,23 @@ public class CameraScreen extends Activity {
             mPreview.setCam(null);
         }
     }
+	
+	///////////////////////////////////////////////////////////////
+	//////Buttons//////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////
+	
+	/**
+	 * This is called when a user clicks the capture button
+	 */
+	public void capturePic(){
+		
+	}
+	
+	/**
+	 * This is called when a user clicked the back button, should return user
+	 * to menu screen.
+	 */
+	public void backToMenu(){
+		
+	}
 }
