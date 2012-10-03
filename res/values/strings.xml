@@ -9,5 +9,9 @@
     <string name="Load_pic">Load Picture</string>
     <string name="Options">Options</string>
     <string name="CaptureButton">Capture</string>
-
+    <string name="title_activity_preview_screen">PreviewScreen</string>
+    <string name="ConvertButton">Convert</string>
+    <string name="SaveButton">Save</string>
+	<string name="BackButton">Back</string>
+	
 </resources>
