@@ -20,7 +20,12 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     private static final String TAG = "CameraPreview";
 	private SurfaceHolder mHolder;
     private Camera mCamera;
-
+    
+    /**
+     * 
+     * @param context Activity owning an object of this class
+     * @param camera Initiated camera object.
+     */
     public CameraPreview(Context context, Camera camera) {
         super(context);
         mCamera = camera;
@@ -31,8 +36,13 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         mHolder.addCallback(this);
         // deprecated setting, but required on Android versions prior to 3.0
         mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        
+        
     }
-
+    
+    /**
+     * Automagically called by android system.
+     */
     public void surfaceCreated(SurfaceHolder holder) {
         // The Surface has been created, now tell the camera where to draw the preview.
         try {
@@ -42,7 +52,10 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             Log.d(TAG, "Error setting camera preview: " + e.getMessage());
         }
     }
-
+    
+    /**
+     * Empty, Take care of releasing camera in activity
+     */
     public void surfaceDestroyed(SurfaceHolder holder) {
         // empty. Take care of releasing the Camera preview in your activity.
     }

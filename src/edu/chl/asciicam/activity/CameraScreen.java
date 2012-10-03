@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 
@@ -21,22 +22,39 @@ public class CameraScreen extends Activity {
 	
 	private Camera mCamera;
     private CameraPreview mPreview;
-
+    
+    //Buttons for capture and back
+    Button capture;
+    Button back;
+    
+    /**
+     * This is called automagically by android system.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_screen);
 
-     // Create an instance of Camera
+        // Create an instance of Camera
         mCamera = getCameraInstance();
+        
+        //Find buttons
+        capture = (Button) findViewById(R.id.button_capture);
+        back = (Button) findViewById(R.id.button_back);
 
         // Create our Preview view and set it as the content of our activity.
         mPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
+        
+      //Find buttons
+        capture = (Button) findViewById(R.id.button_capture);
+        back = (Button) findViewById(R.id.button_back);
     }
     
-	/** A safe way to get an instance of the Camera object. */
+	/**
+	 *  A safe way to get an instance of the Camera object. 
+	 */
 	private static Camera getCameraInstance(){
 	    Camera c = null;
 	    try {
@@ -48,12 +66,18 @@ public class CameraScreen extends Activity {
 	    return c; // returns null if camera is unavailable
 	}
 	
+	/**
+	 * This is called automagically by android system.
+	 */
 	@Override
 	public void onPause() {
 		super.onPause();    
 		releaseCamera();              // release the camera immediately on pause event
 	}
 	
+	/**
+	 * This is called automagically by android system.
+	 */
 	@Override
 	public void onResume(){
 		if(mCamera == null){
@@ -68,6 +92,7 @@ public class CameraScreen extends Activity {
 		super.onResume();
 	}
 	
+	//use this method to release camera if we dont need it anymore.
 	private void releaseCamera(){
         if (mCamera != null){
             mCamera.release();        // release the camera for other applications
