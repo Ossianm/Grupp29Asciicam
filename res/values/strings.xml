@@ -9,5 +9,6 @@
     <string name="Load_pic">Load Picture</string>
     <string name="Options">Options</string>
     <string name="CaptureButton">Capture</string>
+    <string name="BackButton">Menu</string>
 
 </resources>
