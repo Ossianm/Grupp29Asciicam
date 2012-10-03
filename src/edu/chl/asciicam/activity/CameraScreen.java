@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.view.View;
 import android.widget.FrameLayout;
 
 
@@ -23,10 +23,6 @@ public class CameraScreen extends Activity {
 	private Camera mCamera;
     private CameraPreview mPreview;
     
-    //Buttons for capture and back
-    Button capture;
-    Button back;
-    
     /**
      * This is called automagically by android system.
      */
@@ -38,19 +34,11 @@ public class CameraScreen extends Activity {
         // Create an instance of Camera and set it to portrait
         mCamera = getCameraInstance();
         mCamera.setDisplayOrientation(90);
-        
-        //Find buttons
-        capture = (Button) findViewById(R.id.button_capture);
-        back = (Button) findViewById(R.id.button_back);
 
         // Create our Preview view and set it as the content of our activity.
         mPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.preview);
         preview.addView(mPreview);
-        
-      //Find buttons
-        capture = (Button) findViewById(R.id.button_capture);
-        back = (Button) findViewById(R.id.button_back);
     }
     
 	/**
@@ -103,13 +91,13 @@ public class CameraScreen extends Activity {
     }
 	
 	///////////////////////////////////////////////////////////////
-	//////Buttons//////////////////////////////////////////////////
+	//////Buttons/////Methods//////////////////////////////////////
 	///////////////////////////////////////////////////////////////
 	
 	/**
 	 * This is called when a user clicks the capture button
 	 */
-	public void capturePic(){
+	public void capturePic(View view){
 		
 	}
 	
@@ -117,7 +105,7 @@ public class CameraScreen extends Activity {
 	 * This is called when a user clicked the back button, should return user
 	 * to menu screen.
 	 */
-	public void backToMenu(){
-		
+	public void backToMenu(View view){
+		finish();
 	}
 }
