@@ -22,8 +22,8 @@ public class CameraScreen extends Activity {
 	//For debug
 	private static final String TAG = "CameraScreen";
 	
-	private Camera mCamera;
-    private CameraPreview mPreview;
+	private Camera mCamera = null;
+    private CameraPreview mPreview = null;
     
     /**
      * This is called automagically by android system.
