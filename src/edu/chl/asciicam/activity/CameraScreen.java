@@ -2,6 +2,7 @@ package edu.chl.asciicam.activity;
 
 import edu.chl.asciicam.camera.CameraPreview;
 import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
@@ -120,6 +121,30 @@ public class CameraScreen extends Activity {
 	private PictureCallback jpegCallback = new PictureCallback() {
 		public void onPictureTaken(byte[] data, Camera camera) {
 			//todo
+			Intent startPreview = new Intent(CameraScreen.this, MenuScreen.class); //todo: change to PreviewPicScreen
+			startPreview.putExtra("jpgByteArray", data);
+			startActivity(startPreview);
 		};
 	};
+	
+	///////////////////////////////////////////////////////////////
+	//////Setters//&//Getters//////////////////////////////////////
+	///////////////////////////////////////////////////////////////
+	
+	/**
+	 * Should probably only be used for testing.
+	 * @return Camera used by instance.
+	 */
+	public Camera getCamera(){
+		return mCamera;
+	}
+	
+	/**
+	 * Should probably only be used for testing.
+	 * @return CameraPreview used by instance to display camera in FrameLayout.
+	 */
+	public CameraPreview getPreview(){
+		return mPreview;
+	}
+	
 }
