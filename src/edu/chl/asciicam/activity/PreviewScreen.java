@@ -2,6 +2,7 @@ package edu.chl.asciicam.activity;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -32,8 +33,10 @@ public class PreviewScreen extends Activity {
         
       //  Bundle extras = (Bundle) savedInstanceState.get
         //Setting the taken picture as background
-        bmp = (Bitmap) savedInstanceState.get("jpgByteArray");
+        byte[] jpgArray = (byte[]) savedInstanceState.get("jpgByteArray");
+        bmp = (Bitmap) BitmapFactory.decodeByteArray(jpgArray, 0, jpgArray.length);
         iv.setImageBitmap(bmp);
+
     
         back_btn.setOnClickListener(new View.OnClickListener() {
     		

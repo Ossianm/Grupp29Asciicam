@@ -5,14 +5,14 @@
     >
    <!--  android:background="@drawable/bg_green" -->
      
-    <FrameLayout
+    <ImageView
         android:id="@+id/preview_pic"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="horizontal"
         android:visibility="visible"
         android:layout_alignParentTop="true">
-    </FrameLayout>
+    </ImageView>
     
     <Button
         android:id="@+id/convert"
