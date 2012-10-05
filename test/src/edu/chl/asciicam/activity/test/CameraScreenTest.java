@@ -3,6 +3,7 @@ package edu.chl.asciicam.activity.test;
 import edu.chl.asciicam.activity.CameraScreen;
 import edu.chl.asciicam.camera.CameraPreview;
 import android.app.Activity;
+import android.app.Instrumentation;
 import android.hardware.Camera;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
@@ -13,10 +14,6 @@ public class CameraScreenTest extends
 		ActivityInstrumentationTestCase2<CameraScreen> {
 	
 	private Activity mActivity;
-	private FrameLayout mFrame;
-	private RelativeLayout mRel;
-	private Camera cam;
-	private CameraPreview camPreview;
 	
 	public CameraScreenTest(){
 		super("edu.chl.asciicam.activity", CameraScreen.class);
@@ -29,19 +26,29 @@ public class CameraScreenTest extends
 		setActivityInitialTouchMode(false);
 
 		mActivity = (CameraScreen) getActivity();
-		//mFrame is the frame which the camera is in.
-		mFrame = (FrameLayout) mActivity.findViewById(edu.chl.asciicam.activity.R.id.preview);
-		//mView is the entire surrounding layout.
-		mRel = (RelativeLayout) mActivity.findViewById(edu.chl.asciicam.activity.R.id.activity_camera_screen);
-		cam = ((CameraScreen) mActivity).getCamera();
-		camPreview = ((CameraScreen) mActivity).getPreview();
 	}
 	
 	/**
 	 * Test startup of activity.
 	 */
 	public void testPreConditions(){
-		assertTrue(cam != null);
-		assertTrue(camPreview != null);
+		assertTrue(((CameraScreen) mActivity).getCamera() != null);
+		assertTrue(((CameraScreen) mActivity).getPreview() != null);
+	}
+	
+	/**
+	 * Test the onPause and onResume methods.
+	 */
+	public void testPauseResume(){
+		Instrumentation mInstr = this.getInstrumentation();
+		//Pause activity
+		mInstr.callActivityOnPause(mActivity);
+		//Make sure camera is released!
+		assertTrue(((CameraScreen) mActivity).getCamera() == null);
+		//Start activity
+		mInstr.callActivityOnResume(mActivity);
+		//Make sure camera is reconnected.
+		assertTrue(((CameraScreen) mActivity).getCamera() != null);
+		
 	}
 }
