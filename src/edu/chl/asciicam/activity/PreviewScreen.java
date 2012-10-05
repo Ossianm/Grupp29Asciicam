@@ -31,11 +31,15 @@ public class PreviewScreen extends Activity {
         save_pic_btn = (Button) findViewById(R.id.save);
         convert_btn = (Button) findViewById(R.id.convert);
         
-      //  Bundle extras = (Bundle) savedInstanceState.get
         //Setting the taken picture as background
-        byte[] jpgArray = (byte[]) savedInstanceState.get("jpgByteArray");
+        Bundle extras = this.getIntent().getExtras();
+        byte[] jpgArray = (byte[]) extras.getByteArray("jpgByteArray");
+        //byte[] jpgArray = (byte[]) this.getIntent().getByteArrayExtra("jpgByteArray");
+        //savedInstanceState.getByteArray("jpgByteArray");
         bmp = (Bitmap) BitmapFactory.decodeByteArray(jpgArray, 0, jpgArray.length);
+        if(bmp != null){
         iv.setImageBitmap(bmp);
+        }
 
     
         back_btn.setOnClickListener(new View.OnClickListener() {
