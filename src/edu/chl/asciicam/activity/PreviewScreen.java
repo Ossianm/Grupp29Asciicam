@@ -37,7 +37,9 @@ public class PreviewScreen extends Activity {
         //byte[] jpgArray = (byte[]) this.getIntent().getByteArrayExtra("jpgByteArray");
         //savedInstanceState.getByteArray("jpgByteArray");
         bmp = (Bitmap) BitmapFactory.decodeByteArray(jpgArray, 0, jpgArray.length);
+        if(bmp != null){
         iv.setImageBitmap(bmp);
+        }
 
     
         back_btn.setOnClickListener(new View.OnClickListener() {
