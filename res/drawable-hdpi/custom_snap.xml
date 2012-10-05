@@ -15,8 +15,8 @@
     along with Asciicam.  If not, see <http://www.gnu.org/licenses/>. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
     
- 
+ <!--
         <item android:state_pressed="true" android:drawable="@drawable/snap_knapp_pressed"></item>
    		<item android:state_focused="true" android:drawable="@drawable/snap_knapp_pressed"></item>
- 	    <item android:drawable="@drawable/snap_knapp"></item>
+ 	    <item android:drawable="@drawable/snap_knapp"></item> -->
 </selector>
