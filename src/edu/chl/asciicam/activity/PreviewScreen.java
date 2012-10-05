@@ -1,11 +1,12 @@
 package edu.chl.asciicam.activity;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 /**
  * 
@@ -18,6 +19,8 @@ import android.widget.Button;
 public class PreviewScreen extends Activity {
 
 	Button back_btn, save_pic_btn, convert_btn;
+	Bitmap bmp;
+	ImageView iv = (ImageView) findViewById(R.id.preview_pic);
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,11 @@ public class PreviewScreen extends Activity {
         back_btn = (Button) findViewById(R.id.back);
         save_pic_btn = (Button) findViewById(R.id.save);
         convert_btn = (Button) findViewById(R.id.convert);
+        
+      //  Bundle extras = (Bundle) savedInstanceState.get
+        //Setting the taken picture as background
+        bmp = (Bitmap) savedInstanceState.get("jpgByteArray");
+        iv.setImageBitmap(bmp);
     
         back_btn.setOnClickListener(new View.OnClickListener() {
     		
