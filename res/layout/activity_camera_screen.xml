@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- This file is part of Asciicam.
+
+    Asciicam is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Asciicam is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Asciicam.  If not, see <http://www.gnu.org/licenses/>. -->
 <RelativeLayout
       xmlns:android="http://schemas.android.com/apk/res/android"
       android:orientation="vertical"
@@ -17,21 +31,23 @@
     </FrameLayout>
 
     
-    <Button android:text="@string/CaptureButton" android:id="@+id/button_capture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button android:id="@+id/button_capture"
+        android:background="@drawable/custom_snap"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="capturePic">
     </Button>          
     
-    <Button android:text="@string/BackButton" android:id="@+id/button_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button android:id="@+id/button_back"
+        android:background="@drawable/custom_menu"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@id/button_capture"
         android:layout_marginRight="20dp"
-        android:onClick="backToMenu">
+        android:onClick="backToMenu"> 
         
     </Button>
 </RelativeLayout>
