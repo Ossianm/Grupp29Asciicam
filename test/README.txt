@@ -1,0 +1,2 @@
+In Eclipse choose New --> Other --> Android --> Android Test Project and name it AsciicamTest. Then choose Grupp29Asciicam as project to test. As target source pick 2.2 (API8).
+Now its just to copy source code, manifest and project properties and start testing!
