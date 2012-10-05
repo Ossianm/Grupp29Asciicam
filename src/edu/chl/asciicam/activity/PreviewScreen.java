@@ -31,8 +31,7 @@ public class PreviewScreen extends Activity {
     		
         	/*Using the Intent class to go back to the phones camera */
     		public void onClick(View v) {
-    			Intent i = new Intent(PreviewScreen.this, CameraScreen.class);
-    			startActivity(i);
+    			finish();
     		}
     	});
         
