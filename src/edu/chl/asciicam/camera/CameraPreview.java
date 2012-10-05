@@ -22,7 +22,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     private Camera mCamera;
     
     /**
-     * 
+     * Construct a CameraPreview object.
      * @param context Activity owning an object of this class
      * @param camera Initiated camera object.
      */
@@ -41,7 +41,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     }
     
     /**
-     * Automagically called by android system.
+     * Android system will call this method automagically, do no use!
      */
     public void surfaceCreated(SurfaceHolder holder) {
         // The Surface has been created, now tell the camera where to draw the preview.
@@ -54,12 +54,16 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     }
     
     /**
-     * Empty, Take care of releasing camera in activity
+     * Empty method, Take care of releasing camera in activity and set CameraPreviews
+     * camera to null using setCam(null).
      */
     public void surfaceDestroyed(SurfaceHolder holder) {
         // empty. Take care of releasing the Camera preview in your activity.
     }
-
+    
+    /**
+     * Android system will call this method automagically, do no use!
+     */
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
     	// If your preview can change or rotate, take care of those events here.
     	// Make sure to stop the preview before resizing or reformatting it.
@@ -92,8 +96,8 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     }
     
     /**
-     * Use this to null camera
-     * @param c
+     * Use this to null camera or set camera for onPause and onResume conditions.
+     * @param c Camera object used in activity.
      */
     public void setCam(Camera c){
     	mCamera = c;

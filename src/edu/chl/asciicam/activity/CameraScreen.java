@@ -3,9 +3,10 @@ package edu.chl.asciicam.activity;
 import edu.chl.asciicam.camera.CameraPreview;
 import android.app.Activity;
 import android.hardware.Camera;
+import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.view.View;
 import android.widget.FrameLayout;
 
 
@@ -23,10 +24,6 @@ public class CameraScreen extends Activity {
 	private Camera mCamera;
     private CameraPreview mPreview;
     
-    //Buttons for capture and back
-    Button capture;
-    Button back;
-    
     /**
      * This is called automagically by android system.
      */
@@ -35,21 +32,14 @@ public class CameraScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_screen);
 
-        // Create an instance of Camera
+        // Create an instance of Camera and set it to portrait
         mCamera = getCameraInstance();
-        
-        //Find buttons
-        capture = (Button) findViewById(R.id.button_capture);
-        back = (Button) findViewById(R.id.button_back);
+        mCamera.setDisplayOrientation(90);
 
         // Create our Preview view and set it as the content of our activity.
         mPreview = new CameraPreview(this, mCamera);
-        FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
+        FrameLayout preview = (FrameLayout) findViewById(R.id.preview);
         preview.addView(mPreview);
-        
-      //Find buttons
-        capture = (Button) findViewById(R.id.button_capture);
-        back = (Button) findViewById(R.id.button_back);
     }
     
 	/**
@@ -80,16 +70,22 @@ public class CameraScreen extends Activity {
 	 */
 	@Override
 	public void onResume(){
+		reconnectCam();
+		super.onResume();
+	}
+	
+	//use this method if we need to reconnect camera again (after releaseCamera())
+	private void reconnectCam(){
 		if(mCamera == null){
 			mCamera = getCameraInstance();
 			try{
-			mCamera.reconnect();
+				mCamera.reconnect();
 			}catch(Exception e){
 				Log.d(TAG, "Error reconnecting camera: " + e.getMessage());
 			}
+			mCamera.setDisplayOrientation(90);
 			mPreview.setCam(mCamera);
 		}
-		super.onResume();
 	}
 	
 	//use this method to release camera if we dont need it anymore.
@@ -100,4 +96,30 @@ public class CameraScreen extends Activity {
             mPreview.setCam(null);
         }
     }
+	
+	///////////////////////////////////////////////////////////////
+	//////Buttons/////Methods//////////////////////////////////////
+	///////////////////////////////////////////////////////////////
+	
+	/**
+	 * This is called when a user clicks the capture button
+	 */
+	public void capturePic(View view){
+		mCamera.takePicture(null, null, null, jpegCallback);
+	}
+	
+	/**
+	 * This is called when a user clicked the back button, should return user
+	 * to menu screen.
+	 */
+	public void backToMenu(View view){
+		finish();
+	}
+	
+	//Handles jpeg data from picturecallback
+	private PictureCallback jpegCallback = new PictureCallback() {
+		public void onPictureTaken(byte[] data, Camera camera) {
+			//todo
+		};
+	};
 }

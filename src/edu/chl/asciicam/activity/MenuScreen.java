@@ -7,6 +7,12 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * This activity is the first one you see when you start the app.
+ * Its a menu with the buttons, take picture, load picture and options
+ * @author 
+ *
+ */
 public class MenuScreen extends Activity {
 
 	Button take_Pic_B, load_Pic_B, optionsB;
