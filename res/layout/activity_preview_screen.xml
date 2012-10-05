@@ -8,27 +8,27 @@
     
     <Button
         android:id="@+id/convert"
-        android:text="@string/ConvertButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@drawable/custom_take"       
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         />
     
         <Button
         android:id="@+id/save"
-        android:text="@string/SaveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@drawable/custom_save"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/convert"
         android:layout_marginLeft="20dp" />
 
         <Button
         android:id="@+id/back"
-        android:text="@string/BackButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@drawable/custom_back"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@id/convert"
         android:layout_marginRight="20dp" />
