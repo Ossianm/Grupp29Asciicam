@@ -12,7 +12,7 @@ import android.view.SurfaceView;
 /**
  * A basic camera preview class, base code from http://developer.android.com/guide/topics/media/camera.html#custom-camera
  * 
- * @author Grupp29
+ * @author Robin Braaf
  *
  */
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
