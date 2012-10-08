@@ -5,7 +5,7 @@ package edu.chl.asciicam.file;
 
 import java.util.*;
 import java.io.*;
-
+import android.os.Environment;
 
 //This file is part of Asciicam.
 //
@@ -31,6 +31,10 @@ import java.io.*;
  */
 public class FileController {
 	
+	public static final String UNMOUNTED_SD = "SDCARD_NOT_MOUNTED";
+	
+	private static double SEQ_NUMBER;
+	
 	/**
 	 * Just an empty constructor, this class does not save any output or inputstreams
 	 * since we should not need constant filereading/writing.
@@ -42,10 +46,90 @@ public class FileController {
 	/**
 	 * Use this method to save a picture on the external storage (SD card).
 	 * @param picArray A byte array of the pictures data.
+	 * @throws IOException If an error occurs while writing or if the SD card is not avaible.
+	 * Check message for FileController.UNMOUNTED_SD if its because of unavaible SD card.
 	 */
-	public void savePic(byte[] picArray){
-		
+	public void savePic(byte[] picArray) throws IOException{
+		if(checkSD()){
+			//Set up file with path to SD card and file name
+			File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+			File file = new File(path, "ASCIIPIC_" + getSequenceNumber() + ".jpg");
+			//Make sure directory is created and doesnt exist
+			while(file.mkdirs() == false){
+				//If file.mkdirs(); == false, file already exists and we need to change sequencenumber until we get 
+				//a new file so we dont overwrite anything!
+				sequenceIncrement();
+				file = new File(path, "ASCIIPIC_" + getSequenceNumber() + ".jpg");
+			}
+
+			//Save picture
+			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+			bos.write(picArray);
+
+			bos.close();
+
+			//Handle the sequence number
+			sequenceIncrement();
+			saveSequence();
+
+		}else{
+			throw new IOException(UNMOUNTED_SD);
+		}
 	}
+
+	//Check if SD-card is avaible.
+	private boolean checkSD(){
+		//Get current state of SD card from Environment
+		String state = Environment.getExternalStorageState();
+
+		if (Environment.MEDIA_MOUNTED.equals(state)) {
+			// We can read and write the media
+			return true;
+		}
+		return false;
+	}
+
+	//Sequence for file storing
+	private double getSequenceNumber(){
+		return SEQ_NUMBER;
+	}
+	//Increment sequence
+	private static void sequenceIncrement(){
+		SEQ_NUMBER++;
+	}
+	//Save sequencenumber locally
+	private void saveSequence(){
+		try{
+			//Save the sequence to a local file here
+			// TODO save sequencenumber to file
+		}catch(Exception e){
+			//Failed to save sequence number.
+		}
+	}
+	
+	/**
+	 * Always call this method to load a suitable sequence number before 
+	 * saving any pictures. If not called once
+	 * it will go through all pictures until a valid number is found. I.e. if 
+	 * we have used this app to save 500 pictures, it will go through 500 filenames
+	 * before finding a suitable number. 
+	 * If any exception would occur sequence number will be set to 1 by default.
+	 */
+	public static void setSequence(){
+		try{
+			//Read sequencenumber from file here.
+			// TODO read sequencenumber from file instead of setting it to 1
+			SEQ_NUMBER = 1;
+		}catch(Exception e){
+			SEQ_NUMBER = 1;
+		}
+	}
+	
+
+	////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////
+	//////////////////////OPTIONS//SAVE//AND//GET///////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////
 	
 	/**
 	 * Use this method to save options made by the user.
@@ -62,4 +146,6 @@ public class FileController {
 	public HashMap<String, String> getOptions(){
 		return new HashMap<String, String>();
 	}
+	
+	
 }
