@@ -31,6 +31,10 @@ import java.io.*;
  */
 public class FileController {
 	
+	/**
+	 * Just an empty constructor, this class does not save any output or inputstreams
+	 * since we should not need constant filereading/writing.
+	 */
 	public FileController(){
 		
 	}
