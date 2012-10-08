@@ -16,6 +16,7 @@ public class MenuScreen extends Activity {
         setContentView(R.layout.activity_menu_screen);
         take_Pic_B = (Button) findViewById(R.id.Take_pic_B);
         load_Pic_B = (Button) findViewById(R.id.Load_pic_B);
+        optionsB = (Button) findViewById(R.id.Options_B);
         
         /* Setting actionListeners to the buttons */
         take_Pic_B.setOnClickListener(new View.OnClickListener() {
@@ -36,8 +37,9 @@ public class MenuScreen extends Activity {
 				
 			}
 		});
+        
     }
-
+    	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_menu_screen, menu);
