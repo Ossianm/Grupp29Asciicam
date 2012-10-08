@@ -10,12 +10,26 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
+//This file is part of Asciicam.
+//
+//Asciicam is free software: you can redistribute it and/or modify
+//it under the terms of the GNU General Public License as published by
+//the Free Software Foundation, either version 3 of the License, or
+//(at your option) any later version.
+//
+//Asciicam is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+//
+//You should have received a copy of the GNU General Public License
+//along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * This activity is for taking a picture. The background will be set to
  * preview what the camera is seeing.
  * Most of the base code from http://developer.android.com/guide/topics/media/camera.html#custom-camera
- * @author Braaf
+ * @author Robin Braaf
  *
  */
 public class CameraScreen extends Activity {
@@ -121,7 +135,7 @@ public class CameraScreen extends Activity {
 	private PictureCallback jpegCallback = new PictureCallback() {
 		public void onPictureTaken(byte[] data, Camera camera) {
 			//todo
-			Intent startPreview = new Intent(CameraScreen.this, MenuScreen.class); //todo: change to PreviewPicScreen
+			Intent startPreview = new Intent(CameraScreen.this, PreviewScreen.class);
 			startPreview.putExtra("jpgByteArray", data);
 			startActivity(startPreview);
 		};

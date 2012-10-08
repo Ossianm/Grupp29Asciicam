@@ -1,14 +1,10 @@
 package edu.chl.asciicam.activity.test;
 
 import edu.chl.asciicam.activity.CameraScreen;
-import edu.chl.asciicam.camera.CameraPreview;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.hardware.Camera;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 public class CameraScreenTest extends
 		ActivityInstrumentationTestCase2<CameraScreen> {
@@ -43,8 +39,15 @@ public class CameraScreenTest extends
 		Instrumentation mInstr = this.getInstrumentation();
 		//Pause activity
 		mInstr.callActivityOnPause(mActivity);
-		//Make sure camera is released!
-		assertTrue(((CameraScreen) mActivity).getCamera() == null);
+		//Make sure we can get a camera object so it is properly released.
+		try{
+			Camera c = Camera.open();
+			c.release();
+			c=null;
+			assertTrue(true);
+		}catch(Exception e){
+			assertTrue(false);
+		}
 		//Start activity
 		mInstr.callActivityOnResume(mActivity);
 		//Make sure camera is reconnected.
