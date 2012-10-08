@@ -60,7 +60,7 @@ public class PreviewScreen extends Activity {
     
         back_btn.setOnClickListener(new View.OnClickListener() {
     		
-        	/*Using the Intent class to go back to the phones camera */
+        	/*Using the finish() to go back to the last activity */
     		public void onClick(View v) {
     			finish();
     		}
