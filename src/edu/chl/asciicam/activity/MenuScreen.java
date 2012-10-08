@@ -1,5 +1,6 @@
 package edu.chl.asciicam.activity;
 
+import edu.chl.asciicam.file.FileController;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -23,6 +24,9 @@ public class MenuScreen extends Activity {
         take_Pic_B = (Button) findViewById(R.id.Take_pic_B);
         load_Pic_B = (Button) findViewById(R.id.Load_pic_B);
         optionsB = (Button) findViewById(R.id.Options_B);
+        
+        //Set sequencenumber for saving pictures.
+        FileController.setSequence();
         
         /* Setting actionListeners to the buttons */
         take_Pic_B.setOnClickListener(new View.OnClickListener() {
