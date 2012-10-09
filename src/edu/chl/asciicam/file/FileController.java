@@ -41,7 +41,7 @@ public class FileController {
 	public static final String SEQUENCENUMBER = "sequence";
 	
 	//Sequence number, used for naming files.
-	private static int SEQ_NUMBER = 0;
+	private static int SEQ_NUMBER = 1;
 	
 	//Context is needed to get important information about filesystem.
 	private Context context = null;
@@ -54,9 +54,7 @@ public class FileController {
 	 */
 	public FileController(Context context){
 		this.context = context;
-		if(SEQ_NUMBER == 0){
-			setSequence();
-		}
+		setSequence();
 	}
 	
 	/**
@@ -69,19 +67,19 @@ public class FileController {
 		if(checkSD()){
 			//Set up file with path to SD card and file name
 			File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-			File file = new File(path, "ASCIIPIC_" + getSequenceNumber() + ".jpg");
+			File file = new File(path, "asciipic" + getSequenceNumber() + ".jpg");
 			//Make sure directory is created and doesnt exist
 			while(file.mkdirs() == false){
 				//If file.mkdirs(); == false, file already exists and we need to change sequencenumber until we get 
 				//a new file so we dont overwrite anything!
 				sequenceIncrement();
-				file = new File(path, "ASCIIPIC_" + getSequenceNumber() + ".jpg");
+				file = new File(path, "asciipic" + getSequenceNumber() + ".jpg");
 			}
 
 			//Save picture
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
 			bos.write(picArray);
-
+			bos.flush();
 			bos.close();
 
 			//Handle the sequence number
@@ -106,7 +104,7 @@ public class FileController {
 	}
 
 	//Sequence for file storing
-	private int getSequenceNumber(){
+	private static int getSequenceNumber(){
 		return SEQ_NUMBER;
 	}
 	
