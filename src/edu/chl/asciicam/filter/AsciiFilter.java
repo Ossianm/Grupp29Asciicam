@@ -41,13 +41,13 @@ public class AsciiFilter implements FilterInterface {
 		int width = bmAscii.getWidth();
 		int pixel, A,R,G,B;
 		
-		for(int h=0; h<height/10; h++){
-			for (int w=0; w<width/5; w++){
+		for(int h=0; h<height; h+=10){
+			for (int w=0; w<width; w+=5){
 			pixel = bmAscii.getPixel(w,h);
 			A=Color.alpha(pixel);
 			R=Color.red(pixel);
 			G=Color.green(pixel);
-			B=Color.blue(pixel);
+			B=Color.blue(pixel);	
 			
 			}
 		}
