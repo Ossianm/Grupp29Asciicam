@@ -1,6 +1,7 @@
 package edu.chl.asciicam.filter;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 
 //This file is part of Asciicam.
 //
@@ -32,6 +33,24 @@ public class AsciiFilter implements FilterInterface {
 	 * 
 	 */
 	public Bitmap convert(Bitmap bm) {
+		
+		GrayScaleFilter gsf = new GrayScaleFilter();
+		Bitmap bmAscii = Bitmap.createBitmap(gsf.convert(bm)); //Returns a Bitmap with the same dimension as bm, but in gray scale.
+		
+		int height = bmAscii.getHeight();
+		int width = bmAscii.getWidth();
+		int pixel, A,R,G,B;
+		
+		for(int h=0; h<height/10; h++){
+			for (int w=0; w<width/5; w++){
+			pixel = bmAscii.getPixel(w,h);
+			A=Color.alpha(pixel);
+			R=Color.red(pixel);
+			G=Color.green(pixel);
+			B=Color.blue(pixel);
+			
+			}
+		}
 		
 		return null;
 	}
