@@ -33,6 +33,8 @@ public class FileController {
 	public static final String UNMOUNTED_SD = "SDCARD_NOT_MOUNTED";
 	
 	private static final String SEQ_FILENAME = "ASCIISEQNR";
+	private static final String PRIV_PIC = "PRIVATEPICTUREASCII";
+	private static final String OPTIONSFILE = "ASCIIFILTER";
 	
 	private static int SEQ_NUMBER = 0;
 	
@@ -107,7 +109,6 @@ public class FileController {
 	private void saveSequence(){
 		try{
 			//Save the sequence to a local file here
-			// TODO save sequencenumber to file
 			Integer seq_Int = Integer.valueOf(SEQ_NUMBER);
 			FileOutputStream fos = context.openFileOutput(SEQ_FILENAME, Context.MODE_PRIVATE);
 			fos.write(seq_Int.byteValue());
@@ -133,6 +134,31 @@ public class FileController {
 		}
 	}
 	
+	/**
+	 * Saves an picture locally to be used within application.
+	 * @param pic Picture to be saved locally for use within application
+	 * @throws IOException If an error occurs while saving.
+	 */
+	public void savePicPrivate(byte[] pic) throws IOException{
+		
+		//Save the sequence to a local file here
+		FileOutputStream fos = context.openFileOutput(PRIV_PIC, Context.MODE_PRIVATE);
+		BufferedOutputStream buf = new BufferedOutputStream(fos);
+		buf.write(pic);
+		buf.close();
+	}
+	
+	public byte[] loadPicPrivate() throws IOException{
+		
+		//Save the sequence to a local file here
+		FileInputStream fis = context.openFileInput(SEQ_FILENAME);
+		BufferedInputStream bus = new BufferedInputStream(fis);
+		byte[] data = null;
+		bus.read(data);
+		fis.close();
+		
+		return data;
+	}
 
 	////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////
