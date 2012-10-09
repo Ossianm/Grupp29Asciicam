@@ -13,5 +13,6 @@
     <string name="ConvertButton">Convert</string>
     <string name="SaveButton">Save</string>
     <string name="BackButton">Back</string>
+    <string name="desc">This is the taken picture</string>
 
 </resources>
