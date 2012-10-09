@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.chl.asciicam.file;
 
 import java.util.*;
