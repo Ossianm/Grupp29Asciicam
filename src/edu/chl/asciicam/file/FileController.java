@@ -146,6 +146,7 @@ public class FileController {
 		FileOutputStream fos = context.openFileOutput(PRIV_PIC, Context.MODE_PRIVATE);
 		BufferedOutputStream buf = new BufferedOutputStream(fos);
 		buf.write(pic);
+		buf.flush();
 		buf.close();
 	}
 	
@@ -157,7 +158,7 @@ public class FileController {
 	public byte[] loadPicPrivate() throws IOException{
 		
 		//Save the sequence to a local file here
-		FileInputStream fis = context.openFileInput(SEQ_FILENAME);
+		FileInputStream fis = context.openFileInput(PRIV_PIC);
 		BufferedInputStream bus = new BufferedInputStream(fis);
 		byte[] data = null;
 		bus.read(data);
