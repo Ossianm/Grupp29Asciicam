@@ -4,6 +4,8 @@ import java.util.*;
 import java.io.*;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Environment;
 
 //This file is part of Asciicam.
@@ -32,23 +34,29 @@ public class FileController {
 	
 	public static final String UNMOUNTED_SD = "SDCARD_NOT_MOUNTED";
 	
-	private static final String SEQ_FILENAME = "ASCIISEQNR";
+	private static final String OPTIONS_FILENAME = "OPTIONSASCII";
 	private static final String PRIV_PIC = "PRIVATEPICTUREASCII";
-	private static final String OPTIONSFILE = "ASCIIFILTER";
 	
+	//Static names for sharedpreferense data
+	public static final String SEQUENCENUMBER = "sequence";
+	
+	//Sequence number, used for naming files.
 	private static int SEQ_NUMBER = 0;
 	
-	private Context context;
+	//Context is needed to get important information about filesystem.
+	private Context context = null;
 	
 	/**
 	 * In order to get access to local storage on phone we need a context.
 	 * This constructor does try to init the sequence number for naming pictures automagically.
 	 * @param context 
+	 * @throws IOException 
 	 */
 	public FileController(Context context){
-		if(SEQ_NUMBER == 0)
-			setSequence();
 		this.context = context;
+		if(SEQ_NUMBER == 0){
+			setSequence();
+		}
 	}
 	
 	/**
@@ -106,33 +114,24 @@ public class FileController {
 	private static void sequenceIncrement(){
 		SEQ_NUMBER++;
 	}
+	
 	//Save sequencenumber locally
 	private void saveSequence(){
-		try{
-			//Save the sequence to a local file here
-			Integer seq_Int = Integer.valueOf(SEQ_NUMBER);
-			FileOutputStream fos = context.openFileOutput(SEQ_FILENAME, Context.MODE_PRIVATE);
-			fos.write(seq_Int.byteValue());
-			fos.close();
-			
-		}catch(Exception e){
-			//Failed to save sequence number, not so important to take care of.
-		}
+		
+		
+		SharedPreferences settings = context.getSharedPreferences(OPTIONS_FILENAME, Context.MODE_PRIVATE);
+		Editor editor = settings.edit();
+		editor.putInt(SEQUENCENUMBER, SEQ_NUMBER);
+		editor.commit();
+		
 	}
 	
 	/**
 	 * Reloads sequence from saved file for naming saved pictures.
 	 */
 	public void setSequence(){
-		try{
-			//Read sequencenumber from file here.
-			// TODO read sequencenumber from file instead of setting it to 1
-			FileInputStream fis = context.openFileInput(SEQ_FILENAME);
-			SEQ_NUMBER = fis.read();
-			fis.close();
-		}catch(Exception e){
-			SEQ_NUMBER = 1;
-		}
+		SharedPreferences settings = context.getSharedPreferences(OPTIONS_FILENAME, Context.MODE_PRIVATE);
+		SEQ_NUMBER = settings.getInt(SEQUENCENUMBER, 1);
 	}
 	
 	/**
@@ -159,12 +158,14 @@ public class FileController {
 		
 		//Save the sequence to a local file here
 		FileInputStream fis = context.openFileInput(PRIV_PIC);
-		BufferedInputStream bus = new BufferedInputStream(fis);
-		byte[] data = null;
-		bus.read(data);
+		byte[] data = new byte[fis.available()];
+		byte[] returnArray = null;
+		while(fis.read(data) != -1){
+			returnArray = data;
+		}
 		fis.close();
 		
-		return data;
+		return returnArray;
 	}
 
 	////////////////////////////////////////////////////////////////////////////////
