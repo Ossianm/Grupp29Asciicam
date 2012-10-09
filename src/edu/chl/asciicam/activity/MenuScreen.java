@@ -25,9 +25,6 @@ public class MenuScreen extends Activity {
         load_Pic_B = (Button) findViewById(R.id.Load_pic_B);
         optionsB = (Button) findViewById(R.id.Options_B);
         
-        //Set sequencenumber for saving pictures.
-        FileController.setSequence();
-        
         /* Setting actionListeners to the buttons */
         take_Pic_B.setOnClickListener(new View.OnClickListener() {
 			

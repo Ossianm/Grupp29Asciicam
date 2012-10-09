@@ -33,14 +33,15 @@ public class FileController {
 	
 	public static final String UNMOUNTED_SD = "SDCARD_NOT_MOUNTED";
 	
-	private static double SEQ_NUMBER;
+	private static double SEQ_NUMBER = 0;
 	
 	/**
 	 * Just an empty constructor, this class does not save any output or inputstreams
 	 * since we should not need constant filereading/writing.
 	 */
 	public FileController(){
-		
+		if(SEQ_NUMBER == 0)
+			setSequence();
 	}
 	
 	/**
@@ -108,12 +109,7 @@ public class FileController {
 	}
 	
 	/**
-	 * Always call this method to load a suitable sequence number before 
-	 * saving any pictures. If not called once
-	 * it will go through all pictures until a valid number is found. I.e. if 
-	 * we have used this app to save 500 pictures, it will go through 500 filenames
-	 * before finding a suitable number. 
-	 * If any exception would occur sequence number will be set to 1 by default.
+	 * Reloads sequence from saved file for naming saved pictures.
 	 */
 	public static void setSequence(){
 		try{
