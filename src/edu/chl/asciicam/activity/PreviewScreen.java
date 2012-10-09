@@ -59,21 +59,21 @@ public class PreviewScreen extends Activity {
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preview_screen);
-        back_btn = (Button) findViewById(R.id.back);
-        save_pic_btn = (Button) findViewById(R.id.save);
-        convert_btn = (Button) findViewById(R.id.convert);
-        
-        //Setting the taken picture as background
-        Bundle extras = this.getIntent().getExtras();
-        byte[] jpgArray = (byte[]) extras.getByteArray("jpgByteArray");
-        //byte[] jpgArray = (byte[]) this.getIntent().getByteArrayExtra("jpgByteArray");
-        //savedInstanceState.getByteArray("jpgByteArray");
-        bmp = (Bitmap) BitmapFactory.decodeByteArray(jpgArray, 0, jpgArray.length);
-        if(bmp != null){
-        iv.setImageBitmap(bmp);
-        }
+    	super.onCreate(savedInstanceState);
+    	setContentView(R.layout.activity_preview_screen);
+    	back_btn = (Button) findViewById(R.id.back);
+    	save_pic_btn = (Button) findViewById(R.id.save);
+    	convert_btn = (Button) findViewById(R.id.convert);
+
+    	//Setting the taken picture as background
+    	Bundle extras = this.getIntent().getExtras();
+    	byte[] jpgArray = (byte[]) extras.getByteArray("jpgByteArray");
+    	//byte[] jpgArray = (byte[]) this.getIntent().getByteArrayExtra("jpgByteArray");
+    	//savedInstanceState.getByteArray("jpgByteArray");
+    	bmp = (Bitmap) BitmapFactory.decodeByteArray(jpgArray, 0, jpgArray.length);
+    	if(bmp != null){
+    		iv.setImageBitmap(bmp);
+    	}
 
     
         back_btn.setOnClickListener(new View.OnClickListener() {
