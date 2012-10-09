@@ -101,7 +101,8 @@ public class FileController {
 	private int getSequenceNumber(){
 		return SEQ_NUMBER;
 	}
-	//Increment sequence
+	
+	//Increment sequence for file storing
 	private static void sequenceIncrement(){
 		SEQ_NUMBER++;
 	}
@@ -148,6 +149,11 @@ public class FileController {
 		buf.close();
 	}
 	
+	/**
+	 * Use this to load locally saved picture.
+	 * @return A picture in byte array format.
+	 * @throws IOException Whenever an error occurs while reading data.
+	 */
 	public byte[] loadPicPrivate() throws IOException{
 		
 		//Save the sequence to a local file here
