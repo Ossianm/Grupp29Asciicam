@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.chl.asciicam.file;
 
 import java.util.*;
@@ -33,7 +30,7 @@ public class FileController {
 	
 	public static final String UNMOUNTED_SD = "SDCARD_NOT_MOUNTED";
 	
-	private static double SEQ_NUMBER = 0;
+	private static int SEQ_NUMBER = 0;
 	
 	/**
 	 * Just an empty constructor, this class does not save any output or inputstreams
@@ -92,7 +89,7 @@ public class FileController {
 	}
 
 	//Sequence for file storing
-	private double getSequenceNumber(){
+	private int getSequenceNumber(){
 		return SEQ_NUMBER;
 	}
 	//Increment sequence
@@ -105,7 +102,7 @@ public class FileController {
 			//Save the sequence to a local file here
 			// TODO save sequencenumber to file
 		}catch(Exception e){
-			//Failed to save sequence number.
+			//Failed to save sequence number, not so important to take care of.
 		}
 	}
 	
@@ -133,7 +130,7 @@ public class FileController {
 	 * @param options A hashmap consisting of the options to be saved.
 	 */
 	public void saveOptions(HashMap<String, String> options){
-		
+		// TODO
 	}
 	
 	/**
@@ -141,6 +138,7 @@ public class FileController {
 	 * @return A map of all options saved.
 	 */
 	public HashMap<String, String> getOptions(){
+		// TODO
 		return new HashMap<String, String>();
 	}
 	
