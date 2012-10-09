@@ -105,7 +105,7 @@ public class FileController {
 			//Save the sequence to a local file here
 			// TODO save sequencenumber to file
 		}catch(Exception e){
-			//Failed to save sequence number.
+			//Failed to save sequence number, not so important to take care of.
 		}
 	}
 	
