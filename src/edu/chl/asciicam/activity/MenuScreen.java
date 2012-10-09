@@ -1,6 +1,5 @@
 package edu.chl.asciicam.activity;
 
-import edu.chl.asciicam.file.FileController;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
