@@ -18,21 +18,15 @@ import android.graphics.Bitmap;
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
-* A filter class that converts a picture to ASCII characters.
+* A filter class that converts a picture into gray scale.
 * @author fredha
 * 
 */
 
-public class AsciiFilter implements FilterInterface {
+public class GrayScaleFilter implements FilterInterface {
 
-	
-	/**
-	 * Converts a bitmap into ASCII characters and returns the result.
-	 * @param bm The Bitmap to be converted.
-	 * 
-	 */
 	public Bitmap convert(Bitmap bm) {
-		
+	
 		return null;
 	}
 
