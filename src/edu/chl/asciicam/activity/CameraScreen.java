@@ -1,6 +1,9 @@
 package edu.chl.asciicam.activity;
 
+import java.io.IOException;
+
 import edu.chl.asciicam.camera.CameraPreview;
+import edu.chl.asciicam.file.FileController;
 import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Camera;
@@ -38,6 +41,7 @@ public class CameraScreen extends Activity {
 	
 	private Camera mCamera = null;
     private CameraPreview mPreview = null;
+    protected FileController fc;
     
     /**
      * This is called automagically by android system.
@@ -46,11 +50,11 @@ public class CameraScreen extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_screen);
-
+        
         // Create an instance of Camera and set it to portrait
         mCamera = getCameraInstance();
         mCamera.setDisplayOrientation(90);
-
+        fc = new FileController(getBaseContext());
         // Create our Preview view and set it as the content of our activity.
         mPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.preview);
@@ -135,8 +139,13 @@ public class CameraScreen extends Activity {
 	private PictureCallback jpegCallback = new PictureCallback() {
 		public void onPictureTaken(byte[] data, Camera camera) {
 			//todo
-			Intent startPreview = new Intent(CameraScreen.this, PreviewScreen.class);
-			startPreview.putExtra("edu.chl.asciicam.activity.ShowPicture", data);
+			Intent startPreview = new Intent(getBaseContext(), PreviewScreen.class);
+			//startPreview.putExtra("fileC", fc);
+			try {
+				fc.savePicPrivate(data); //save pic temporary on memory to open from previewScreen
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			startActivity(startPreview);
 		};
 	};
