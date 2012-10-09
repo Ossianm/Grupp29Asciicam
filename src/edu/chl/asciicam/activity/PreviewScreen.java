@@ -48,7 +48,9 @@ public class PreviewScreen extends Activity {
 	public FileController fc;
 	byte[] picDataArray = null;
 	
-	
+	/**
+	 * This is called automatically by the android system when the activity is started.
+	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
@@ -65,8 +67,10 @@ public class PreviewScreen extends Activity {
 //    	if(bmp != null){
 //    		iv.setImageBitmap(bmp);
 //    	}
+    	
+    	
+    	//still a work in progress
     	try {
-    		System.out.println("snoppen");
 			picDataArray = fc.loadPicPrivate(); //loading the data from the private pic saved from camerascreen
 			System.out.println("efter");
 		} catch (IOException e) {
@@ -78,7 +82,11 @@ public class PreviewScreen extends Activity {
     		iv.setImageBitmap(bmp);
     	}
 
-    
+    }
+    /**
+     * This is called by to initiate the buttons and add functionality
+     */
+    private void initiateButtons(){
         back_btn.setOnClickListener(new View.OnClickListener() {
     		
         	/*Using the finish() to go back to the last activity */
@@ -94,15 +102,15 @@ public class PreviewScreen extends Activity {
        		}
     	}); 
     
-    
+
         convert_btn.setOnClickListener(new View.OnClickListener() {
     		// if click here, the picture will be converted
     		public void onClick(View v) {
     		}
     	});    //TODO convert ´picture to ascii
+    }  
         
-        
-    }
+  
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

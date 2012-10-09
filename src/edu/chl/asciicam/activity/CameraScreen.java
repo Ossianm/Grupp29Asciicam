@@ -142,6 +142,7 @@ public class CameraScreen extends Activity {
 			Intent startPreview = new Intent(getBaseContext(), PreviewScreen.class);
 			//startPreview.putExtra("fileC", fc);
 			try {
+				System.out.println(data);
 				fc.savePicPrivate(data); //save pic temporary on memory to open from previewScreen
 			} catch (IOException e) {
 				e.printStackTrace();
