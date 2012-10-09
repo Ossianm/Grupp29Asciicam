@@ -1,6 +1,10 @@
 package edu.chl.asciicam.filter;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 
 //This file is part of Asciicam.
 //
@@ -25,9 +29,26 @@ import android.graphics.Bitmap;
 
 public class GrayScaleFilter implements FilterInterface {
 
-	public Bitmap convert(Bitmap bm) {
+	/**
+	 * This method converts the given Bitmap to a gray scale-bitmap and returns it.
+	 * @param bm The Bitmap to be converted.
+	 */
 	
-		return null;
+	public Bitmap convert(Bitmap bm) {
+		int width, height;
+		width = bm.getWidth();
+		height = bm.getHeight();
+		
+		Bitmap bmGrayScale = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+		Canvas can = new Canvas(bmGrayScale);
+		Paint paint = new Paint();
+		ColorMatrix cm = new ColorMatrix();
+		cm.setSaturation(0);
+		ColorMatrixColorFilter cmcf = new ColorMatrixColorFilter(cm);
+		paint.setColorFilter(cmcf);
+		can.drawBitmap(bm, 0, 0, paint);
+		
+		return bmGrayScale;
 	}
 
 }
