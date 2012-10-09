@@ -33,7 +33,7 @@ public class AsciiFilter implements FilterInterface {
 	 * 
 	 */
 	public Bitmap convert(Bitmap bm) {
-		
+
 		GrayScaleFilter gsf = new GrayScaleFilter();
 		Bitmap bmAscii = Bitmap.createBitmap(gsf.convert(bm)); //Returns a Bitmap with the same dimension as bm, but in gray scale.
 		
