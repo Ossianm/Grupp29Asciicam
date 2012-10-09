@@ -84,12 +84,12 @@ public class PreviewScreen extends Activity {
     		}
     	});
         
-//        save_pic_btn.setOnClickListener(new View.OnClickListener() {
-//    		
-//    		public void onClick(View v) {
-//    			updateExternalStorageState();
-//       		}
-//    	}); 
+        save_pic_btn.setOnClickListener(new View.OnClickListener() {
+    		
+    		public void onClick(View v) {
+    			
+       		}
+    	}); 
     
     
         convert_btn.setOnClickListener(new View.OnClickListener() {
@@ -100,96 +100,6 @@ public class PreviewScreen extends Activity {
         
         
     }
-
-/** Code from https://developer.android.com/ */
-    
-//    void updateExternalStorageState() {
-//        String state = Environment.getExternalStorageState();
-//        if (Environment.MEDIA_MOUNTED.equals(state)) {
-//            mExternalStorageAvailable = mExternalStorageWriteable = true;
-//        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-//            mExternalStorageAvailable = true;
-//            mExternalStorageWriteable = false;
-//        } else {
-//            mExternalStorageAvailable = mExternalStorageWriteable = false;
-//        }
-//        handleExternalStorageState(mExternalStorageAvailable,
-//                mExternalStorageWriteable);
-//    }
-//    
-//    public boolean handleExternalStorageState(boolean i, boolean j){
-//    	if(i && j)
-//    	return true;
-//    	else
-//    	return false;
-//    }
-//    
-//
-//    void startWatchingExternalStorage() {
-//        mExternalStorageReceiver = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//                Log.i("test", "Storage: " + intent.getData());
-//                updateExternalStorageState();
-//            }
-//        };
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
-//        filter.addAction(Intent.ACTION_MEDIA_REMOVED);
-//        registerReceiver(mExternalStorageReceiver, filter);
-//        updateExternalStorageState();
-//    }
-//
-//    void stopWatchingExternalStorage() {
-//        unregisterReceiver(mExternalStorageReceiver);
-//    }
-//    
-//    void createExternalStoragePublicPicture() {
-//        // Create a path where we will place our picture in the user's
-//        // public pictures directory.  Note that you should be careful about
-//        // what you place here, since the user often manages these files.  For
-//        // pictures and other media owned by the application, consider
-//        // Context.getExternalMediaDir().
-//        File path = Environment.getExternalStoragePublicDirectory(
-//                Environment.DIRECTORY_PICTURES);
-//        File file = new File(path, "DemoPicture.jpg");
-//
-//        try {
-//            // Make sure the Pictures directory exists.
-//            path.mkdirs();
-//
-//            // Very simple code to copy a picture from the application's
-//            // resource into the external file.  Note that this code does
-//            // no error checking, and assumes the picture is small (does not
-//            // try to copy it in chunks).  Note that if external storage is
-//            // not currently mounted this will silently fail.
-//            InputStream is = getResources().openRawResource(R.drawable.logo);
-//            OutputStream os = new FileOutputStream(file);
-//            byte[] data = new byte[is.available()];
-//            is.read(data);
-//            os.write(data);
-//            is.close();
-//            os.close();
-//
-//            // Tell the media scanner about the new file so that it is
-//            // immediately available to the user.
-//            MediaScannerConnection.scanFile(this,
-//                    new String[] { file.toString() }, null,
-//                    new MediaScannerConnection.OnScanCompletedListener() {
-//          
-//			public void onScanCompleted(String path, Uri uri) {
-//					Log.i("ExternalStorage", "Scanned " + path + ":");
-//                    Log.i("ExternalStorage", "-> uri=" + uri);
-//				}
-//            });
-//        } catch (IOException e) {
-//            // Unable to create file, likely because external storage is
-//            // not currently mounted.
-//            Log.w("ExternalStorage", "Error writing " + file, e);
-//        }
-//    }
-
-
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
