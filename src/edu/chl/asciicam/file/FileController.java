@@ -38,6 +38,7 @@ public class FileController {
 	/**
 	 * Just an empty constructor, this class does not save any output or inputstreams
 	 * since we should not need constant filereading/writing.
+	 * This constructor does try to init the sequence number for naming pictures.
 	 */
 	public FileController(){
 		if(SEQ_NUMBER == 0)
