@@ -136,7 +136,7 @@ public class CameraScreen extends Activity {
 		public void onPictureTaken(byte[] data, Camera camera) {
 			//todo
 			Intent startPreview = new Intent(CameraScreen.this, PreviewScreen.class);
-			startPreview.putExtra("jpgByteArray", data);
+			startPreview.putExtra("edu.chl.asciicam.activity.ShowPicture", data);
 			startActivity(startPreview);
 		};
 	};
