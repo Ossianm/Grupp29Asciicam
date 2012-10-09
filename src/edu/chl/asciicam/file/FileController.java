@@ -2,6 +2,8 @@ package edu.chl.asciicam.file;
 
 import java.util.*;
 import java.io.*;
+
+import android.content.Context;
 import android.os.Environment;
 
 //This file is part of Asciicam.
@@ -30,16 +32,21 @@ public class FileController {
 	
 	public static final String UNMOUNTED_SD = "SDCARD_NOT_MOUNTED";
 	
+	private static final String SEQ_FILENAME = "ASCIISEQNR";
+	
 	private static int SEQ_NUMBER = 0;
 	
+	private Context context;
+	
 	/**
-	 * Just an empty constructor, this class does not save any output or inputstreams
-	 * since we should not need constant filereading/writing.
-	 * This constructor does try to init the sequence number for naming pictures.
+	 * In order to get access to local storage on phone we need a context.
+	 * This constructor does try to init the sequence number for naming pictures automagically.
+	 * @param context 
 	 */
-	public FileController(){
+	public FileController(Context context){
 		if(SEQ_NUMBER == 0)
 			setSequence();
+		this.context = context;
 	}
 	
 	/**
@@ -101,6 +108,11 @@ public class FileController {
 		try{
 			//Save the sequence to a local file here
 			// TODO save sequencenumber to file
+			Integer seq_Int = Integer.valueOf(SEQ_NUMBER);
+			FileOutputStream fos = context.openFileOutput(SEQ_FILENAME, Context.MODE_PRIVATE);
+			fos.write(seq_Int.byteValue());
+			fos.close();
+			
 		}catch(Exception e){
 			//Failed to save sequence number, not so important to take care of.
 		}
@@ -109,11 +121,13 @@ public class FileController {
 	/**
 	 * Reloads sequence from saved file for naming saved pictures.
 	 */
-	public static void setSequence(){
+	public void setSequence(){
 		try{
 			//Read sequencenumber from file here.
 			// TODO read sequencenumber from file instead of setting it to 1
-			SEQ_NUMBER = 1;
+			FileInputStream fis = context.openFileInput(SEQ_FILENAME);
+			SEQ_NUMBER = fis.read();
+			fis.close();
 		}catch(Exception e){
 			SEQ_NUMBER = 1;
 		}
