@@ -1,24 +1,11 @@
 package edu.chl.asciicam.activity;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
+import edu.chl.asciicam.file.FileController;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -56,6 +43,8 @@ public class PreviewScreen extends Activity {
 	BroadcastReceiver mExternalStorageReceiver;
 	boolean mExternalStorageAvailable = false;
 	boolean mExternalStorageWriteable = false;
+	public FileController file;
+	
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,7 +76,7 @@ public class PreviewScreen extends Activity {
         save_pic_btn.setOnClickListener(new View.OnClickListener() {
     		
     		public void onClick(View v) {
-    			
+//    			savePic();
        		}
     	}); 
     
