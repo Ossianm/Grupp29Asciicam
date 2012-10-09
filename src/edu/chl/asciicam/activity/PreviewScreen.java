@@ -100,6 +100,8 @@ public class PreviewScreen extends Activity {
         
         
     }
+
+/** Code from https://developer.android.com/ */
     
 //    void updateExternalStorageState() {
 //        String state = Environment.getExternalStorageState();
