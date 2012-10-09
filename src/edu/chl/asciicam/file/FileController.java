@@ -31,11 +31,11 @@ import android.os.Environment;
  *
  */
 public class FileController {
-	
+	//String for Exception case if SD card is unmounted when trying to save a picture
 	public static final String UNMOUNTED_SD = "SDCARD_NOT_MOUNTED";
-	
-	private static final String OPTIONS_FILENAME = "OPTIONSASCII";
-	private static final String PRIV_PIC = "PRIVATEPICTUREASCII";
+	//Local filenames for private files
+	private static final String OPTIONS_FILENAME = "OptionsAscii";
+	private static final String PRIV_PIC = "PrivatePictureAscii";
 	
 	//Static names for sharedpreferense data
 	public static final String SEQUENCENUMBER = "sequence";
@@ -67,15 +67,17 @@ public class FileController {
 		if(checkSD()){
 			//Set up file with path to SD card and file name
 			File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-			File file = new File(path, "asciipic" + getSequenceNumber() + ".jpg");
-			//Make sure directory is created and doesnt exist
-			while(file.mkdirs() == false){
-				//If file.mkdirs(); == false, file already exists and we need to change sequencenumber until we get 
+			//Assure us directory exist
+			path.mkdirs();
+			
+			File file = new File(path, "ASCIIPIC_" + getSequenceNumber() + ".jpg");
+			//Make sure file doesnt already exist and loop until we get a valid sequencenumber
+			while(file.exists() == true){
+				//If file already exists we need to change sequencenumber until we get 
 				//a new file so we dont overwrite anything!
 				sequenceIncrement();
-				file = new File(path, "asciipic" + getSequenceNumber() + ".jpg");
+				file = new File(path, "ASCIIPIC_" + getSequenceNumber() + ".jpg");
 			}
-
 			//Save picture
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
 			bos.write(picArray);
@@ -116,12 +118,10 @@ public class FileController {
 	//Save sequencenumber locally
 	private void saveSequence(){
 		
-		
 		SharedPreferences settings = context.getSharedPreferences(OPTIONS_FILENAME, Context.MODE_PRIVATE);
 		Editor editor = settings.edit();
 		editor.putInt(SEQUENCENUMBER, SEQ_NUMBER);
 		editor.commit();
-		
 	}
 	
 	/**
