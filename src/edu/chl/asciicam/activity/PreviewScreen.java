@@ -1,5 +1,7 @@
 package edu.chl.asciicam.activity;
 
+import java.io.IOException;
+
 import edu.chl.asciicam.file.FileController;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -38,14 +40,17 @@ public class PreviewScreen extends Activity {
 
 	Button back_btn, save_pic_btn, convert_btn;
 	Bitmap bmp;
-	ImageView iv = (ImageView) findViewById(R.id.preview_pic);
+	ImageView iv;// = (ImageView) findViewById(R.id.preview_pic);
 	public static String DIRECTORY_PICTURES;
 	BroadcastReceiver mExternalStorageReceiver;
 	boolean mExternalStorageAvailable = false;
 	boolean mExternalStorageWriteable = false;
-	public FileController file;
+	public FileController fc;
+	byte[] picDataArray = null;
 	
-	
+	/**
+	 * This is called automatically by the android system when the activity is started.
+	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
@@ -53,18 +58,35 @@ public class PreviewScreen extends Activity {
     	back_btn = (Button) findViewById(R.id.back);
     	save_pic_btn = (Button) findViewById(R.id.save);
     	convert_btn = (Button) findViewById(R.id.convert);
-
+    	iv = (ImageView) findViewById(R.id.preview_pic);
+    	fc = new FileController(getBaseContext());
     	//Setting the taken picture as background
-    	Bundle extras = this.getIntent().getExtras();
-    	byte[] jpgArray = (byte[]) extras.getByteArray("jpgByteArray");
-    	//byte[] jpgArray = (byte[]) this.getIntent().getByteArrayExtra("jpgByteArray");
-    	//savedInstanceState.getByteArray("jpgByteArray");
-    	bmp = (Bitmap) BitmapFactory.decodeByteArray(jpgArray, 0, jpgArray.length);
+//    	Bundle extras = this.getIntent().getExtras();
+//    	byte[] jpgArray = (byte[]) extras.getByteArray("jpgByteArray");
+//    	bmp = (Bitmap) BitmapFactory.decodeByteArray(jpgArray, 0, jpgArray.length);
+//    	if(bmp != null){
+//    		iv.setImageBitmap(bmp);
+//    	}
+    	
+    	
+    	//still a work in progress
+    	try {
+			picDataArray = fc.loadPicPrivate(); //loading the data from the private pic saved from camerascreen
+			System.out.println("efter");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
     	if(bmp != null){
     		iv.setImageBitmap(bmp);
     	}
 
-    
+    }
+    /**
+     * This is called by to initiate the buttons and add functionality
+     */
+    private void initiateButtons(){
         back_btn.setOnClickListener(new View.OnClickListener() {
     		
         	/*Using the finish() to go back to the last activity */
@@ -80,15 +102,15 @@ public class PreviewScreen extends Activity {
        		}
     	}); 
     
-    
+
         convert_btn.setOnClickListener(new View.OnClickListener() {
     		// if click here, the picture will be converted
     		public void onClick(View v) {
     		}
     	});    //TODO convert ´picture to ascii
+    }  
         
-        
-    }
+  
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
