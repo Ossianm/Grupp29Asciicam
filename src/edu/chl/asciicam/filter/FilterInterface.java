@@ -24,7 +24,7 @@ import android.graphics.Bitmap;
  */
 
 public interface FilterInterface {
-	
+
 	public Bitmap convert(Bitmap bm);
-	
+
 }

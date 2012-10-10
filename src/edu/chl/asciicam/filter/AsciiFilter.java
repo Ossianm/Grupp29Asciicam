@@ -19,14 +19,14 @@ import android.graphics.Color;
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
-* A filter class that converts a picture to ASCII characters.
-* @author fredha
-* 
-*/
+ * A filter class that converts a picture to ASCII characters.
+ * @author fredha
+ * 
+ */
 
 public class AsciiFilter implements FilterInterface {
 
-	
+
 	/**
 	 * Converts a bitmap into ASCII characters and returns the result.
 	 * @param bm The Bitmap to be converted.
@@ -36,22 +36,22 @@ public class AsciiFilter implements FilterInterface {
 
 		GrayScaleFilter gsf = new GrayScaleFilter();
 		Bitmap bmAscii = Bitmap.createBitmap(gsf.convert(bm)); //Returns a Bitmap with the same dimension as bm, but in gray scale.
-		
+
 		int height = bmAscii.getHeight();
 		int width = bmAscii.getWidth();
 		int pixel, A,R,G,B;
-		
+
 		for(int h=0; h<height; h+=10){
 			for (int w=0; w<width; w+=5){
-			pixel = bmAscii.getPixel(w,h);
-			A=Color.alpha(pixel);
-			R=Color.red(pixel);
-			G=Color.green(pixel);
-			B=Color.blue(pixel);	
-			
+				pixel = bmAscii.getPixel(w,h);
+				A=Color.alpha(pixel);
+				R=Color.red(pixel);
+				G=Color.green(pixel);
+				B=Color.blue(pixel);	
+
 			}
 		}
-		
+
 		return null;
 	}
 
