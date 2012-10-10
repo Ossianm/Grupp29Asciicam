@@ -47,35 +47,36 @@ public class PreviewScreen extends Activity {
 	boolean mExternalStorageWriteable = false;
 	public FileController fc;
 	byte[] picDataArray = null;
-	
+
 	/**
 	 * This is called automatically by the android system when the activity is started.
 	 */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-    	super.onCreate(savedInstanceState);
-    	setContentView(R.layout.activity_preview_screen);
-    	back_btn = (Button) findViewById(R.id.back);
-    	save_pic_btn = (Button) findViewById(R.id.save);
-    	convert_btn = (Button) findViewById(R.id.convert);
-    	iv = (ImageView) findViewById(R.id.preview_pic);
-    	fc = new FileController(getBaseContext());
-    	//Setting the taken picture as background
-//    	Bundle extras = this.getIntent().getExtras();
-//    	byte[] jpgArray = (byte[]) extras.getByteArray("jpgByteArray");
-//    	bmp = (Bitmap) BitmapFactory.decodeByteArray(jpgArray, 0, jpgArray.length);
-//    	if(bmp != null){
-//    		iv.setImageBitmap(bmp);
-//    	}
-    	
-    	
-    	//still a work in progress
-    	try {
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_preview_screen);
+		back_btn = (Button) findViewById(R.id.back);
+		save_pic_btn = (Button) findViewById(R.id.save);
+		convert_btn = (Button) findViewById(R.id.convert);
+		iv = (ImageView) findViewById(R.id.preview_pic);
+		fc = new FileController(getBaseContext());
+		//Setting the taken picture as background
+		//    	Bundle extras = this.getIntent().getExtras();
+		//    	byte[] jpgArray = (byte[]) extras.getByteArray("jpgByteArray");
+		//    	bmp = (Bitmap) BitmapFactory.decodeByteArray(jpgArray, 0, jpgArray.length);
+		//    	if(bmp != null){
+		//    		iv.setImageBitmap(bmp);
+		//    	}
+
+
+		//still a work in progress
+		try {
 			picDataArray = fc.loadPicPrivate(); //loading the data from the private pic saved from camerascreen
 			System.out.println("efter");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+<<<<<<< HEAD
     	
     	bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
     	if(bmp != null){
@@ -123,4 +124,47 @@ public class PreviewScreen extends Activity {
         getMenuInflater().inflate(R.menu.activity_preview_screen, menu);
         return true;
     }
+=======
+
+		bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
+		if(bmp != null){
+			iv.setImageBitmap(bmp);
+		}
+
+	}
+	/**
+	 * This is called by to initiate the buttons and add functionality
+	 */
+	private void initiateButtons(){
+		back_btn.setOnClickListener(new View.OnClickListener() {
+
+			/*Using the finish() to go back to the last activity */
+			public void onClick(View v) {
+				finish();
+			}
+		});
+
+		save_pic_btn.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				//    			savePic();
+			}
+		}); 
+
+
+		convert_btn.setOnClickListener(new View.OnClickListener() {
+			// if click here, the picture will be converted
+			public void onClick(View v) {
+			}
+		});    //TODO convert ´picture to ascii
+	}  
+
+
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_preview_screen, menu);
+		return true;
+	}
+>>>>>>> ea65c0f3d7395220df11ddd5f688b2cc1f7d79ee
 }
