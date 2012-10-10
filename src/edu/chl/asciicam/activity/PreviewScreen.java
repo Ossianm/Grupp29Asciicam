@@ -70,14 +70,14 @@ public class PreviewScreen extends Activity {
 		// still a work in progress
 		extras = this.getIntent().getExtras();
 		String id = extras.getString("id"); //loads the id to check if the background should be loaded from the taken picture or from gallery
-		
+
 		if (id.equals("taken")) {
 			loadFromCamera();
 		} else if (id.equals("loaded")) {
 			loadFromPhone();
 		}
-		
-		
+
+
 
 	}
 
@@ -95,7 +95,7 @@ public class PreviewScreen extends Activity {
 		bmp = rotatePic(bmp);
 		setBackground(bmp);
 	}
-	
+
 	/**
 	 * Will rotate the piture so it's shown as portrait
 	 * @param bg
@@ -103,8 +103,8 @@ public class PreviewScreen extends Activity {
 	 */
 	private Bitmap rotatePic(Bitmap bg){
 		Matrix matrix = new Matrix();
-	    matrix.setRotate(90, bg.getWidth()/2, bg.getHeight()/2);
-	    return Bitmap.createBitmap(bg, 0, 0, bg.getWidth(), bg.getHeight(), matrix, true);
+		matrix.setRotate(90, bg.getWidth()/2, bg.getHeight()/2);
+		return Bitmap.createBitmap(bg, 0, 0, bg.getWidth(), bg.getHeight(), matrix, true);
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class PreviewScreen extends Activity {
 			setBackground(bmp);
 		}
 	}
-	
+
 
 	/**
 	 * This method takes a Bitmap and sets it as background
@@ -145,18 +145,18 @@ public class PreviewScreen extends Activity {
 		});
 
 		save_pic_btn.setOnClickListener(new View.OnClickListener() {
-			
+
 			public void onClick(View v) {
 				try {
 					fc.savePic(picDataArray);
 					System.out.println("Bilden har sparats i" + 
-					Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));			
-					
+							Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));			
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 				picDataArray = null;
 			}
 		});
