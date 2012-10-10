@@ -76,55 +76,7 @@ public class PreviewScreen extends Activity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
-    	
-    	bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
-    	if(bmp != null){
-    		iv.setImageBitmap(bmp);
-    	}
 
-    }
-    /**
-     * This is called by to initiate the buttons and add functionality
-     */
-    private void initiateButtons(){
-        back_btn.setOnClickListener(new View.OnClickListener() {
-    		
-        	/*Using the finish() to go back to the last activity */
-    		public void onClick(View v) {
-    			finish();
-    		}
-    	});
-        
-        save_pic_btn.setOnClickListener(new View.OnClickListener() {
-    		
-    		public void onClick(View v) {    			
-    			try {
-					fc.savePic(picDataArray);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-    			picDataArray = null;
-       		}
-    	}); 
-    
-
-        convert_btn.setOnClickListener(new View.OnClickListener() {
-    		// if click here, the picture will be converted
-    		public void onClick(View v) {
-    		}
-    	});    //TODO convert ´picture to ascii
-    }  
-        
-  
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_preview_screen, menu);
-        return true;
-    }
-=======
 
 		bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
 		if(bmp != null){
@@ -146,8 +98,14 @@ public class PreviewScreen extends Activity {
 
 		save_pic_btn.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {
-				//    			savePic();
+			public void onClick(View v) {    			
+				try {
+					fc.savePic(picDataArray);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				picDataArray = null;
 			}
 		}); 
 
@@ -157,14 +115,19 @@ public class PreviewScreen extends Activity {
 			public void onClick(View v) {
 			}
 		});    //TODO convert ´picture to ascii
-	}  
+		  
 
-
+		bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
+		if(bmp != null){
+			iv.setImageBitmap(bmp);
+		}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_preview_screen, menu);
 		return true;
 	}
->>>>>>> ea65c0f3d7395220df11ddd5f688b2cc1f7d79ee
+
+
 }
