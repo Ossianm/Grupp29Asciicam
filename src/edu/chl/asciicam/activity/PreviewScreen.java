@@ -30,11 +30,12 @@ import android.widget.ImageView;
 
 /**
  * 
- * This activity sets the taken picture as the background.
- * You can choose what to with you taken picture, 
- * save, convert or delete picture and take a new one.
+ * This activity sets the taken picture as the background. You can choose what
+ * to with you taken picture, save, convert or delete picture and take a new
+ * one.
+ * 
  * @author Kryckans
- *
+ * 
  */
 public class PreviewScreen extends Activity {
 
@@ -44,13 +45,12 @@ public class PreviewScreen extends Activity {
 	ImageView iv;
 	public static String DIRECTORY_PICTURES;
 	BroadcastReceiver mExternalStorageReceiver;
-	boolean mExternalStorageAvailable = false;
-	boolean mExternalStorageWriteable = false;
 	public FileController fc;
 	byte[] picDataArray = null;
 
 	/**
-	 * This is called automatically by the android system when the activity is started.
+	 * This is called automatically by the android system when the activity is
+	 * started.
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class PreviewScreen extends Activity {
 		convert_btn = (Button) findViewById(R.id.convert);
 		iv = (ImageView) findViewById(R.id.preview_pic);
 		fc = new FileController(getBaseContext());
-		
+
 		initiateButtons();
 
 		// still a work in progress
@@ -116,10 +116,10 @@ public class PreviewScreen extends Activity {
 	/**
 	 * This is called by to initiate the buttons and add functionality
 	 */
-	private void initiateButtons(){
+	private void initiateButtons() {
 		back_btn.setOnClickListener(new View.OnClickListener() {
 
-			/*Using the finish() to go back to the last activity */
+			/* Using the finish() to go back to the last activity */
 			public void onClick(View v) {
 				finish();
 			}
@@ -127,7 +127,7 @@ public class PreviewScreen extends Activity {
 
 		save_pic_btn.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {    			
+			public void onClick(View v) {
 				try {
 					fc.savePic(picDataArray);
 				} catch (IOException e) {
@@ -136,27 +136,13 @@ public class PreviewScreen extends Activity {
 				}
 				picDataArray = null;
 			}
-		}); 
-
+		});
 
 		convert_btn.setOnClickListener(new View.OnClickListener() {
 			// if click here, the picture will be converted
 			public void onClick(View v) {
 			}
-		});    //TODO convert ´picture to ascii
-		  
-
-		bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
-		if(bmp != null){
-			iv.setImageBitmap(bmp);
-		}
+		}); // TODO convert ´picture to ascii
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_preview_screen, menu);
-		return true;
-	}
-
 
 }
