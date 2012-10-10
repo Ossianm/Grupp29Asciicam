@@ -26,15 +26,6 @@ import android.graphics.Bitmap;
 public interface FilterInterface {
 
 	public Bitmap convert(Bitmap bm);
-	
-	public Bitmap arrayToBitmap(byte[] byteArray){
-		Bitmap bitmap = BitmapFactory.decodeFile(byteArray);
-		ByteArrayOutputStream blob = new ByteArrayOutputStream();
-		bitmap.compress(CompressFormat.PNG, 0 /*ignored for PNG*/, blob);
-		byte[] bitmapdata = blob.toByteArray();
-		
-		Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata , 0, bitmapdata .length);
-	}
 
 }
 
