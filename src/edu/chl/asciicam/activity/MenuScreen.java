@@ -94,6 +94,7 @@ public class MenuScreen extends Activity {
 		if (result != 0){
 			Intent i = new Intent(MenuScreen.this, PreviewScreen.class);
 			i.putExtra("filePath",filePath);
+			i.putExtra("id", "loaded");
 			startActivity(i);
 		}
 	}

@@ -30,26 +30,27 @@ import android.widget.ImageView;
 
 /**
  * 
- * This activity sets the taken picture as the background.
- * You can choose what to with you taken picture, 
- * save, convert or delete picture and take a new one.
+ * This activity sets the taken picture as the background. You can choose what
+ * to with you taken picture, save, convert or delete picture and take a new
+ * one.
+ * 
  * @author Kryckans
- *
+ * 
  */
 public class PreviewScreen extends Activity {
 
 	Button back_btn, save_pic_btn, convert_btn;
 	Bitmap bmp;
-	ImageView iv;// = (ImageView) findViewById(R.id.preview_pic);
+	Bundle extras;
+	ImageView iv;
 	public static String DIRECTORY_PICTURES;
 	BroadcastReceiver mExternalStorageReceiver;
-	boolean mExternalStorageAvailable = false;
-	boolean mExternalStorageWriteable = false;
 	public FileController fc;
 	byte[] picDataArray = null;
 
 	/**
-	 * This is called automatically by the android system when the activity is started.
+	 * This is called automatically by the android system when the activity is
+	 * started.
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -60,37 +61,65 @@ public class PreviewScreen extends Activity {
 		convert_btn = (Button) findViewById(R.id.convert);
 		iv = (ImageView) findViewById(R.id.preview_pic);
 		fc = new FileController(getBaseContext());
-		//Setting the taken picture as background
-		//    	Bundle extras = this.getIntent().getExtras();
-		//    	byte[] jpgArray = (byte[]) extras.getByteArray("jpgByteArray");
-		//    	bmp = (Bitmap) BitmapFactory.decodeByteArray(jpgArray, 0, jpgArray.length);
-		//    	if(bmp != null){
-		//    		iv.setImageBitmap(bmp);
-		//    	}
 
+		initiateButtons();
 
-		//still a work in progress
-		try {
-			picDataArray = fc.loadPicPrivate(); //loading the data from the private pic saved from camerascreen
-			System.out.println("efter");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-
-		bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
-		if(bmp != null){
-			iv.setImageBitmap(bmp);
+		// still a work in progress
+		extras = this.getIntent().getExtras();
+		String id = extras.getString("id");
+		if (id.equals("taken")) {
+			loadFromCamera();
+		} else if (id.equals("loaded")) {
+			loadFromPhone();
 		}
 
 	}
+
+	/**
+	 * Loading the background from the taken picture
+	 */
+	private void loadFromCamera() {
+		try {
+			picDataArray = fc.loadPicPrivate(); // loading the data from the
+												// private pic saved from
+												// camerascreen
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0,
+				picDataArray.length);
+		setBackground(bmp);
+	}
+
+	/**
+	 * Loading the background from gallery
+	 */
+	private void loadFromPhone() {
+
+		String filePath = extras.getString("filePath");
+		if (filePath != null) {
+			bmp = (Bitmap) BitmapFactory.decodeFile(filePath);
+		}
+	}
+
+	/**
+	 * This method takes a Bitmap and sets it as background
+	 * 
+	 * @param bg
+	 */
+	private void setBackground(Bitmap bg) {
+		if (bg != null) {
+			iv.setImageBitmap(bg);
+		}
+	}
+
 	/**
 	 * This is called by to initiate the buttons and add functionality
 	 */
-	private void initiateButtons(){
+	private void initiateButtons() {
 		back_btn.setOnClickListener(new View.OnClickListener() {
 
-			/*Using the finish() to go back to the last activity */
+			/* Using the finish() to go back to the last activity */
 			public void onClick(View v) {
 				finish();
 			}
@@ -98,7 +127,7 @@ public class PreviewScreen extends Activity {
 
 		save_pic_btn.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {    			
+			public void onClick(View v) {
 				try {
 					fc.savePic(picDataArray);
 				} catch (IOException e) {
@@ -107,27 +136,13 @@ public class PreviewScreen extends Activity {
 				}
 				picDataArray = null;
 			}
-		}); 
-
+		});
 
 		convert_btn.setOnClickListener(new View.OnClickListener() {
 			// if click here, the picture will be converted
 			public void onClick(View v) {
 			}
-		});    //TODO convert ´picture to ascii
-		  
-
-		bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
-		if(bmp != null){
-			iv.setImageBitmap(bmp);
-		}
+		}); // TODO convert ´picture to ascii
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_preview_screen, menu);
-		return true;
-	}
-
 
 }
