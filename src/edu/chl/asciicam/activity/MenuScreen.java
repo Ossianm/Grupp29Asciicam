@@ -90,7 +90,7 @@ public class MenuScreen extends Activity {
     	}
     	//If no picture is chosen, PreviewScreen will not start (returning to MenuScreen)
     	if (result != 0){
-		Intent i = new Intent(MenuScreen.this, CameraScreen.class);
+		Intent i = new Intent(MenuScreen.this, PreviewScreen.class);
 		startActivity(i);
 		}
     	}
