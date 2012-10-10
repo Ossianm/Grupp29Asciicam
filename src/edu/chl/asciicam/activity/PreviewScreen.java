@@ -37,7 +37,7 @@ import android.widget.ImageView;
  * to with you taken picture, save, convert or delete picture and take a new
  * one.
  * 
- * @author Kryckans
+ * @author Ossian, Jonas, Martin
  * 
  */
 public class PreviewScreen extends Activity {
@@ -67,8 +67,7 @@ public class PreviewScreen extends Activity {
 
 		initiateButtons();
 
-		// still a work in progress
-		extras = this.getIntent().getExtras();
+		extras = this.getIntent().getExtras(); //get all the extras from intent to the Bundle extras
 		String id = extras.getString("id"); //loads the id to check if the background should be loaded from the taken picture or from gallery
 
 		if (id.equals("taken")) {
@@ -76,9 +75,6 @@ public class PreviewScreen extends Activity {
 		} else if (id.equals("loaded")) {
 			loadFromPhone();
 		}
-
-
-
 	}
 
 	/**
@@ -90,18 +86,17 @@ public class PreviewScreen extends Activity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0,
-				picDataArray.length);
-		bmp = rotatePic(bmp);
+		//decode the bytearray to a Bitmap and set as background
+		bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length); 
 		setBackground(bmp);
 	}
 
 	/**
-	 * Will rotate the piture so it's shown as portrait
+	 * Will rotate the Bitmap so it's shown as portrait
 	 * @param bg
 	 * @return a rotated Bitmap
 	 */
-	private Bitmap rotatePic(Bitmap bg){
+	private Bitmap rotatePic(Bitmap bg){ 
 		Matrix matrix = new Matrix();
 		matrix.setRotate(90, bg.getWidth()/2, bg.getHeight()/2);
 		return Bitmap.createBitmap(bg, 0, 0, bg.getWidth(), bg.getHeight(), matrix, true);
@@ -111,15 +106,13 @@ public class PreviewScreen extends Activity {
 	 * Loading the background from gallery
 	 */
 	private void loadFromPhone() {
-
 		String filePath = extras.getString("filePath");
 		if (filePath != null) {			
-			bmp = (Bitmap) BitmapFactory.decodeFile(filePath);
-			bmp = rotatePic(bmp);
+			//decode the file to a Bitmap and set as background
+			bmp = (Bitmap) BitmapFactory.decodeFile(filePath); 
 			setBackground(bmp);
 		}
 	}
-
 
 	/**
 	 * This method takes a Bitmap and sets it as background
@@ -128,6 +121,7 @@ public class PreviewScreen extends Activity {
 	 */
 	private void setBackground(Bitmap bg) {
 		if (bg != null) {
+			bg = rotatePic(bg);
 			iv.setImageBitmap(bg);
 		}
 	}
@@ -145,27 +139,23 @@ public class PreviewScreen extends Activity {
 		});
 
 		save_pic_btn.setOnClickListener(new View.OnClickListener() {
-
 			public void onClick(View v) {
 				try {
-					fc.savePic(picDataArray);
+					fc.savePic(picDataArray); //saves the picture on the phone
 					System.out.println("Bilden har sparats i" + 
-							Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));			
-
+							Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));	
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
-				picDataArray = null;
 			}
 		});
 
 		convert_btn.setOnClickListener(new View.OnClickListener() {
-			// if click here, the picture will be converted
+			// if click here, the picture will be converted with the current settings; not yet implemented
 			public void onClick(View v) {
+				// TODO convert ´picture to ascii
 			}
-		}); // TODO convert ´picture to ascii
+		}); 
 	}
 
 }
