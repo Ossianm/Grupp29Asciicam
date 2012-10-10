@@ -1,4 +1,4 @@
-package edu.chl.asciicam.filter;
+package edu.chl.asciicam.util;
 
 import java.io.ByteArrayOutputStream;
 
@@ -21,16 +21,14 @@ import android.graphics.BitmapFactory;
 //You should have received a copy of the GNU General Public License
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
 
-public abstract class Filter implements FilterInterface {
-
-	public abstract Bitmap convert(Bitmap bm);
+public class Convert{
 
 	/**
 	 * Converts a given array to a Bitmap and returns the result.
 	 * @param byteArray The byte array to be converted into a Bitmap.
 	 * @return The resulting Bitmap.
 	 */
-	public Bitmap arrayToBitmap(byte[] byteArray) 	{
+	public Bitmap byteArrayToBitmap(byte[] byteArray) 	{
 		Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray , 0, byteArray.length);
 		return bitmap;
 	}
@@ -42,7 +40,7 @@ public abstract class Filter implements FilterInterface {
 	 */
 	public byte[] bitmapToByteArray(Bitmap bitmap){
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		bitmap.compress(CompressFormat.PNG, 0 /*ignored for PNG*/, out);
+		bitmap.compress(CompressFormat.PNG, 0, out);
 		byte[] byteArray = out.toByteArray();
 		return byteArray;
 	}
