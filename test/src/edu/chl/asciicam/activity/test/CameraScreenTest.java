@@ -1,5 +1,6 @@
 package edu.chl.asciicam.activity.test;
 
+
 import edu.chl.asciicam.activity.CameraScreen;
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -21,7 +22,7 @@ public class CameraScreenTest extends
 		//turn off touch se we can send inputs from test.
 		setActivityInitialTouchMode(false);
 
-		mActivity = (CameraScreen) getActivity();
+		mActivity = getActivity();
 	}
 	
 	/**

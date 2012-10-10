@@ -28,7 +28,7 @@ public class Convert{
 	 * @param byteArray The byte array to be converted into a Bitmap.
 	 * @return The resulting Bitmap.
 	 */
-	public Bitmap byteArrayToBitmap(byte[] byteArray) 	{
+	public static Bitmap byteArrayToBitmap(byte[] byteArray) 	{
 		Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray , 0, byteArray.length);
 		return bitmap;
 	}
@@ -38,7 +38,7 @@ public class Convert{
 	 * @param bitmap The Bitmap to be converted into a byte array.
 	 * @return The resulting byte array.
 	 */
-	public byte[] bitmapToByteArray(Bitmap bitmap){
+	public static byte[] bitmapToByteArray(Bitmap bitmap){
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		bitmap.compress(CompressFormat.PNG, 0, out);
 		byte[] byteArray = out.toByteArray();
