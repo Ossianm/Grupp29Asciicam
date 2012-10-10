@@ -27,7 +27,7 @@ import android.graphics.Paint;
  * 
  */
 
-public class GrayScaleFilter implements FilterInterface {
+public class GrayScaleFilter extends Filter {
 
 	/**
 	 * This method converts the given Bitmap to a gray scale-bitmap and returns it.
@@ -49,11 +49,6 @@ public class GrayScaleFilter implements FilterInterface {
 		can.drawBitmap(bm, 0, 0, paint);
 
 		return bmGrayScale;
-	}
-
-	public Bitmap arrayToBitmap(byte[] byteArray) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
