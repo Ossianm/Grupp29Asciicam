@@ -32,7 +32,6 @@ import android.widget.ImageView;
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * 
  * This activity sets the taken picture as the background. You can choose what
  * to with you taken picture, save, convert or delete picture and take a new
  * one.
