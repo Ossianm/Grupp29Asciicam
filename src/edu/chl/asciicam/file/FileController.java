@@ -4,8 +4,10 @@ import java.util.*;
 import java.io.*;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.Uri;
 import android.os.Environment;
 
 //This file is part of Asciicam.
@@ -66,10 +68,9 @@ public class FileController {
 	public void savePic(byte[] picArray) throws IOException{
 		if(checkSD()){
 			//Set up file with path to SD card and file name
-			File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "AsciiCAM");
+			File path = new File(Environment.getExternalStorageDirectory(), "DCIM" + File.separator + "AsciiCAM");
 			//Assure us directory exist
 			path.mkdirs();
-
 			File file = new File(path.getPath() + File.separator + "ASCIIPIC_" + getSequenceNumber() + ".jpg");
 			//Make sure file doesnt already exist and loop until we get a valid sequencenumber
 			while(file.exists() == true){
@@ -81,12 +82,17 @@ public class FileController {
 			//Save picture
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
 			bos.write(picArray);
-			bos.flush();
 			bos.close();
 
 			//Handle the sequence number
 			sequenceIncrement();
 			saveSequence();
+			//invoke media scanner
+			context.sendBroadcast( new Intent(Intent.ACTION_MEDIA_MOUNTED, 
+                    Uri.parse("file://" + Environment.getExternalStorageDirectory()))
+			);
+			
+			picArray = null;
 
 		}else{
 			throw new IOException(UNMOUNTED_SD);
@@ -122,6 +128,7 @@ public class FileController {
 		Editor editor = settings.edit();
 		editor.putInt(SEQUENCENUMBER, SEQ_NUMBER);
 		editor.commit();
+
 	}
 
 	/**
@@ -145,6 +152,8 @@ public class FileController {
 		buf.write(pic);
 		buf.flush();
 		buf.close();
+		
+		pic = null;
 	}
 
 	/**
@@ -163,6 +172,7 @@ public class FileController {
 			returnArray = data;
 		}
 		bis.close();
+		data = null;
 
 		return returnArray;
 	}
