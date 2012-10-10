@@ -4,14 +4,14 @@ import java.io.IOException;
 
 import edu.chl.asciicam.file.FileController;
 import android.app.Activity;
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,7 +32,6 @@ import android.widget.ImageView;
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * 
  * This activity sets the taken picture as the background. You can choose what
  * to with you taken picture, save, convert or delete picture and take a new
  * one.
@@ -50,7 +49,7 @@ public class PreviewScreen extends Activity {
 	BroadcastReceiver mExternalStorageReceiver;
 	public FileController fc;
 	byte[] picDataArray = null;
-
+	AlertDialog dialog;
 	/**
 	 * This is called automatically by the android system when the activity is
 	 * started.
@@ -63,8 +62,7 @@ public class PreviewScreen extends Activity {
 		save_pic_btn = (Button) findViewById(R.id.save);
 		convert_btn = (Button) findViewById(R.id.convert);
 		iv = (ImageView) findViewById(R.id.preview_pic);
-		fc = new FileController(getBaseContext());
-
+		fc = new FileController(getBaseContext());				
 		initiateButtons();
 
 		extras = this.getIntent().getExtras(); //get all the extras from intent to the Bundle extras
@@ -125,7 +123,19 @@ public class PreviewScreen extends Activity {
 			iv.setImageBitmap(bg);
 		}
 	}
-
+	
+	/**
+	 * Opens a dialog to the user that says "The picture is saved!"
+	 */
+	private void openDialog(){
+		dialog = new AlertDialog.Builder(PreviewScreen.this).create();
+		dialog.setMessage("The picture is saved!");
+		dialog.setButton("OK", new DialogInterface.OnClickListener() {
+		   public void onClick(DialogInterface dialog, int which) {
+		   }
+		});
+		dialog.show();
+	}
 	/**
 	 * This is called by to initiate the buttons and add functionality
 	 */
@@ -142,11 +152,14 @@ public class PreviewScreen extends Activity {
 			public void onClick(View v) {
 				try {
 					fc.savePic(picDataArray); //saves the picture on the phone
+					
 					System.out.println("Bilden har sparats i" + 
 							Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));	
 				} catch (IOException e) {
 					e.printStackTrace();
-				}
+				}				
+				openDialog(); //opens a dialog to tell the user that the picture is saved
+				save_pic_btn.setEnabled(false); //set the button unclickable to prevent filling up the memory with copies of the same piture
 			}
 		});
 
