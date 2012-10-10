@@ -97,8 +97,14 @@ public class PreviewScreen extends Activity {
         
         save_pic_btn.setOnClickListener(new View.OnClickListener() {
     		
-    		public void onClick(View v) {
-//    			savePic();
+    		public void onClick(View v) {    			
+    			try {
+					fc.savePic(picDataArray);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    			picDataArray = null;
        		}
     	}); 
     
