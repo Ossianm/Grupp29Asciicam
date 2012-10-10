@@ -66,7 +66,7 @@ public class MenuScreen extends Activity {
 				startActivityForResult(load, 0);
 			}
 		});
-<<<<<<< HEAD
+
     }
     
     protected void onActivityResult(int request, int result, Intent data){
@@ -93,36 +93,8 @@ public class MenuScreen extends Activity {
     	if (result != 0){
 		Intent i = new Intent(MenuScreen.this, PreviewScreen.class);
 		startActivity(i);
-=======
 	}
-
-	protected void onActivityResult(int request, int result, Intent data){
-		super.onActivityResult(request, result, data);
-
-		switch(request){
-		case REQ_CODE_PICK_IMAGE:
-
-			if (result == RESULT_OK){
-				Uri selectedImage = data.getData();
-				String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-				Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-				cursor.moveToFirst();
-
-				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				String filePath = cursor.getString(columnIndex);
-				cursor.close();
-
-				Bitmap chosenPic = BitmapFactory.decodeFile(filePath);
-			}
-		}
-		//If no picture is chosen, PreviewScreen will not start (returning to MenuScreen)
-		if (result != 0){
-			Intent i = new Intent(MenuScreen.this, CameraScreen.class);
-			startActivity(i);
->>>>>>> dcf44eab8740c6912afa0e90301351348bec5c56
-		}
-	}
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
