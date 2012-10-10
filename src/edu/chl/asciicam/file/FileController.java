@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Environment;
-import android.provider.MediaStore.Images.Media;
 
 //This file is part of Asciicam.
 //
@@ -157,12 +156,13 @@ public class FileController {
 
 		//Save the sequence to a local file here
 		FileInputStream fis = context.openFileInput(PRIV_PIC);
+		BufferedInputStream bis = new BufferedInputStream(fis);
 		byte[] data = new byte[fis.available()];
 		byte[] returnArray = null;
-		while(fis.read(data) != -1){
+		while(bis.read(data) != -1){
 			returnArray = data;
 		}
-		fis.close();
+		bis.close();
 
 		return returnArray;
 	}

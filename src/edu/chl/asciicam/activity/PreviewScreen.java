@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -75,6 +76,8 @@ public class PreviewScreen extends Activity {
 		} else if (id.equals("loaded")) {
 			loadFromPhone();
 		}
+		
+		
 
 	}
 
@@ -89,7 +92,19 @@ public class PreviewScreen extends Activity {
 		}
 		bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0,
 				picDataArray.length);
+		bmp = rotatePic(bmp);
 		setBackground(bmp);
+	}
+	
+	/**
+	 * Will rotate the piture so it's shown as portrait
+	 * @param bg
+	 * @return a rotated Bitmap
+	 */
+	private Bitmap rotatePic(Bitmap bg){
+		Matrix matrix = new Matrix();
+	    matrix.setRotate(90, bg.getWidth()/2, bg.getHeight()/2);
+	    return Bitmap.createBitmap(bg, 0, 0, bg.getWidth(), bg.getHeight(), matrix, true);
 	}
 
 	/**
@@ -100,9 +115,11 @@ public class PreviewScreen extends Activity {
 		String filePath = extras.getString("filePath");
 		if (filePath != null) {			
 			bmp = (Bitmap) BitmapFactory.decodeFile(filePath);
+			bmp = rotatePic(bmp);
 			setBackground(bmp);
 		}
 	}
+	
 
 	/**
 	 * This method takes a Bitmap and sets it as background

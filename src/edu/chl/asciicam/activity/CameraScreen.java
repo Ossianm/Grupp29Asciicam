@@ -32,7 +32,7 @@ import android.widget.FrameLayout;
  * This activity is for taking a picture. The background will be set to
  * preview what the camera is seeing.
  * Most of the base code from http://developer.android.com/guide/topics/media/camera.html#custom-camera
- * @author Robin Braaf
+ * @author Robin Braaf, Ossian
  *
  */
 public class CameraScreen extends Activity {
@@ -138,7 +138,7 @@ public class CameraScreen extends Activity {
 	//Handles jpeg data from picturecallback
 	private PictureCallback jpegCallback = new PictureCallback() {
 		public void onPictureTaken(byte[] data, Camera camera) {
-			//todo
+			//starting our previewScreen
 			Intent startPreview = new Intent(getBaseContext(), PreviewScreen.class);
 			startPreview.putExtra("id", "taken");
 			try {
