@@ -66,7 +66,8 @@ public class PreviewScreen extends Activity {
 
 		// still a work in progress
 		extras = this.getIntent().getExtras();
-		String id = extras.getString("id");
+		String id = extras.getString("id"); //loads the id to check if the background should be loaded from the taken picture or from gallery
+		
 		if (id.equals("taken")) {
 			loadFromCamera();
 		} else if (id.equals("loaded")) {
@@ -80,9 +81,7 @@ public class PreviewScreen extends Activity {
 	 */
 	private void loadFromCamera() {
 		try {
-			picDataArray = fc.loadPicPrivate(); // loading the data from the
-												// private pic saved from
-												// camerascreen
+			picDataArray = fc.loadPicPrivate(); // loading the data from the private pic saved from camerascreen
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -97,8 +96,9 @@ public class PreviewScreen extends Activity {
 	private void loadFromPhone() {
 
 		String filePath = extras.getString("filePath");
-		if (filePath != null) {
+		if (filePath != null) {			
 			bmp = (Bitmap) BitmapFactory.decodeFile(filePath);
+			setBackground(bmp);
 		}
 	}
 

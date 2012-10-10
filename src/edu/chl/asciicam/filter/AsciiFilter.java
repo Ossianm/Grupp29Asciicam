@@ -1,6 +1,7 @@
 package edu.chl.asciicam.filter;
 
 import android.graphics.Bitmap;
+import edu.chl.asciicam.util.Convert;
 import android.graphics.Color;
 
 //This file is part of Asciicam.
@@ -24,7 +25,7 @@ import android.graphics.Color;
  * 
  */
 
-public class AsciiFilter extends Filter{
+public class AsciiFilter implements FilterInterface{
 
 
 	/**

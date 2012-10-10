@@ -1,6 +1,7 @@
 package edu.chl.asciicam.filter;
 
 import android.graphics.Bitmap;
+import edu.chl.asciicam.util.Convert;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
@@ -27,7 +28,7 @@ import android.graphics.Paint;
  * 
  */
 
-public class GrayScaleFilter extends Filter {
+public class GrayScaleFilter implements FilterInterface{
 
 	/**
 	 * This method converts the given Bitmap to a gray scale-bitmap and returns it.
