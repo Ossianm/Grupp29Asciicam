@@ -67,34 +67,34 @@ public class MenuScreen extends Activity {
 			}
 		});
 
-    }
-    
-    protected void onActivityResult(int request, int result, Intent data){
-    	super.onActivityResult(request, result, data);
-    	
-    	switch(request){
-    	case REQ_CODE_PICK_IMAGE:
-    	
-    	if (result == RESULT_OK){
-    		Uri selectedImage = data.getData();
-    		String[] filePathColumn = {MediaStore.Images.Media.DATA};
-    		
-    		Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-    		cursor.moveToFirst();
-    		
-    		int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-    		String filePath = cursor.getString(columnIndex);
-    		cursor.close();
-    		
-    		Bitmap chosenPic = BitmapFactory.decodeFile(filePath);
-    		}
-    	}
-    	//If no picture is chosen, PreviewScreen will not start (returning to MenuScreen)
-    	if (result != 0){
-		Intent i = new Intent(MenuScreen.this, PreviewScreen.class);
-		startActivity(i);
 	}
-    }
+
+	protected void onActivityResult(int request, int result, Intent data){
+		super.onActivityResult(request, result, data);
+
+		switch(request){
+		case REQ_CODE_PICK_IMAGE:
+
+			if (result == RESULT_OK){
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+				Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+				cursor.moveToFirst();
+
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				String filePath = cursor.getString(columnIndex);
+				cursor.close();
+
+				Bitmap chosenPic = BitmapFactory.decodeFile(filePath);
+			}
+		}
+		//If no picture is chosen, PreviewScreen will not start (returning to MenuScreen)
+		if (result != 0){
+			Intent i = new Intent(MenuScreen.this, PreviewScreen.class);
+			startActivity(i);
+		}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
