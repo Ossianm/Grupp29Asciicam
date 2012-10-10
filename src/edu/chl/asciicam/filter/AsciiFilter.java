@@ -24,7 +24,7 @@ import android.graphics.Color;
  * 
  */
 
-public class AsciiFilter implements FilterInterface {
+public class AsciiFilter extends Filter{
 
 
 	/**
