@@ -51,4 +51,9 @@ public class GrayScaleFilter implements FilterInterface {
 		return bmGrayScale;
 	}
 
+	public Bitmap arrayToBitmap(byte[] byteArray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
