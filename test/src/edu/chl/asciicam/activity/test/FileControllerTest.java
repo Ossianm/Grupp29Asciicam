@@ -15,12 +15,18 @@ package edu.chl.asciicam.activity.test;
 //You should have received a copy of the GNU General Public License
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
+
 import edu.chl.asciicam.file.FileController;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Environment;
 import android.test.AndroidTestCase;
 
@@ -29,6 +35,7 @@ public class FileControllerTest extends AndroidTestCase {
 	private static final String OPTIONS_FILENAME = "OptionsAscii";
 	Context c;
 	FileController fc;
+	File file, file2;
 	
 	public FileControllerTest(){
 		
@@ -41,8 +48,6 @@ public class FileControllerTest extends AndroidTestCase {
 		c = getContext();
 		fc = new FileController(c);
 		
-
-		
 	}
 	
 	/**
@@ -51,7 +56,7 @@ public class FileControllerTest extends AndroidTestCase {
 	 */
 	public void testSavePic() throws IOException{
 
-		InputStream strin = c.getResources().openRawResource(R.drawable.dsc_8219);
+		InputStream strin = c.getResources().openRawResource(R.drawable.test);
 		byte[] data = new byte[strin.available()];
 		strin.read(data);
 		strin.close();
@@ -60,7 +65,7 @@ public class FileControllerTest extends AndroidTestCase {
 		//Make sure sequence is increased
 		i++;
 		assertEquals(i, checkSeq());
-		File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "AsciiCAM");
+		File path = new File(Environment.getExternalStorageDirectory(), "DCIM" + File.separator + "AsciiCAM");
 		File file = new File(path.getPath() + File.separator + "ASCIIPIC_" + (i-1) + ".jpg");
 		//Make sure file is created
 		assertTrue(file.exists());
@@ -70,6 +75,17 @@ public class FileControllerTest extends AndroidTestCase {
 		File file2 = new File(path.getPath() + File.separator + "ASCIIPIC_" + (i-1) + ".jpg");
 		assertEquals(i, checkSeq());
 		assertTrue(file2.exists());
+		
+		//TearDown test
+		SharedPreferences settings = c.getSharedPreferences(OPTIONS_FILENAME, Context.MODE_PRIVATE);
+		Editor editor = settings.edit();
+		editor.putInt(FileController.SEQUENCENUMBER, 1);
+		editor.commit();
+		
+		//Remove files saved
+		file.delete();
+		file2.delete();
+		
 	}
 	
 	//Returns the saved sequence
