@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Environment;
+import android.provider.MediaStore.Images.Media;
 
 //This file is part of Asciicam.
 //
@@ -66,17 +67,17 @@ public class FileController {
 	public void savePic(byte[] picArray) throws IOException{
 		if(checkSD()){
 			//Set up file with path to SD card and file name
-			File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+			File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "AsciiCAM");
 			//Assure us directory exist
 			path.mkdirs();
 
-			File file = new File(path, "ASCIIPIC_" + getSequenceNumber() + ".jpg");
+			File file = new File(path.getPath() + File.separator + "ASCIIPIC_" + getSequenceNumber() + ".jpg");
 			//Make sure file doesnt already exist and loop until we get a valid sequencenumber
 			while(file.exists() == true){
 				//If file already exists we need to change sequencenumber until we get 
 				//a new file so we dont overwrite anything!
 				sequenceIncrement();
-				file = new File(path, "ASCIIPIC_" + getSequenceNumber() + ".jpg");
+				file = new File(path.getPath() + File.separator + "ASCIIPIC_" + getSequenceNumber() + ".jpg");
 			}
 			//Save picture
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));

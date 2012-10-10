@@ -1,5 +1,20 @@
 package edu.chl.asciicam.activity.test;
 
+//This file is part of Asciicam.
+//
+//Asciicam is free software: you can redistribute it and/or modify
+//it under the terms of the GNU General Public License as published by
+//the Free Software Foundation, either version 3 of the License, or
+//(at your option) any later version.
+//
+//Asciicam is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+//
+//You should have received a copy of the GNU General Public License
+//along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -51,14 +66,14 @@ public class FileControllerTest extends AndroidTestCase {
 		//Make sure sequence is increased
 		i++;
 		assertEquals(i, checkSeq());
-		File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		File file = new File(path, "ASCIIPIC_" + (i-1) + ".jpg");
+		File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "AsciiCAM");
+		File file = new File(path.getPath() + File.separator + "ASCIIPIC_" + (i-1) + ".jpg");
 		//Make sure file is created
 		assertTrue(file.exists());
 		//Double check
 		fc.savePic(data);
 		i++;
-		File file2 = new File(path, "ASCIIPIC_" + (i-1) + ".jpg");
+		File file2 = new File(path.getPath() + File.separator + "ASCIIPIC_" + (i-1) + ".jpg");
 		assertEquals(i, checkSeq());
 		assertTrue(file2.exists());
 	}
