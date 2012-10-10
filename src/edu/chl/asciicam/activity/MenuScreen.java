@@ -6,8 +6,6 @@ import android.provider.MediaStore;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -31,14 +29,16 @@ import android.widget.ImageView;
 /**
  * This activity is the first one you see when you start the app.
  * Its a menu with the buttons, take picture, load picture and options
- * @author 
- *
+ * @author Ossian, Jonas
  */
 public class MenuScreen extends Activity {
-	final int REQ_CODE_PICK_IMAGE= 1;
 
 	Button take_Pic_B, load_Pic_B, optionsB;
 	ImageView chosenPic;
+
+	/**
+	 * This is called automatically by the android system when the activity is started
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,53 +48,55 @@ public class MenuScreen extends Activity {
 		optionsB = (Button) findViewById(R.id.Options_B);
 
 		/* Setting actionListeners to the buttons */
-		take_Pic_B.setOnClickListener(new View.OnClickListener() {
-
-			/*Using the Intent class to open the phones camera */
+		take_Pic_B.setOnClickListener(new View.OnClickListener() {			
+			//opening our cameraScreen
 			public void onClick(View v) {
 				Intent i = new Intent(MenuScreen.this, CameraScreen.class);
 				startActivity(i);
-
-				//				i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-				//				startActivity ForResult(i, 0);;
 			}
 		});
+		//calls for the phones local gallery to pick a saved picture
 		load_Pic_B.setOnClickListener(new View.OnClickListener() {
-
 			public void onClick(View view) {
 				Intent load = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 				startActivityForResult(load, 0);
 			}
 		});
-
+		//calls for the optionsScreen; not yet implemented
+		optionsB.setOnClickListener(new View.OnClickListener() {			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub				
+			}
+		});
 	}
 
+	/**
+	 * Checking for a result from the phones local gallery and starts the previewScren activity
+	 * @param request, result, data
+	 */
 	protected void onActivityResult(int request, int result, Intent data){
 		super.onActivityResult(request, result, data);
-		String filePath = null;
-			
-			if (result == RESULT_OK){
-				Uri selectedImage = data.getData();
-				String[] filePathColumn = {MediaStore.Images.Media.DATA};
+		String filePath = null;			
+		if (result == RESULT_OK){
+			Uri selectedImage = data.getData();
+			String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-				Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-				cursor.moveToFirst();
+			Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+			cursor.moveToFirst();
 
-				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				filePath = cursor.getString(columnIndex);
-				
-				cursor.close();
-
-//				Bitmap chosenPic = BitmapFactory.decodeFile(filePath);
-			}
-		//If no picture is chosen, PreviewScreen will not start (returning to MenuScreen)
-		if (result != 0){
-			Intent i = new Intent(MenuScreen.this, PreviewScreen.class);
-			i.putExtra("filePath",filePath);
-			i.putExtra("id", "loaded");
-			startActivity(i);
+			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+			filePath = cursor.getString(columnIndex);  //set the filepath to locate the picture from previewScreen				
+			cursor.close();
 		}
-	}
+		//If no picture is chosen, PreviewScreen will not start (returning to MenuScreen)
+		//If a picture is chosen, open PreviewScreen and make sure it can find the chosen picture
+		if (result != 0){
+			Intent startPreview = new Intent(MenuScreen.this, PreviewScreen.class);
+			startPreview.putExtra("filePath",filePath);
+			startPreview.putExtra("id", "loaded"); 
+			startActivity(startPreview);
+		}
+	}	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
