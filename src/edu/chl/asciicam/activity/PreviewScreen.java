@@ -4,10 +4,12 @@ import java.io.IOException;
 
 import edu.chl.asciicam.file.FileController;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -126,14 +128,18 @@ public class PreviewScreen extends Activity {
 		});
 
 		save_pic_btn.setOnClickListener(new View.OnClickListener() {
-
+			
 			public void onClick(View v) {
 				try {
 					fc.savePic(picDataArray);
+					System.out.println("Bilden har sparats i" + 
+					Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));			
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
 				picDataArray = null;
 			}
 		});
