@@ -36,16 +36,16 @@ public class FileController {
 	//Local filenames for private files
 	private static final String OPTIONS_FILENAME = "OptionsAscii";
 	private static final String PRIV_PIC = "PrivatePictureAscii";
-	
+
 	//Static names for sharedpreferense data
 	public static final String SEQUENCENUMBER = "sequence";
-	
+
 	//Sequence number, used for naming files.
 	private static int SEQ_NUMBER = 1;
-	
+
 	//Context is needed to get important information about filesystem.
 	private Context context = null;
-	
+
 	/**
 	 * In order to get access to local storage on phone we need a context.
 	 * This constructor does try to init the sequence number for naming pictures automagically.
@@ -56,7 +56,7 @@ public class FileController {
 		this.context = context;
 		setSequence();
 	}
-	
+
 	/**
 	 * Use this method to save a picture on the external storage (SD card).
 	 * @param picArray A byte array of the pictures data.
@@ -69,7 +69,7 @@ public class FileController {
 			File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 			//Assure us directory exist
 			path.mkdirs();
-			
+
 			File file = new File(path, "ASCIIPIC_" + getSequenceNumber() + ".jpg");
 			//Make sure file doesnt already exist and loop until we get a valid sequencenumber
 			while(file.exists() == true){
@@ -109,21 +109,21 @@ public class FileController {
 	private static int getSequenceNumber(){
 		return SEQ_NUMBER;
 	}
-	
+
 	//Increment sequence for file storing
 	private static void sequenceIncrement(){
 		SEQ_NUMBER++;
 	}
-	
+
 	//Save sequencenumber locally
 	private void saveSequence(){
-		
+
 		SharedPreferences settings = context.getSharedPreferences(OPTIONS_FILENAME, Context.MODE_PRIVATE);
 		Editor editor = settings.edit();
 		editor.putInt(SEQUENCENUMBER, SEQ_NUMBER);
 		editor.commit();
 	}
-	
+
 	/**
 	 * Reloads sequence from saved file for naming saved pictures.
 	 */
@@ -131,14 +131,14 @@ public class FileController {
 		SharedPreferences settings = context.getSharedPreferences(OPTIONS_FILENAME, Context.MODE_PRIVATE);
 		SEQ_NUMBER = settings.getInt(SEQUENCENUMBER, 1);
 	}
-	
+
 	/**
 	 * Saves an picture locally to be used within application.
 	 * @param pic Picture to be saved locally for use within application
 	 * @throws IOException If an error occurs while saving.
 	 */
 	public void savePicPrivate(byte[] pic) throws IOException{
-		
+
 		//Save the sequence to a local file here
 		FileOutputStream fos = context.openFileOutput(PRIV_PIC, Context.MODE_PRIVATE);
 		BufferedOutputStream buf = new BufferedOutputStream(fos);
@@ -146,14 +146,14 @@ public class FileController {
 		buf.flush();
 		buf.close();
 	}
-	
+
 	/**
 	 * Use this to load locally saved picture.
 	 * @return A picture in byte array format.
 	 * @throws IOException Whenever an error occurs while reading data.
 	 */
 	public byte[] loadPicPrivate() throws IOException{
-		
+
 		//Save the sequence to a local file here
 		FileInputStream fis = context.openFileInput(PRIV_PIC);
 		byte[] data = new byte[fis.available()];
@@ -162,7 +162,7 @@ public class FileController {
 			returnArray = data;
 		}
 		fis.close();
-		
+
 		return returnArray;
 	}
 
@@ -170,7 +170,7 @@ public class FileController {
 	////////////////////////////////////////////////////////////////////////////////
 	//////////////////////OPTIONS//SAVE//AND//GET///////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////
-	
+
 	/**
 	 * Use this method to save options made by the user.
 	 * @param options A hashmap consisting of the options to be saved.
@@ -178,7 +178,7 @@ public class FileController {
 	public void saveOptions(HashMap<String, String> options){
 		// TODO
 	}
-	
+
 	/**
 	 * Use this method to load options on application start.
 	 * @return A map of all options saved.
@@ -187,6 +187,6 @@ public class FileController {
 		// TODO
 		return new HashMap<String, String>();
 	}
-	
-	
+
+
 }

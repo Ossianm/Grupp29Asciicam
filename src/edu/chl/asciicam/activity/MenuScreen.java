@@ -39,33 +39,34 @@ public class MenuScreen extends Activity {
 
 	Button take_Pic_B, load_Pic_B, optionsB;
 	ImageView chosenPic;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_screen);
-        take_Pic_B = (Button) findViewById(R.id.Take_pic_B);
-        load_Pic_B = (Button) findViewById(R.id.Load_pic_B);
-        optionsB = (Button) findViewById(R.id.Options_B);
-        
-        /* Setting actionListeners to the buttons */
-        take_Pic_B.setOnClickListener(new View.OnClickListener() {
-			
-        	/*Using the Intent class to open the phones camera */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_menu_screen);
+		take_Pic_B = (Button) findViewById(R.id.Take_pic_B);
+		load_Pic_B = (Button) findViewById(R.id.Load_pic_B);
+		optionsB = (Button) findViewById(R.id.Options_B);
+
+		/* Setting actionListeners to the buttons */
+		take_Pic_B.setOnClickListener(new View.OnClickListener() {
+
+			/*Using the Intent class to open the phones camera */
 			public void onClick(View v) {
 				Intent i = new Intent(MenuScreen.this, CameraScreen.class);
 				startActivity(i);
-				
-//				i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-//				startActivity ForResult(i, 0);;
+
+				//				i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+				//				startActivity ForResult(i, 0);;
 			}
 		});
-        load_Pic_B.setOnClickListener(new View.OnClickListener() {
-			
+		load_Pic_B.setOnClickListener(new View.OnClickListener() {
+
 			public void onClick(View view) {
 				Intent load = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 				startActivityForResult(load, 0);
 			}
 		});
+<<<<<<< HEAD
     }
     
     protected void onActivityResult(int request, int result, Intent data){
@@ -92,12 +93,40 @@ public class MenuScreen extends Activity {
     	if (result != 0){
 		Intent i = new Intent(MenuScreen.this, PreviewScreen.class);
 		startActivity(i);
-		}
-    	}
+=======
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_menu_screen, menu);
-        return true;
-    }
+	protected void onActivityResult(int request, int result, Intent data){
+		super.onActivityResult(request, result, data);
+
+		switch(request){
+		case REQ_CODE_PICK_IMAGE:
+
+			if (result == RESULT_OK){
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+				Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+				cursor.moveToFirst();
+
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				String filePath = cursor.getString(columnIndex);
+				cursor.close();
+
+				Bitmap chosenPic = BitmapFactory.decodeFile(filePath);
+			}
+		}
+		//If no picture is chosen, PreviewScreen will not start (returning to MenuScreen)
+		if (result != 0){
+			Intent i = new Intent(MenuScreen.this, CameraScreen.class);
+			startActivity(i);
+>>>>>>> dcf44eab8740c6912afa0e90301351348bec5c56
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_menu_screen, menu);
+		return true;
+	}
 }

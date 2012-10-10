@@ -22,10 +22,10 @@ import android.graphics.Paint;
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
-* A filter class that converts a picture into gray scale.
-* @author fredha
-* 
-*/
+ * A filter class that converts a picture into gray scale.
+ * @author fredha
+ * 
+ */
 
 public class GrayScaleFilter implements FilterInterface {
 
@@ -33,12 +33,12 @@ public class GrayScaleFilter implements FilterInterface {
 	 * This method converts the given Bitmap to a gray scale-bitmap and returns it.
 	 * @param bm The Bitmap to be converted.
 	 */
-	
+
 	public Bitmap convert(Bitmap bm) {
 		int width, height;
 		width = bm.getWidth();
 		height = bm.getHeight();
-		
+
 		Bitmap bmGrayScale = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
 		Canvas can = new Canvas(bmGrayScale);
 		Paint paint = new Paint();
@@ -47,7 +47,7 @@ public class GrayScaleFilter implements FilterInterface {
 		ColorMatrixColorFilter cmcf = new ColorMatrixColorFilter(cm);
 		paint.setColorFilter(cmcf);
 		can.drawBitmap(bm, 0, 0, paint);
-		
+
 		return bmGrayScale;
 	}
 
