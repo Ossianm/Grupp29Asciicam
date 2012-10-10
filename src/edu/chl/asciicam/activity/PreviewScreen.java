@@ -77,6 +77,7 @@ public class PreviewScreen extends Activity {
 			e.printStackTrace();
 		}
 
+
 		bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
 		if(bmp != null){
 			iv.setImageBitmap(bmp);
@@ -97,8 +98,14 @@ public class PreviewScreen extends Activity {
 
 		save_pic_btn.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {
-				//    			savePic();
+			public void onClick(View v) {    			
+				try {
+					fc.savePic(picDataArray);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				picDataArray = null;
 			}
 		}); 
 
@@ -108,13 +115,19 @@ public class PreviewScreen extends Activity {
 			public void onClick(View v) {
 			}
 		});    //TODO convert ´picture to ascii
-	}  
+		  
 
-
+		bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
+		if(bmp != null){
+			iv.setImageBitmap(bmp);
+		}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_preview_screen, menu);
 		return true;
 	}
+
+
 }

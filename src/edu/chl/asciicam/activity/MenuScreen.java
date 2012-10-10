@@ -72,6 +72,7 @@ public class MenuScreen extends Activity {
 	protected void onActivityResult(int request, int result, Intent data){
 		super.onActivityResult(request, result, data);
 
+		String filePath = null;
 		switch(request){
 		case REQ_CODE_PICK_IMAGE:
 
@@ -83,7 +84,7 @@ public class MenuScreen extends Activity {
 				cursor.moveToFirst();
 
 				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				String filePath = cursor.getString(columnIndex);
+				filePath = cursor.getString(columnIndex);
 				cursor.close();
 
 				Bitmap chosenPic = BitmapFactory.decodeFile(filePath);
@@ -92,6 +93,7 @@ public class MenuScreen extends Activity {
 		//If no picture is chosen, PreviewScreen will not start (returning to MenuScreen)
 		if (result != 0){
 			Intent i = new Intent(MenuScreen.this, PreviewScreen.class);
+			i.putExtra("filePath",filePath);
 			startActivity(i);
 		}
 	}
