@@ -39,6 +39,8 @@ public class GrayScaleFilter implements FilterInterface{
 		int width, height;
 		width = bm.getWidth();
 		height = bm.getHeight();
+		
+		int i = 0;
 
 		Bitmap bmGrayScale = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
 		Canvas can = new Canvas(bmGrayScale);

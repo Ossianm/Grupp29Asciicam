@@ -1,6 +1,7 @@
 package edu.chl.asciicam.util;
 
 import java.io.ByteArrayOutputStream;
+import java.lang.Integer;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -43,6 +44,20 @@ public class Convert{
 		bitmap.compress(CompressFormat.PNG, 0, out);
 		byte[] byteArray = out.toByteArray();
 		return byteArray;
+	}
+	
+	/**
+	 * Calculates the average value of the RGB in a pixel and returns the result.
+	 * @param rgb Representation of the RGB-colors in a pixel.
+	 * @return Returns an integer of the average value.
+	 */
+	public static int averageRGB(int rgb){
+		int red = (rgb>>16)&0x0ff;
+		int green=(rgb>>8) &0x0ff;
+		int blue= (rgb) &0x0ff;
+		
+		int average = (red+blue+green)/3;
+		return average;
 	}
 
 }
