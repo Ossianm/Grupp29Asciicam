@@ -1,7 +1,6 @@
 package edu.chl.asciicam.util;
 
 import java.io.ByteArrayOutputStream;
-import java.lang.Integer;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;

@@ -3,6 +3,7 @@ package edu.chl.asciicam.filter;
 import android.graphics.Bitmap;
 import edu.chl.asciicam.util.Convert;
 import android.graphics.Color;
+import edu.chl.asciicam.util.Convert;
 
 //This file is part of Asciicam.
 //
@@ -40,20 +41,39 @@ public class AsciiFilter implements FilterInterface{
 
 		int height = bmAscii.getHeight();
 		int width = bmAscii.getWidth();
-		int pixel, A,R,G,B;
-
-		for(int h=0; h<height; h+=10){
-			for (int w=0; w<width; w+=5){
-				pixel = bmAscii.getPixel(w,h);
-				A=Color.alpha(pixel);
-				R=Color.red(pixel);
-				G=Color.green(pixel);
-				B=Color.blue(pixel);	
-
+		int averageValue = 0;
+		
+		while(true){
+			int h = 0;
+			int w = 0;
+			int x = 1;
+			int y = 1;
+			
+			for(h=10*(y-1); h<10*y; h++){
+				for (w=5*(x-1); w<5*x; w++){	
+					averageValue += Convert.averageRGB(bm.getPixel(w, h));
+				}
 			}
+			
+			//TODO: Call function which determines what ASCII-sign to use given the averageValue variable. Don't forget to divide with 50 due to 50 pixels.
+			averageValue = 0;
+			//If width is less than the next rectangle, start on a new row,
+			if(w+5 > width && h+10 < height){
+				x = 1;
+				y++;
+			}
+			//If width allows one more rectangle, increase x.
+			else if(w+5 < width){
+				x++;
+			}
+			//If there's no room for a new row or further to the right, break.
+			else{
+				break;
+			}
+
+			
 		}
-
-		return null;
-	}
-
+	
+	return null;
+}
 }
