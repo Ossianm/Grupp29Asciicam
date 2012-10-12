@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 import edu.chl.asciicam.util.Convert;
 import android.graphics.Color;
 import edu.chl.asciicam.util.Convert;
-
+//Copyright 2012 Robin Braaf, Ossian Madisson, Marting Thörnesson, Fredrik Hansson and Jonas Åström.
+//
 //This file is part of Asciicam.
 //
 //Asciicam is free software: you can redistribute it and/or modify

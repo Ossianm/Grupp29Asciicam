@@ -1,7 +1,8 @@
 package edu.chl.asciicam.filter;
 
 import android.graphics.Bitmap;
-
+//Copyright 2012 Robin Braaf, Ossian Madisson, Marting Thörnesson, Fredrik Hansson and Jonas Åström.
+//
 //This file is part of Asciicam.
 //
 //Asciicam is free software: you can redistribute it and/or modify
