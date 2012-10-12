@@ -8,7 +8,8 @@ import android.hardware.Camera;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
+//Copyright 2012 Robin Braaf, Ossian Madisson, Marting Thörnesson, Fredrik Hansson and Jonas Åström.
+//
 //This file is part of Asciicam.
 //
 //Asciicam is free software: you can redistribute it and/or modify

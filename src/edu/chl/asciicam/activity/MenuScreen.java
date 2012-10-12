@@ -1,6 +1,7 @@
 package edu.chl.asciicam.activity;
 
 import android.net.Uri;
+
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.app.Activity;
@@ -10,7 +11,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
+//Copyright 2012 Robin Braaf, Ossian Madisson, Marting Thörnesson, Fredrik Hansson and Jonas Åström.
+//
 //This file is part of Asciicam.
 //
 //Asciicam is free software: you can redistribute it and/or modify

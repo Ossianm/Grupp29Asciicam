@@ -15,7 +15,8 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
+//Copyright 2012 Robin Braaf, Ossian Madisson, Marting Thörnesson, Fredrik Hansson and Jonas Åström.
+//
 //This file is part of Asciicam.
 //
 //Asciicam is free software: you can redistribute it and/or modify
