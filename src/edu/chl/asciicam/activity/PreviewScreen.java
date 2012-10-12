@@ -76,9 +76,25 @@ public class PreviewScreen extends Activity {
 	}
 
 	/**
+	 * Called automatically by android 
+	 */
+	@Override
+	public void onPause(){
+		super.onPause();
+	}
+
+	/**
+	 * Called automatically by android 
+	 */
+	@Override
+	public void onResume(){
+		super.onResume();
+	}
+
+	/**
 	 * Loading the background from the taken picture
 	 */
-	private void loadFromCamera() {
+	public void loadFromCamera() {
 		try {
 			picDataArray = fc.loadPicPrivate(); // loading the data from the private pic saved from camerascreen
 		} catch (IOException e) {
@@ -103,7 +119,7 @@ public class PreviewScreen extends Activity {
 	/**
 	 * Loading the background from gallery
 	 */
-	private void loadFromPhone() {
+	public void loadFromPhone() {
 		String filePath = extras.getString("filePath");
 		if (filePath != null) {			
 			//decode the file to a Bitmap and set as background
@@ -121,9 +137,11 @@ public class PreviewScreen extends Activity {
 		if (bg != null) {
 			bg = rotatePic(bg);
 			iv.setImageBitmap(bg);
+
+			setBgBmp(bg); // Called for testing purposes
 		}
 	}
-	
+
 	/**
 	 * Opens a dialog to the user that says "The picture is saved!"
 	 */
@@ -131,8 +149,8 @@ public class PreviewScreen extends Activity {
 		dialog = new AlertDialog.Builder(PreviewScreen.this).create();
 		dialog.setMessage("The picture is saved!");
 		dialog.setButton("OK", new DialogInterface.OnClickListener() {
-		   public void onClick(DialogInterface dialog, int which) {
-		   }
+			public void onClick(DialogInterface dialog, int which) {
+			}
 		});
 		dialog.show();
 	}
@@ -152,7 +170,7 @@ public class PreviewScreen extends Activity {
 			public void onClick(View v) {
 				try {
 					fc.savePic(picDataArray); //saves the picture on the phone
-					
+
 					System.out.println("Bilden har sparats i" + 
 							Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));	
 				} catch (IOException e) {
@@ -169,6 +187,26 @@ public class PreviewScreen extends Activity {
 				// TODO convert ´picture to ascii
 			}
 		}); 
+	}
+
+	///////////////////////////////////////////////////////////////
+	//////Setters//&//Getters//////////////////////////////////////
+	///////////////////////////////////////////////////////////////
+
+	/**
+	 * Should probably only be used for testing
+	 * @param bg
+	 */
+	private void setBgBmp(Bitmap bg){
+		bmp = bg;
+	}
+
+	/**
+	 * Should probably only be used for testing
+	 * @return the current background as bitmap
+	 */
+	public Bitmap getBgBmp(){
+		return bmp;
 	}
 
 }
