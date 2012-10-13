@@ -1,0 +1,180 @@
+/**
+ * 
+ */
+package edu.chl.asciicam.activity;
+
+import java.io.IOException;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import edu.chl.asciicam.file.FileController;
+import edu.chl.asciicam.filter.AsciiFilter;
+import edu.chl.asciicam.filter.GrayScaleFilter;
+
+//Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
+//
+//This file is part of Asciicam.
+//
+//Asciicam is free software: you can redistribute it and/or modify
+//it under the terms of the GNU General Public License as published by
+//the Free Software Foundation, either version 3 of the License, or
+//(at your option) any later version.
+//
+//Asciicam is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+//
+//You should have received a copy of the GNU General Public License
+//along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * @author Osten
+ *
+ */
+public class ConvertedPicScreen extends Activity {
+
+	Button menu_btn, options_btn, save_pic_btn;
+	ImageView iv;
+	FileController fc;
+	byte[] picDataArray = null;
+	AlertDialog dialog;
+	Bitmap bmp;
+	AsciiFilter filter;
+
+	//TODO REMOVE LATER
+	GrayScaleFilter gFilter; //This should be removed when AsciiFilter is completed
+
+	/**
+	 * This is called automatically by the android system when the activity is started
+	 */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_convert_pic_creen);
+		menu_btn = (Button) findViewById(R.id.converted_menu);		
+		options_btn = (Button) findViewById(R.id.converted_options);
+		save_pic_btn = (Button) findViewById(R.id.converted_save);
+		iv = (ImageView) findViewById(R.id.preview_converted);
+		fc = new FileController(getBaseContext());
+		filter = new AsciiFilter();
+		initiateButtons();
+
+		//**********
+		//TODO THIS SHOULD BE REMOVED WHEN ASCIIFILTER IS DONE
+		gFilter = new GrayScaleFilter();
+		bmp = loadPic();
+		bmp = gFilter.convert(bmp);
+		setBackground(bmp);
+		//**********
+
+		//This should be used when the Asciifilter is done
+		//		bmp = loadPic(); //Load the array that was privately saved from cameraScren
+		//		bmp = filter.convert(bmp); // Convert the picture with the asciifilter
+		//		setBackground(bmp);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
+
+	private void initiateButtons(){
+		menu_btn.setOnClickListener(new View.OnClickListener() {
+			//Go back to the menuScreen when this button is clicked
+			public void onClick(View v) {
+				Intent menu = new Intent(getBaseContext(), MenuScreen.class);
+				menu.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //This closes the activities between this and menuscreen
+				startActivity(menu);				
+			}
+		});
+
+		options_btn.setOnClickListener(new View.OnClickListener() {
+			// Go to the optionsScreen when this is clicked to change the properties of the conversion
+			public void onClick(View v) {
+				//TODO remove the comments when OptionsScreen is implemented!
+				//				Intent optionsScreen = new Intent(getBaseContext(), OptionsScreen.class);
+				//				startActivity(optionsScreen);
+
+			}
+		});
+
+		save_pic_btn.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				try {
+					fc.savePic(picDataArray); //saves the picture on the phone
+				} catch (IOException e) {
+					e.printStackTrace();
+				}				
+				openDialog(); //opens a dialog to tell the user that the picture is saved
+				save_pic_btn.setEnabled(false); //set the button unclickable to prevent filling up the memory with copies of the same piture
+
+			}
+		});
+	}
+	/**
+	 * Set the Bitmap in param as background in the ImageView
+	 * @param bg
+	 */
+	private void setBackground(Bitmap bg){
+		if(bg != null){
+			bg = rotatePic(bg);
+			iv.setImageBitmap(bg);
+		}
+	}
+
+	/**
+	 * Will rotate the Bitmap so it's shown as portrait
+	 * @param bg
+	 * @return a rotated Bitmap
+	 */
+	private Bitmap rotatePic(Bitmap bg){ 
+		//this had to be implemented because the picture was shown turned 90 degrees when set as background, this is to prevent that
+		Matrix matrix = new Matrix();
+		matrix.setRotate(90, bg.getWidth()/2, bg.getHeight()/2);
+		return Bitmap.createBitmap(bg, 0, 0, bg.getWidth(), bg.getHeight(), matrix, true);
+	}
+
+	/**
+	 * Opens a dialog to the user that says "The picture is saved!"
+	 */
+	private void openDialog(){
+		dialog = new AlertDialog.Builder(ConvertedPicScreen.this).create();
+		dialog.setMessage("The picture is saved!");
+		dialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		dialog.show();
+	}
+
+	/**
+	 * Read the array and convert it to a Bitmap
+	 * @return a Bitmap ready for conversion
+	 */
+	private Bitmap loadPic(){
+		try{
+			picDataArray = fc.loadPicPrivate();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		// Decode and return the array as a bitmap
+		return (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length); 
+	}
+
+}

@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -15,7 +16,7 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-//Copyright 2012 Robin Braaf, Ossian Madisson, Marting Thörnesson, Fredrik Hansson and Jonas Åström.
+//Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
 //
 //This file is part of Asciicam.
 //
@@ -112,6 +113,7 @@ public class PreviewScreen extends Activity {
 	 * @return a rotated Bitmap
 	 */
 	private Bitmap rotatePic(Bitmap bg){ 
+		//this had to be implemented because the picture was shown turned 90 degrees when set as background, this is to prevent that
 		Matrix matrix = new Matrix();
 		matrix.setRotate(90, bg.getWidth()/2, bg.getHeight()/2);
 		return Bitmap.createBitmap(bg, 0, 0, bg.getWidth(), bg.getHeight(), matrix, true);
@@ -185,7 +187,8 @@ public class PreviewScreen extends Activity {
 		convert_btn.setOnClickListener(new View.OnClickListener() {
 			// if click here, the picture will be converted with the current settings; not yet implemented
 			public void onClick(View v) {
-				// TODO convert ´picture to ascii
+				Intent convertPicture = new Intent(getBaseContext(), ConvertedPicScreen.class);
+				startActivity(convertPicture);
 			}
 		}); 
 	}
