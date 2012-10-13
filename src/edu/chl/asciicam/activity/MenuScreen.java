@@ -37,6 +37,7 @@ public class MenuScreen extends Activity {
 
 	Button take_Pic_B, load_Pic_B, optionsB;
 	ImageView chosenPic;
+	Intent load;
 
 	/**
 	 * This is called automatically by the android system when the activity is started
@@ -60,7 +61,7 @@ public class MenuScreen extends Activity {
 		//calls for the phones local gallery to pick a saved picture
 		load_Pic_B.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				Intent load = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				load = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 				startActivityForResult(load, 0);
 			}
 		});
@@ -104,5 +105,29 @@ public class MenuScreen extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_menu_screen, menu);
 		return true;
+	}
+	
+	/**
+	 * Used for testing.
+	 * @return Button used by instance.
+	 */
+	public Button getTakePicButton(){
+		return take_Pic_B;
+	}
+	
+	/**
+	 * Used for Testing
+	 * @return Button used by instance.
+	 */
+	public Button getLoadPicButton(){
+		return load_Pic_B;
+	}
+	
+	/**
+	 * Used for testing.
+	 * @return Button used by instance.
+	 */
+	public Button getOptionsButton(){
+		return optionsB;
 	}
 }
