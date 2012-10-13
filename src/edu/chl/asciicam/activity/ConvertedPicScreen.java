@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package edu.chl.asciicam.activity;
 
 import java.io.IOException;
@@ -38,6 +36,9 @@ import edu.chl.asciicam.filter.GrayScaleFilter;
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * This activity is the one that is shown after convert is clicked in PreviewScreen.
+ * During the creation of this activity it calls for the conversion of the picture with
+ * the current settings and set it as background
  * @author Osten
  *
  */
@@ -114,7 +115,7 @@ public class ConvertedPicScreen extends Activity {
 		});
 
 		save_pic_btn.setOnClickListener(new View.OnClickListener() {
-
+			// Save the converted picture on the phone when this is clicked
 			public void onClick(View v) {
 				try {
 					fc.savePic(picDataArray); //saves the picture on the phone
@@ -127,6 +128,7 @@ public class ConvertedPicScreen extends Activity {
 			}
 		});
 	}
+	
 	/**
 	 * Set the Bitmap in param as background in the ImageView
 	 * @param bg
