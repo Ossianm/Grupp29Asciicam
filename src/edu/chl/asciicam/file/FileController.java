@@ -89,8 +89,8 @@ public class FileController {
 			sequenceIncrement();
 			saveSequence();
 			//invoke media scanner
-			context.sendBroadcast( new Intent(Intent.ACTION_MEDIA_MOUNTED, 
-                    Uri.parse("file://" + Environment.getExternalStorageDirectory()))
+			context.sendBroadcast( new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                    Uri.fromFile(file))
 			);
 			
 			picArray = null;
