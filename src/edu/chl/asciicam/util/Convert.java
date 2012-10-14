@@ -30,10 +30,27 @@ public class Convert{
 	 * @return The resulting Bitmap.
 	 */
 	public static Bitmap byteArrayToBitmap(byte[] byteArray) 	{
+		
 		Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray , 0, byteArray.length);
 		return bitmap;
 	}
-
+	
+	/**
+	 * Converts a given array to a Bitmap and returns the result as a compressed bitmap. Does not change the 
+	 * byte array.
+	 * @param byteArray The byte array to be converted into a Bitmap.
+	 * @return The resulting Bitmap.
+	 */
+	public static Bitmap compressPicture(byte[] byteArray) 	{
+		//Compress picture, a power of 2 is fastest way for decoder.
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inSampleSize = 8;
+		
+		Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray , 0, byteArray.length, options);
+		return bitmap;
+		
+	}
+	
 	/**
 	 * Converts a given Bitmap to a byte array and returns the result.
 	 * @param bitmap The Bitmap to be converted into a byte array.
