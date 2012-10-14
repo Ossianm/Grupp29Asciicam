@@ -3,6 +3,7 @@ package edu.chl.asciicam.activity;
 import java.io.IOException;
 
 import edu.chl.asciicam.file.FileController;
+import edu.chl.asciicam.util.Convert;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -103,7 +104,7 @@ public class PreviewScreen extends Activity {
 			e.printStackTrace();
 		}
 		//decode the bytearray to a Bitmap and set as background
-		bmp = (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length); 
+		bmp = Convert.compressPicture(picDataArray);
 		setBackground(bmp);
 	}
 
@@ -126,7 +127,9 @@ public class PreviewScreen extends Activity {
 		String filePath = extras.getString("filePath");
 		if (filePath != null) {			
 			//decode the file to a Bitmap and set as background
-			bmp = (Bitmap) BitmapFactory.decodeFile(filePath); 
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inSampleSize = 4;
+			bmp = (Bitmap) BitmapFactory.decodeFile(filePath, options); 
 			setBackground(bmp);
 		}
 	}
