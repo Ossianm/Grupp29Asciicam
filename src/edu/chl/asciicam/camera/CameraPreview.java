@@ -1,10 +1,13 @@
 package edu.chl.asciicam.camera;
 
 import java.io.IOException;
+import java.util.List;
 
 
 import android.content.Context;
+import android.graphics.ImageFormat;
 import android.hardware.Camera;
+import android.hardware.Camera.Size;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -96,9 +99,13 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 			} catch (Exception e){
 				// ignore: tried to stop a non-existent preview
 			}
-
-			// set preview size and make any resize, rotate or
-			// reformatting changes here
+			
+			//Set size on picture for preview.
+			Camera.Parameters params = mCamera.getParameters();
+			//List<Size> size = params.getSupportedPreviewSizes();
+			params.setRotation(90);
+			mCamera.setParameters(params);
+			
 
 			// start preview with new settings
 			try {
