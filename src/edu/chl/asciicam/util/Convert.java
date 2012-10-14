@@ -37,7 +37,7 @@ public class Convert{
 	
 	/**
 	 * Converts a given array to a Bitmap and returns the result as a compressed bitmap. Does not change the 
-	 * byte array.
+	 * byte array. This should be used for bitmaps to be displayed on screen.
 	 * @param byteArray The byte array to be converted into a Bitmap.
 	 * @return The resulting Bitmap.
 	 */
