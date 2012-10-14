@@ -187,8 +187,8 @@ public class PreviewScreen extends Activity {
 		convert_btn.setOnClickListener(new View.OnClickListener() {
 			// if click here, the picture will be converted with the current settings; not yet implemented
 			public void onClick(View v) {
-				Intent convertPicture = new Intent(getBaseContext(), ConvertedPicScreen.class);
-				startActivity(convertPicture);
+				//Intent convertPicture = new Intent(getBaseContext(), ConvertedPicScreen.class);
+				//startActivity(convertPicture);
 			}
 		}); 
 	}
