@@ -3,7 +3,10 @@ package edu.chl.asciicam.filter;
 import android.graphics.Bitmap;
 import edu.chl.asciicam.util.Convert;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 /**
@@ -13,23 +16,44 @@ import java.util.TreeMap;
  */
 
 public class AsciiFilter implements FilterInterface{
-	
-	private Map<Float, Character> darknessTable = new TreeMap<Float, Character>();
-	
+
+	/**
+	 * Takes a file object and reads one line at a time. The method separates the line at each occurance of "," and puts the two strings in a TreeMap as V,K.
+	 * @param input The file object to be read from.
+	 * @return The resulting TreeMap.
+	 */
+	private Map<Float, String> createValues(File input){
+		Map<Float, String> map = new TreeMap<Float, String>();
+		String[] s = new String[1];
+		try{
+			Scanner sc = new Scanner(input);
+			s = sc.nextLine().split(",");
+			map.put(new Float(s[1]), s[0]);
+			while(sc.hasNextLine()){
+				s = sc.nextLine().split(",");
+				map.put(new Float(s[1]), s[0]);
+			}
+
+		}
+		catch(FileNotFoundException e){
+			System.out.println("Could not read file." + e);
+		}
+		return map;
+	}
 	
 	/**
 	 * Converts a bitmap into ASCII characters and returns the result.
 	 * @param bm The Bitmap to be converted.
-	 * 
+	 * @return The resulting Bitmap (ASCII).
 	 */
-	
-	
 	public Bitmap convert (Bitmap bm) {
 
+
+		File file = new File("ASCII-table.txt");
 		GrayScaleFilter gsf = new GrayScaleFilter();
 		Bitmap bmAscii = Bitmap.createBitmap(gsf.convert(bm)); //Returns a Bitmap with the same dimension as bm, but in gray scale.
+		Map<Float, String> darknessTable = createValues(file);
 
-		
 		int height = bmAscii.getHeight();
 		int width = bmAscii.getWidth();
 		Float averageValue = new Float(0);
