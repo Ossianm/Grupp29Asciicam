@@ -68,12 +68,12 @@ public class Convert{
 	 * @param rgb Representation of the RGB-colors in a pixel.
 	 * @return Returns an integer of the average value.
 	 */
-	public static int averageRGB(int rgb){
+	public static float averageRGB(int rgb){
 		int red = (rgb>>16)&0x0ff;
 		int green=(rgb>>8) &0x0ff;
 		int blue= (rgb) &0x0ff;
 		
-		int average = (red+blue+green)/3;
+		float average = (red+blue+green)/3;
 		return average;
 	}
 
