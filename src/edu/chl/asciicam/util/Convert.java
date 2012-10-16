@@ -21,6 +21,7 @@ import android.graphics.BitmapFactory;
 //
 //You should have received a copy of the GNU General Public License
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
+import android.util.Base64;
 
 public class Convert{
 
@@ -30,11 +31,11 @@ public class Convert{
 	 * @return The resulting Bitmap.
 	 */
 	public static Bitmap byteArrayToBitmap(byte[] byteArray) 	{
-		
+
 		Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray , 0, byteArray.length);
 		return bitmap;
 	}
-	
+
 	/**
 	 * Converts a given array to a Bitmap and returns the result as a compressed bitmap. Does not change the 
 	 * byte array. This should be used for bitmaps to be displayed on screen.
@@ -45,12 +46,12 @@ public class Convert{
 		//Compress picture, a power of 2 is fastest way for decoder.
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inSampleSize = 8;
-		
+
 		Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray , 0, byteArray.length, options);
 		return bitmap;
-		
+
 	}
-	
+
 	/**
 	 * Converts a given Bitmap to a byte array and returns the result.
 	 * @param bitmap The Bitmap to be converted into a byte array.
@@ -62,7 +63,7 @@ public class Convert{
 		byte[] byteArray = out.toByteArray();
 		return byteArray;
 	}
-	
+
 	/**
 	 * Calculates the average value of the RGB in a pixel and returns the result.
 	 * @param rgb Representation of the RGB-colors in a pixel.
@@ -72,9 +73,36 @@ public class Convert{
 		int red = (rgb>>16)&0x0ff;
 		int green=(rgb>>8) &0x0ff;
 		int blue= (rgb) &0x0ff;
-		
+
 		float average = (red+blue+green)/3;
 		return average;
+	}
+
+	/**
+	 * @param bitmap
+	 * @return converting bitmap and return a string
+	 */
+	public static String BitMapToString(Bitmap bitmap){
+		ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+		byte [] b=baos.toByteArray();
+		String temp=Base64.encodeToString(b, Base64.DEFAULT);
+		return temp;
+	}
+
+	/**
+	 * @param encodedString
+	 * @return bitmap (from given string)
+	 */
+	public static Bitmap StringToBitMap(String encodedString){
+		try{
+			byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
+			Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+			return bitmap;
+		}catch(Exception e){
+			e.getMessage();
+			return null;
+		}
 	}
 
 }

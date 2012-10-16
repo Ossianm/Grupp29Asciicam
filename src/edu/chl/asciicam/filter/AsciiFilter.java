@@ -70,7 +70,7 @@ public class AsciiFilter implements FilterInterface{
 	 * @param bm The Bitmap to be converted.
 	 * @return The resulting Bitmap (ASCII).
 	 */
-	public Bitmap convert (Bitmap bm) {
+	public String convert (Bitmap bm) {
 		
 		//Declare the array with ASCII-signs. The index is used to decide what sign to translate the 5x10 rectangle to.
 		String[] signs = {" ", ",", "-", "*", "/", "r", "m", "+", "(", "¿", "x", "w", "K", "O", "&", "9", "#", "W", "$", "@" };
@@ -136,6 +136,7 @@ public class AsciiFilter implements FilterInterface{
 
 		}
 
-		return null;
+		return StringToBitMap(picture);
 	}
+
 }
