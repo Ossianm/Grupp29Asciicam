@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 //Copyright 2012 Robin Braaf, Ossian Madisson, Marting Thörnesson, Fredrik Hansson and Jonas Åström.
@@ -45,6 +47,12 @@ public class MenuScreen extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//Set fullscreen, must be before setContent!
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+				             	WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
 		setContentView(R.layout.activity_menu_screen);
 		take_Pic_B = (Button) findViewById(R.id.Take_pic_B);
 		load_Pic_B = (Button) findViewById(R.id.Load_pic_B);
