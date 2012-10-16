@@ -117,18 +117,20 @@ public class ConvertedPicScreen extends Activity {
 		save_pic_btn.setOnClickListener(new View.OnClickListener() {
 			// Save the converted picture on the phone when this is clicked
 			public void onClick(View v) {
-				try {
-					fc.savePic(picDataArray); //saves the picture on the phone
-				} catch (IOException e) {
-					e.printStackTrace();
-				}				
-				openDialog(); //opens a dialog to tell the user that the picture is saved
-				save_pic_btn.setEnabled(false); //set the button unclickable to prevent filling up the memory with copies of the same piture
-
+				if(picDataArray != null){
+					try {
+						fc.savePic(picDataArray); //saves the picture on the phone
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					picDataArray = null;
+				}else{
+					openDialog(); //opens a dialog to tell the user that the picture is saved
+				}
 			}
 		});
 	}
-	
+
 	/**
 	 * Set the Bitmap in param as background in the ImageView
 	 * @param bg

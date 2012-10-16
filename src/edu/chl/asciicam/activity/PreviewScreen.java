@@ -153,7 +153,7 @@ public class PreviewScreen extends Activity {
 	 */
 	private void openDialog(){
 		dialog = new AlertDialog.Builder(PreviewScreen.this).create();
-		dialog.setMessage("The picture is saved!");
+		dialog.setMessage("The picture is already saved!");
 		dialog.setButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 			}
@@ -174,24 +174,28 @@ public class PreviewScreen extends Activity {
 
 		save_pic_btn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				try {
-					fc.savePic(picDataArray); //saves the picture on the phone
+				if(picDataArray != null){
+					try {
+						fc.savePic(picDataArray); //saves the picture on the phone
 
-					System.out.println("Bilden har sparats i" + 
-							Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));	
-				} catch (IOException e) {
-					e.printStackTrace();
-				}				
-				openDialog(); //opens a dialog to tell the user that the picture is saved
-				save_pic_btn.setEnabled(false); //set the button unclickable to prevent filling up the memory with copies of the same piture
+						System.out.println("Bilden har sparats i" + 
+								Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));	
+					} catch (IOException e) {
+						e.printStackTrace();
+					}	
+					picDataArray = null;
+				}else{
+					openDialog(); //opens a dialog to tell the user that the picture is saved
+				}
+				//save_pic_btn.setEnabled(false); //set the button unclickable to prevent filling up the memory with copies of the same piture
 			}
 		});
 
 		convert_btn.setOnClickListener(new View.OnClickListener() {
 			// if click here, the picture will be converted with the current settings; not yet implemented
 			public void onClick(View v) {
-				//Intent convertPicture = new Intent(getBaseContext(), ConvertedPicScreen.class);
-				//startActivity(convertPicture);
+				Intent convertPicture = new Intent(getBaseContext(), ConvertedPicScreen.class);
+				startActivity(convertPicture);
 			}
 		}); 
 	}
