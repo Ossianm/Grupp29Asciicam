@@ -101,9 +101,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 			//Set size on picture for preview.
 			Camera.Parameters params = mCamera.getParameters();
 			List<Size> size = params.getSupportedPictureSizes();
-			if(size.size() > 0){
-				params.setPictureSize(size.get(0).width, size.get(0).height);
-			}
+			params.setPictureSize(size.get(0).width, size.get(0).height);
 			params.setRotation(90);
 			mCamera.setParameters(params);
 			
