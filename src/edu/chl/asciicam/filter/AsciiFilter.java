@@ -1,6 +1,13 @@
 package edu.chl.asciicam.filter;
 
+import java.util.List;
+
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.Paint.Style;
 import edu.chl.asciicam.util.Convert;
 
 
@@ -28,7 +35,10 @@ import edu.chl.asciicam.util.Convert;
  */
 
 public class AsciiFilter implements FilterInterface{
-
+	
+	//fontSize on the asciioutput. If changed it will change the size of the picture.
+	private static final int fontSize = 20;
+	
 	/**
 	 * Takes a file object and reads one line at a time. The method separates the line at each occurance of "," and puts the two strings in a TreeMap as V,K.
 	 * @param input The file object to be read from.
@@ -112,4 +122,40 @@ public class AsciiFilter implements FilterInterface{
 
 		return Convert.StringToBitMap(picture);
 	}
+	
+	//
+    //This method creates the output bitmap from a List<String>.
+    //
+    private Bitmap createBitmap(List<String> pic){
+    	// Bitmap width = length
+    	Paint paint = new Paint();
+    	Bitmap bitmap = Bitmap.createBitmap(pic.get(0).length() * fontSize, pic.size() * fontSize, Bitmap.Config.RGB_565);
+    	//Creata canvas and put in bitmap as param so it will draw on it.
+    	Canvas canvas = new Canvas(bitmap);
+    	
+    	
+    	//Fill background with black
+    	paint.setColor(Color.BLACK);
+    	paint.setStyle(Style.FILL);
+    	canvas.drawPaint(paint);
+    	
+    	//Set color and stuff for drawing text
+    	paint.setColor(Color.WHITE); 
+    	paint.setTextSize(fontSize);
+    	//Monospace is needed for correct indentation
+    	paint.setTypeface(Typeface.MONOSPACE);
+    	//Scale or or will be shrimped in width, 1.8 seems to be the magical number. (1 is default)
+    	paint.setTextScaleX((float)1.7);
+    	//paint.setTextAlign(Paint.Align.CENTER);
+    	
+    	float x = 0, y = 0;
+    	//For each String we want to make a road. x is never changed since we always want
+    	//each row to start as far left as possible.
+    	for(String s : pic){
+    		char[] string = s.toCharArray();
+    		canvas.drawText(string, 0, string.length, x, y, paint);
+    		y += fontSize;
+    	}
+    	return bitmap;
+    }
 }
