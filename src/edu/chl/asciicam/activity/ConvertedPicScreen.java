@@ -12,6 +12,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import edu.chl.asciicam.file.FileController;
@@ -39,7 +41,7 @@ import edu.chl.asciicam.filter.GrayScaleFilter;
  * This activity is the one that is shown after convert is clicked in PreviewScreen.
  * During the creation of this activity it calls for the conversion of the picture with
  * the current settings and set it as background
- * @author Osten
+ * @author Ossian
  *
  */
 public class ConvertedPicScreen extends Activity {
@@ -51,6 +53,8 @@ public class ConvertedPicScreen extends Activity {
 	AlertDialog dialog;
 	Bitmap bmp;
 	AsciiFilter filter;
+	Bundle extras;
+	String id;
 
 	//TODO REMOVE LATER
 	GrayScaleFilter gFilter; //This should be removed when AsciiFilter is completed
@@ -61,6 +65,11 @@ public class ConvertedPicScreen extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//Set fullscreen, must be before setContent!
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+		                     	WindowManager.LayoutParams.FLAG_FULLSCREEN);		
+		
 		setContentView(R.layout.activity_convert_pic_screen);
 		menu_btn = (Button) findViewById(R.id.converted_menu);		
 		options_btn = (Button) findViewById(R.id.converted_options);
@@ -69,6 +78,11 @@ public class ConvertedPicScreen extends Activity {
 		fc = new FileController(getBaseContext());
 		filter = new AsciiFilter();
 		initiateButtons();
+
+		extras = this.getIntent().getExtras(); //get all the extras from intent to the Bundle extras
+		id = extras.getString("id"); //loads the id to check if the picture for convertion should be loaded from gallery
+
+
 
 		//**********
 		//TODO THIS SHOULD BE REMOVED WHEN ASCIIFILTER IS DONE
@@ -159,7 +173,7 @@ public class ConvertedPicScreen extends Activity {
 	 */
 	private void openDialog(){
 		dialog = new AlertDialog.Builder(ConvertedPicScreen.this).create();
-		dialog.setMessage("The picture is saved!");
+		dialog.setMessage("The picture is already saved!");
 		dialog.setButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 			}
@@ -168,17 +182,28 @@ public class ConvertedPicScreen extends Activity {
 	}
 
 	/**
-	 * Read the array and convert it to a Bitmap
+	 * Check what picture to load and return it as a bitmap
 	 * @return a Bitmap ready for conversion
 	 */
 	private Bitmap loadPic(){
-		try{
+		//Check if picture should be loaded from the gallery or if it's picture taken with the application 
+		if(id.equals("loaded")){
+			//Get the filepath and make a bitmap to return
+			String filePath = extras.getString("filePath");
+			if(filePath != null){
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				options.inSampleSize = 4;
+				bmp = (Bitmap) BitmapFactory.decodeFile(filePath, options);
+				return bmp;
+			}
+		}	
+		
+		try{ //Read the privately saved array
 			picDataArray = fc.loadPicPrivate();
 		}catch(IOException e){
 			e.printStackTrace();
 		}
 		// Decode and return the array as a bitmap
-		return (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length); 
+		return (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
 	}
-
 }

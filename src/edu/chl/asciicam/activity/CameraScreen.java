@@ -11,8 +11,10 @@ import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
-//Copyright 2012 Robin Braaf, Ossian Madisson, Marting Thörnesson, Fredrik Hansson and Jonas Åström.
+//Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
 //
 //This file is part of Asciicam.
 //
@@ -50,8 +52,15 @@ public class CameraScreen extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//Set fullscreen, must be before setContent!
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+		                     	WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		        
 		setContentView(R.layout.activity_camera_screen);
-
+		
+		
+		
 		// Create an instance of Camera and set it to portrait
 		mCamera = getCameraInstance();
 		mCamera.setDisplayOrientation(90);

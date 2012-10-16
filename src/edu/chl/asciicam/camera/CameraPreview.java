@@ -1,12 +1,15 @@
 package edu.chl.asciicam.camera;
 
 import java.io.IOException;
+import java.util.List;
+
 import android.content.Context;
 import android.hardware.Camera;
+import android.hardware.Camera.Size;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-//Copyright 2012 Robin Braaf, Ossian Madisson, Marting Thörnesson, Fredrik Hansson and Jonas Åström.
+//Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
 //
 //This file is part of Asciicam.
 //
@@ -97,11 +100,12 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 			
 			//Set size on picture for preview.
 			Camera.Parameters params = mCamera.getParameters();
-			//List<Size> size = params.getSupportedPreviewSizes();
+			List<Size> size = params.getSupportedPreviewSizes();
+			params.setPictureSize(size.get(0).width, size.get(0).height);
 			params.setRotation(90);
 			mCamera.setParameters(params);
 			
-
+		
 			// start preview with new settings
 			try {
 				mCamera.setPreviewDisplay(mHolder);
