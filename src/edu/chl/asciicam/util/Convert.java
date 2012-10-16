@@ -78,8 +78,8 @@ public class Convert{
 		return average;
 	}
 
-	/**
-	 * @param bitmap
+	/**Converts a bitmap to a string and returns the result.
+	 * @param bitmap The bitmap to be converted.
 	 * @return converting bitmap and return a string
 	 */
 	public static String BitMapToString(Bitmap bitmap){
@@ -90,9 +90,9 @@ public class Convert{
 		return temp;
 	}
 
-	/**
-	 * @param encodedString
-	 * @return bitmap (from given string)
+	/**Converts a Bitmap to a String and returns the result.
+	 * @param encodedString The String to be converted.
+	 * @return bitmap The resulting Bitmap after conversion.
 	 */
 	public static Bitmap StringToBitMap(String encodedString){
 		try{
