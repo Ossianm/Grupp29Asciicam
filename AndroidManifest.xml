@@ -58,11 +58,6 @@
         <activity
             android:name=".OptionScreen"
             android:screenOrientation="portrait"
-            android:label="@string/title_activity_option_screen" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            </activity>
+            android:label="@string/title_activity_option_screen" />
             </application>
         </manifest>
