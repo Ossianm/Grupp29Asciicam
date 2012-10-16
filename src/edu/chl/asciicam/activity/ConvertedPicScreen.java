@@ -39,7 +39,7 @@ import edu.chl.asciicam.filter.GrayScaleFilter;
  * This activity is the one that is shown after convert is clicked in PreviewScreen.
  * During the creation of this activity it calls for the conversion of the picture with
  * the current settings and set it as background
- * @author Osten
+ * @author Ossian
  *
  */
 public class ConvertedPicScreen extends Activity {
