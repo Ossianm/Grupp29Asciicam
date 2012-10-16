@@ -15,6 +15,8 @@ import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 //Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
@@ -60,6 +62,10 @@ public class PreviewScreen extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//Set fullscreen, must be before setContent!
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+		                     	WindowManager.LayoutParams.FLAG_FULLSCREEN);		
 		setContentView(R.layout.activity_preview_screen);
 		back_btn = (Button) findViewById(R.id.back);
 		save_pic_btn = (Button) findViewById(R.id.save);
