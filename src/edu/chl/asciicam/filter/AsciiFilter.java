@@ -55,7 +55,7 @@ public class AsciiFilter implements FilterInterface{
 		}
 		return map;
 	}
-	 */
+*/
 
 	/**
 	 * Converts a bitmap into ASCII characters and returns the result.
@@ -71,7 +71,8 @@ public class AsciiFilter implements FilterInterface{
 		int height = bm.getHeight();
 		int width = bm.getWidth();
 		int averageValue = 0;
-
+		
+		//Set starting values for integers used in the for-loops iterating over 5x10 pixels.
 		int h = 0;
 		int w = 0;
 		int x = 1;
