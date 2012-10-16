@@ -123,9 +123,10 @@ public class AsciiFilter implements FilterInterface{
 		return Convert.StringToBitMap(picture);
 	}
 	
-	//
-    //This method creates the output bitmap from a List<String>.
-    //
+    ///////////////////////////////////////////////////////////////////////
+    //This method creates the output bitmap from a List<String>.///////////
+    //Each string in the list will represent a row on the outputpicture.///
+	///////////////////////////////////////////////////////////////////////
     private Bitmap createBitmap(List<String> pic){
     	// Bitmap width = length
     	Paint paint = new Paint();
