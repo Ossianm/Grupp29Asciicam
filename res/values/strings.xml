@@ -14,5 +14,7 @@
     <string name="SaveButton">Save</string>
     <string name="BackButton">Back</string>
     <string name="desc">This is the taken picture</string>
+    <string name="title_activity_option_screen">OptionScreen</string>
+    <string name="option_head_string">Options</string>
 
 </resources>

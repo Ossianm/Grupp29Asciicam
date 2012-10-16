@@ -55,6 +55,7 @@ public class PreviewScreen extends Activity {
 	public FileController fc;
 	byte[] picDataArray = null;
 	AlertDialog dialog;
+	String id;
 	/**
 	 * This is called automatically by the android system when the activity is
 	 * started.
@@ -75,7 +76,7 @@ public class PreviewScreen extends Activity {
 		initiateButtons();
 
 		extras = this.getIntent().getExtras(); //get all the extras from intent to the Bundle extras
-		String id = extras.getString("id"); //loads the id to check if the background should be loaded from the taken picture or from gallery
+		id = extras.getString("id"); //loads the id to check if the background should be loaded from the taken picture or from gallery
 
 		if (id.equals("taken")) {
 			loadFromCamera();
@@ -110,7 +111,7 @@ public class PreviewScreen extends Activity {
 			e.printStackTrace();
 		}
 		//decode the bytearray to a Bitmap and set as background
-		bmp = Convert.compressPicture(picDataArray);
+		bmp = Convert.compressPicture(picDataArray);		
 		setBackground(bmp);
 	}
 
@@ -201,6 +202,8 @@ public class PreviewScreen extends Activity {
 			// if click here, the picture will be converted with the current settings; not yet implemented
 			public void onClick(View v) {
 				Intent convertPicture = new Intent(getBaseContext(), ConvertedPicScreen.class);
+				convertPicture.putExtra("id", id);
+				convertPicture.putExtra("filePath", extras.getString("filePath"));
 				startActivity(convertPicture);
 			}
 		}); 

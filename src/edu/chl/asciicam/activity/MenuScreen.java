@@ -76,7 +76,8 @@ public class MenuScreen extends Activity {
 		//calls for the optionsScreen; not yet implemented
 		optionsB.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
-				// TODO Auto-generated method stub				
+				Intent i = new Intent(MenuScreen.this, OptionScreen.class);
+				startActivity(i);			
 			}
 		});
 	}
