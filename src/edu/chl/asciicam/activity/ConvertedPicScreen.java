@@ -68,8 +68,8 @@ public class ConvertedPicScreen extends Activity {
 		//Set fullscreen, must be before setContent!
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
-		                     	WindowManager.LayoutParams.FLAG_FULLSCREEN);		
-		
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);		
+
 		setContentView(R.layout.activity_convert_pic_screen);
 		menu_btn = (Button) findViewById(R.id.converted_menu);		
 		options_btn = (Button) findViewById(R.id.converted_options);
@@ -121,9 +121,8 @@ public class ConvertedPicScreen extends Activity {
 		options_btn.setOnClickListener(new View.OnClickListener() {
 			// Go to the optionsScreen when this is clicked to change the properties of the conversion
 			public void onClick(View v) {
-				//TODO remove the comments when OptionsScreen is implemented!
-				//				Intent optionsScreen = new Intent(getBaseContext(), OptionsScreen.class);
-				//				startActivity(optionsScreen);
+				Intent optionScreen = new Intent(getBaseContext(), OptionScreen.class);
+				startActivity(optionScreen);
 
 			}
 		});
@@ -197,7 +196,7 @@ public class ConvertedPicScreen extends Activity {
 				return bmp;
 			}
 		}	
-		
+
 		try{ //Read the privately saved array
 			picDataArray = fc.loadPicPrivate();
 		}catch(IOException e){
