@@ -35,19 +35,17 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".PreviewScreen"
-            android:screenOrientation="portrait" />
-        <!-- created by Osten at 2012-10-13 15:33:16 -->
-        <activity android:name=".ConvertedPicScreen" />
-        <!-- created by Osten at 2012-10-13 15:37:40 -->
-        <activity android:name=".ConvertedPicScreen" />
-        <!-- created by Osten at 2012-10-13 15:40:30 -->
-        <activity android:name=".ConvertedPicScreen" />
+            android:screenOrientation="portrait" />     
+        <activity android:name=".ConvertedPicScreen" 
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".OptionScreen"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_option_screen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+            </activity>
+            </application>
+        </manifest>
