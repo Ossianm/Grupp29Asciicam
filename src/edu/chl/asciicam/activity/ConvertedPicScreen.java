@@ -61,7 +61,7 @@ public class ConvertedPicScreen extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_convert_pic_creen);
+		setContentView(R.layout.activity_convert_pic_screen);
 		menu_btn = (Button) findViewById(R.id.converted_menu);		
 		options_btn = (Button) findViewById(R.id.converted_options);
 		save_pic_btn = (Button) findViewById(R.id.converted_save);
