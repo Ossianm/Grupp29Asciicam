@@ -12,6 +12,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import edu.chl.asciicam.file.FileController;
@@ -63,6 +65,11 @@ public class ConvertedPicScreen extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//Set fullscreen, must be before setContent!
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+		                     	WindowManager.LayoutParams.FLAG_FULLSCREEN);		
+		
 		setContentView(R.layout.activity_convert_pic_screen);
 		menu_btn = (Button) findViewById(R.id.converted_menu);		
 		options_btn = (Button) findViewById(R.id.converted_options);
