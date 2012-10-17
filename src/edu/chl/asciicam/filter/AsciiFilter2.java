@@ -20,6 +20,8 @@ package edu.chl.asciicam.filter;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.chl.asciicam.util.Convert;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -39,6 +41,7 @@ public class AsciiFilter2 implements FilterInterface {
 	//Fontsize on the output picture, will change size on the picture.
 	private int fontSize;
 	private String[] symbol = {" ", ",", "-", "*", "/", "r", "m", "+", "(", "¿", "x", "w", "K", "O", "&", "9", "#", "W", "$", "@" };
+	
 	/**
 	 * Default constructor, sets default options.
 	 */
@@ -67,11 +70,13 @@ public class AsciiFilter2 implements FilterInterface {
     	for(int i = 0; i < height; i+=compression){
     		String s = new String();
     		for(int j =0; j < width; j+=compression){
-    			//Make sure we can use it as index
-    			int color = bmp.getPixel(j, i) % symbol.length;
-    			if(color < 0)
-    				color = color * (-1);
-    			s += symbol[color]; //something from ascii
+    			//get average RGB and add a symbol depending
+    			//average value should always be between 0 and 255!
+    			float color = Convert.averageRGB(bmp.getPixel(j, i)) / 255;
+    			color = color * symbol.length;
+    			
+    			
+    			s += symbol[(int)color]; //something from ascii
     		}
     		list.add(s);
     		//strCounter++;
