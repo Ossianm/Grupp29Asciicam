@@ -185,10 +185,19 @@ public class FileController {
 
 	/**
 	 * Use this method to save options made by the user.
-	 * @param options A hashmap consisting of the options to be saved.
+	 * @param options A hashmap consisting of the options to be saved <String Key, String Value>.
 	 */
 	public void saveOptions(HashMap<String, String> options){
 		// TODO
+	}
+	
+	/**
+	 * To save a single value locally on sd card.
+	 * @param key key for the option to be saved.
+	 * @param Value value to be saved
+	 */
+	public void saveOption(String key, String Value){
+		
 	}
 
 	/**
@@ -199,6 +208,14 @@ public class FileController {
 		// TODO
 		return new HashMap<String, String>();
 	}
-
+	
+	/**
+	 * Returns the value saved at key.
+	 * @param key key to find your value.
+	 * @return Value saved in app storage.
+	 */
+	public String getOption(String key){
+		return null;
+	}
 
 }
