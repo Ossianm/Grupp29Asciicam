@@ -1,6 +1,7 @@
 
 package edu.chl.asciicam.activity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import android.app.Activity;
@@ -8,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
@@ -55,6 +57,7 @@ public class ConvertedPicScreen extends Activity {
 	AsciiFilter filter;
 	Bundle extras;
 	String id;
+	boolean saved = false;
 
 	//TODO REMOVE LATER
 	GrayScaleFilter gFilter; //This should be removed when AsciiFilter is completed
@@ -130,13 +133,18 @@ public class ConvertedPicScreen extends Activity {
 		save_pic_btn.setOnClickListener(new View.OnClickListener() {
 			// Save the converted picture on the phone when this is clicked
 			public void onClick(View v) {
-				if(picDataArray != null){
+				//Convert the picture from Bitmap to byte[] to be able to save it with Filecontroller
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				bmp.compress(CompressFormat.PNG, 0, out);
+				byte[] byteArray = out.toByteArray();
+				
+				if(!saved){
 					try {
-						fc.savePic(picDataArray); //saves the picture on the phone
+						fc.savePic(byteArray); //saves the picture on the phone
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					picDataArray = null;
+					saved = true;
 				}else{
 					openDialog(); //opens a dialog to tell the user that the picture is saved
 				}
