@@ -34,15 +34,16 @@ import android.graphics.Paint.Style;
  *
  */
 public class AsciiFilter2 implements FilterInterface {
+	
 	//How many pixels to skip before checking again
 	private int compression;
 	//Fontsize on the output picture, will change size on the picture.
 	private int fontSize;
-	//Color for background and text
+	//Color for background and text, should be a Color.constant variable
 	private int bgColor;
 	private int textColor;
 	
-	private String[] symbol = {"@", "@", "@", "#", "#", "&", "&", "w", "w", "¿", "¿", "+", "+", "m", "m", "*", "*", ".", ".", " ", " "};
+	private String[] symbol = {"@", "@", "#", "#", "%", "¤", "¤", "i", "i", "¿", "¿", "+", "+", "m", "m", "*", "*", ".", ".", " ", " "};
 	
 	/**
 	 * Default constructor, sets default options which is 
@@ -51,7 +52,7 @@ public class AsciiFilter2 implements FilterInterface {
 	 * textcolor : black.
 	 */
 	public AsciiFilter2(){
-		compression = 6;
+		compression = 7;
 		fontSize = 20;
 		bgColor = Color.WHITE;
 		textColor = Color.BLACK;
@@ -102,8 +103,9 @@ public class AsciiFilter2 implements FilterInterface {
 		return createBitmap(list);
 	}
 	
-	
-	
+	//
+	//
+	//
 	private List<String> filter(Bitmap bmp){
     	
 		//List to populate with rows of strings
@@ -122,7 +124,10 @@ public class AsciiFilter2 implements FilterInterface {
     			//average value should always be between 0 and 255!
     			float color = Convert.averageRGB(bmp.getPixel(j, i)) * symbol.length;
     			color = color / 255;
-    			
+    			//color can be 0 - 21 here, so we need to remove 1 if its above 20 to
+    			//avoid array out of bounds exception.
+    			if(color > 20)
+    				color -= 1;
     			s += symbol[(int)color]; //something from ascii
     		}
     		list.add(s);
