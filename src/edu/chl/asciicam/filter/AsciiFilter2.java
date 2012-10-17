@@ -19,10 +19,7 @@ package edu.chl.asciicam.filter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
-
 import edu.chl.asciicam.util.Convert;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -45,12 +42,51 @@ public class AsciiFilter2 implements FilterInterface {
 	private int bgColor;
 	private int textColor;
 	
-	String[] symbol = {"@", "@", "@", "#", "#", "&", "&", "w", "w", "¿", "¿", "+", "+", "m", "m", "*", "*", ".", ".", " ", " "};
+	private String[] symbol = {"@", "@", "@", "#", "#", "&", "&", "w", "w", "¿", "¿", "+", "+", "m", "m", "*", "*", ".", ".", " ", " "};
 	
 	/**
-	 * Default constructor, sets default options.
+	 * Default constructor, sets default options which is 
+	 * compression : 6
+	 * backgroundcolor : white
+	 * textcolor : black.
 	 */
 	public AsciiFilter2(){
+		compression = 6;
+		fontSize = 20;
+		bgColor = Color.WHITE;
+		textColor = Color.BLACK;
+	}
+	
+	/**
+	 * 
+	 * @param compression Compression level for filter.
+	 */
+	public AsciiFilter2(int compression){
+		this.compression = compression;
+		fontSize = 20;
+		bgColor = Color.WHITE;
+		textColor = Color.BLACK;
+	}
+	
+	/**
+	 * 
+	 * @param compression Compression level for filter.
+	 * @param bgColor Backgroundcolor for bitmap output.
+	 */
+	public AsciiFilter2(int compression, int bgColor){
+		compression = 6;
+		fontSize = 10;
+		bgColor = Color.WHITE;
+		textColor = Color.BLACK;
+	}
+	
+	/**
+	 * 
+	 * @param compression Compression level for filter.
+	 * @param bgColor Backgroundcolor for bitmap output.
+	 * @param textColor Textcolor on bitmap output.
+	 */
+	public AsciiFilter2(int compression, int bgColor, int textColor){
 		compression = 6;
 		fontSize = 20;
 		bgColor = Color.WHITE;
@@ -130,7 +166,56 @@ public class AsciiFilter2 implements FilterInterface {
     	return bitmap;
     }
     
-    // TODO create options for filter.
+    ///////////////////////////////////////////////////////////////////
+    ///////SETTERS AND GETTERS FOR OPTIONS/////////////////////////////
+    ///////////////////////////////////////////////////////////////////
+    /**
+     * get bgColor for filter output.
+     * @return the Color.color being used for background fill.
+     */
+	public int getbBgColor(){
+		return bgColor;
+	}
 	
-
+	/**
+	 * get textColor used for ascii symbols on output.
+	 * @return the Color.color used for ascii symbols on output.
+	 */
+	public int getTextColor(){
+		return textColor;
+	}
+	
+	/**
+	 * Get compression rate for filter.
+	 * @return Compression rate for filter.
+	 */
+	public int getCompression(){
+		return compression;
+	}
+	
+	/**
+	 * Set background color for ascii pictures.
+	 * @param color Color.color constant.
+	 */
+	public void setBgColor(int color){
+		this.bgColor = color;
+	}
+	
+	/**
+	 * Set text color for symbols output on filtered bitmap.
+	 * @param color Color.color constant.
+	 */
+	public void setTextColor(int color){
+		this.textColor = color;
+	}
+	
+	/**
+	 * Set compressionrate for filter, must be 1 or greater. 
+	 * If 1, filter will check every pixel in picture and output an ascii sign.
+	 * If 5, filter will check every fifth pixel and output an ascii sign, and so on.
+	 * @param compression
+	 */
+	public void setCompression(int compression){
+		this.compression = compression;
+	}
 }	
