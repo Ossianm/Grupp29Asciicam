@@ -19,6 +19,7 @@ package edu.chl.asciicam.filter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import edu.chl.asciicam.util.Convert;
 
@@ -46,17 +47,21 @@ public class AsciiFilter2 implements FilterInterface {
 	 * Default constructor, sets default options.
 	 */
 	public AsciiFilter2(){
-		compression = 10;
+		compression = 6;
+		fontSize = 20;
 	}
 	
 	public Bitmap convert(Bitmap bm) {
 		List<String> list = filter(bm);
-		return null;
+		return createBitmap(list);
 	}
 	
-	private ArrayList<String> filter(Bitmap bmp){
+	
+	
+	private List<String> filter(Bitmap bmp){
     	
-    	ArrayList<String> list = new ArrayList<String>();
+		//List to populate with rows of strings
+    	List<String> list = new ArrayList<String>();
     	
     	int heightAdjust = bmp.getHeight() % compression;
     	int widthAdjust = bmp.getWidth() % compression;
@@ -68,20 +73,18 @@ public class AsciiFilter2 implements FilterInterface {
     	//j being column at a row. Skip a number of rows set in
     	//compression
     	for(int i = 0; i < height; i+=compression){
-    		String s = new String();
+    		String s = "";
     		for(int j =0; j < width; j+=compression){
     			//get average RGB and add a symbol depending
     			//average value should always be between 0 and 255!
-    			float color = Convert.averageRGB(bmp.getPixel(j, i)) / 255;
-    			color = color * symbol.length;
-    			
+    			float color = Convert.averageRGB(bmp.getPixel(j, i)) * symbol.length;
+    			color = color / 255;
     			
     			s += symbol[(int)color]; //something from ascii
     		}
     		list.add(s);
     		//strCounter++;
     	}
-    	
     	return list;
     }
 	
@@ -96,16 +99,16 @@ public class AsciiFilter2 implements FilterInterface {
     	
     	
     	//Fill background with black
-    	paint.setColor(Color.BLACK);
+    	paint.setColor(Color.WHITE);
     	paint.setStyle(Style.FILL);
     	canvas.drawPaint(paint);
     	
     	//Set color and stuff for drawing text
-    	paint.setColor(Color.WHITE); 
+    	paint.setColor(Color.BLACK); 
     	paint.setTextSize(fontSize);
     	//Monospace is needed for correct indentation
     	paint.setTypeface(Typeface.MONOSPACE);
-    	//Scale or or will be shrimped in width, 1.8 seems to be the magical number. (1 is default)
+    	//Scale or or will be shrimped in width, 1.7 seems to be the magical number. (1 is default)
     	paint.setTextScaleX((float)1.7);
     	//paint.setTextAlign(Paint.Align.CENTER);
     	
