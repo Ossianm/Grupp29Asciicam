@@ -41,6 +41,10 @@ public class AsciiFilter2 implements FilterInterface {
 	private int compression;
 	//Fontsize on the output picture, will change size on the picture.
 	private int fontSize;
+	//Color for background and text
+	private int bgColor;
+	private int textColor;
+	
 	String[] symbol = {"@", "@", "@", "#", "#", "&", "&", "w", "w", "¿", "¿", "+", "+", "m", "m", "*", "*", ".", ".", " ", " "};
 	
 	/**
@@ -49,8 +53,14 @@ public class AsciiFilter2 implements FilterInterface {
 	public AsciiFilter2(){
 		compression = 6;
 		fontSize = 20;
+		bgColor = Color.WHITE;
+		textColor = Color.BLACK;
 	}
 	
+	/**
+	 * This method takes a 
+	 * @param bm Bitmap to be converted
+	 */
 	public Bitmap convert(Bitmap bm) {
 		List<String> list = filter(bm);
 		return createBitmap(list);
@@ -68,7 +78,6 @@ public class AsciiFilter2 implements FilterInterface {
     	int height = bmp.getHeight() - heightAdjust;
     	int width = bmp.getWidth() - widthAdjust;
     	
-    	//int strCounter = 0;
     	//Loop through the picture, i being rows of pixels and
     	//j being column at a row. Skip a number of rows set in
     	//compression
@@ -83,7 +92,6 @@ public class AsciiFilter2 implements FilterInterface {
     			s += symbol[(int)color]; //something from ascii
     		}
     		list.add(s);
-    		//strCounter++;
     	}
     	return list;
     }
@@ -99,12 +107,12 @@ public class AsciiFilter2 implements FilterInterface {
     	
     	
     	//Fill background with black
-    	paint.setColor(Color.WHITE);
+    	paint.setColor(bgColor);
     	paint.setStyle(Style.FILL);
     	canvas.drawPaint(paint);
     	
     	//Set color and stuff for drawing text
-    	paint.setColor(Color.BLACK); 
+    	paint.setColor(textColor); 
     	paint.setTextSize(fontSize);
     	//Monospace is needed for correct indentation
     	paint.setTypeface(Typeface.MONOSPACE);
@@ -121,6 +129,8 @@ public class AsciiFilter2 implements FilterInterface {
     	}
     	return bitmap;
     }
+    
+    // TODO create options for filter.
 	
 
 }	
