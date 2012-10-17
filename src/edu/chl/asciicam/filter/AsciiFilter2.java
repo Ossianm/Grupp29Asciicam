@@ -109,10 +109,8 @@ public class AsciiFilter2 implements FilterInterface {
 		//List to populate with rows of strings
     	List<String> list = new ArrayList<String>();
     	
-    	int heightAdjust = bmp.getHeight() % compression;
-    	int widthAdjust = bmp.getWidth() % compression;
-    	int height = bmp.getHeight() - heightAdjust;
-    	int width = bmp.getWidth() - widthAdjust;
+    	int height = bmp.getHeight();
+    	int width = bmp.getWidth();
     	
     	//Loop through the picture, i being rows of pixels and
     	//j being column at a row. Skip a number of rows set in
