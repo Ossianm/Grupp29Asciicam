@@ -49,16 +49,16 @@ import edu.chl.asciicam.util.Convert;
  */
 public class ConvertedPicScreen extends Activity {
 
-	Button menu_btn, options_btn, save_pic_btn;
-	ImageView iv;
-	FileController fc;
-	byte[] picDataArray = null;
-	AlertDialog dialog;
-	Bitmap bmp;
-	AsciiFilter filter;
-	Bundle extras;
-	String id;
-	boolean saved = false;
+	private Button menu_btn, options_btn, save_pic_btn;
+	private ImageView iv;
+	private FileController fc;
+	private byte[] picDataArray = null;
+	private AlertDialog dialog;
+	private Bitmap bmp;
+	private AsciiFilter filter;
+	private Bundle extras;
+	private String id;
+	private boolean saved = false;
 
 	//TODO REMOVE LATER
 	GrayScaleFilter gFilter; //This should be removed when AsciiFilter is completed
@@ -212,7 +212,6 @@ public class ConvertedPicScreen extends Activity {
 			e.printStackTrace();
 		}
 		// Decode and return the array as a bitmap
-		return Convert.compressPicture(picDataArray);	
-//		return (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
+		return Convert.compressPicture(picDataArray, 5);	
 	}
 }
