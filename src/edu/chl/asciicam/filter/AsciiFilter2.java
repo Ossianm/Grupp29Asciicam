@@ -35,13 +35,13 @@ import android.graphics.Paint.Style;
  */
 public class AsciiFilter2 implements FilterInterface {
 	
-	
-	
+	private int compression;
+	private String[] symbol = {" ", ",", "-", "*", "/", "r", "m", "+", "(", "¿", "x", "w", "K", "O", "&", "9", "#", "W", "$", "@" };
 	/**
 	 * Default constructor, sets default options.
 	 */
 	public AsciiFilter2(){
-		
+		compression = 10;
 	}
 	
 	public Bitmap convert(Bitmap bm) {
@@ -49,11 +49,33 @@ public class AsciiFilter2 implements FilterInterface {
 		return null;
 	}
 	
-	public class Options {
-		
-		private Options(){
-			
-		}
-	}
+	private ArrayList<String> filter(Bitmap bmp){
+    	
+    	ArrayList<String> list = new ArrayList<String>();
+    	
+    	int heightAdjust = bmp.getHeight() % compression;
+    	int widthAdjust = bmp.getWidth() % compression;
+    	int height = bmp.getHeight() - heightAdjust;
+    	int width = bmp.getWidth() - widthAdjust;
+    	
+    	//int strCounter = 0;
+    	//Loop through the picture, i being rows of pixels and
+    	//j being column at a row. Skip a number of rows set in
+    	//compression
+    	for(int i = 0; i < height; i+=compression){
+    		String s = new String();
+    		for(int j =0; j < width; j+=compression){
+    			//Make sure we can use it as index
+    			int color = bmp.getPixel(j, i) % symbol.length;
+    			if(color < 0)
+    				color = color * (-1);
+    			s += symbol[color]; //something from ascii
+    		}
+    		list.add(s);
+    		//strCounter++;
+    	}
+    	
+    	return list;
+    }
 
 }	
