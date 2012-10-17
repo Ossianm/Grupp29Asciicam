@@ -176,7 +176,7 @@ public class AsciiFilter2 implements FilterInterface {
      * get bgColor for filter output.
      * @return the Color.color being used for background fill.
      */
-	public int getbBgColor(){
+	public int getBgColor(){
 		return bgColor;
 	}
 	
