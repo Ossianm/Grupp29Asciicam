@@ -1,17 +1,6 @@
 package edu.chl.asciicam.filter;
 
-import java.util.List;
-
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.graphics.Paint.Style;
-import edu.chl.asciicam.util.Convert;
-
-
-//Copyright 2012 Robin Braaf, Ossian Madisson, Marting Thörnesson, Fredrik Hansson and Jonas Åström.
+//Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
 //
 //This file is part of Asciicam.
 //
@@ -27,6 +16,16 @@ import edu.chl.asciicam.util.Convert;
 //
 //You should have received a copy of the GNU General Public License
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
+
+import java.util.List;
+
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.Paint.Style;
+import edu.chl.asciicam.util.Convert;
 
 /**
  * A filter class that converts a picture to ASCII characters.
