@@ -34,8 +34,10 @@ import android.graphics.Paint.Style;
  *
  */
 public class AsciiFilter2 implements FilterInterface {
-	
+	//How many pixels to skip before checking again
 	private int compression;
+	//Fontsize on the output picture, will change size on the picture.
+	private int fontSize;
 	private String[] symbol = {" ", ",", "-", "*", "/", "r", "m", "+", "(", "¿", "x", "w", "K", "O", "&", "9", "#", "W", "$", "@" };
 	/**
 	 * Default constructor, sets default options.
@@ -45,7 +47,7 @@ public class AsciiFilter2 implements FilterInterface {
 	}
 	
 	public Bitmap convert(Bitmap bm) {
-		// TODO Auto-generated method stub
+		List<String> list = filter(bm);
 		return null;
 	}
 	
@@ -77,5 +79,40 @@ public class AsciiFilter2 implements FilterInterface {
     	
     	return list;
     }
+	
+	//
+    //This method creates the output bitmap from a List<String>.
+    //
+    private Bitmap createBitmap(List<String> pic){
+    	// Bitmap width = length
+    	Paint paint = new Paint();
+    	Bitmap bitmap = Bitmap.createBitmap(pic.get(0).length() * fontSize, pic.size() * fontSize, Bitmap.Config.RGB_565);
+    	Canvas canvas = new Canvas(bitmap);
+    	
+    	
+    	//Fill background with black
+    	paint.setColor(Color.BLACK);
+    	paint.setStyle(Style.FILL);
+    	canvas.drawPaint(paint);
+    	
+    	//Set color and stuff for drawing text
+    	paint.setColor(Color.WHITE); 
+    	paint.setTextSize(fontSize);
+    	//Monospace is needed for correct indentation
+    	paint.setTypeface(Typeface.MONOSPACE);
+    	//Scale or or will be shrimped in width, 1.8 seems to be the magical number. (1 is default)
+    	paint.setTextScaleX((float)1.7);
+    	//paint.setTextAlign(Paint.Align.CENTER);
+    	
+    	float x = 0, y = fontSize;
+    	
+    	for(String s : pic){
+    		char[] string = s.toCharArray();
+    		canvas.drawText(string, 0, string.length, x, y, paint);
+    		y += fontSize;
+    	}
+    	return bitmap;
+    }
+	
 
 }	
