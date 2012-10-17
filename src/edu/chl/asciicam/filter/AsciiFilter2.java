@@ -41,7 +41,7 @@ public class AsciiFilter2 implements FilterInterface {
 	private int compression;
 	//Fontsize on the output picture, will change size on the picture.
 	private int fontSize;
-	private String[] symbol = {" ", ",", "-", "*", "/", "r", "m", "+", "(", "¿", "x", "w", "K", "O", "&", "9", "#", "W", "$", "@" };
+	String[] symbol = {"@", "@", "@", "#", "#", "&", "&", "w", "w", "¿", "¿", "+", "+", "m", "m", "*", "*", ".", ".", " ", " "};
 	
 	/**
 	 * Default constructor, sets default options.
