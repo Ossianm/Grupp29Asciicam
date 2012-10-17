@@ -12,7 +12,7 @@ import android.graphics.Typeface;
 import edu.chl.asciicam.util.Convert;
 
 
-//Copyright 2012 Robin Braaf, Ossian Madisson, Marting Thörnesson, Fredrik Hansson and Jonas Åström.
+//Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
 //
 //This file is part of Asciicam.
 //
@@ -115,7 +115,7 @@ public class AsciiFilter implements FilterInterface{
 			}
 
 			//If width allows one more rectangle, increase x.
-			else if(w+5 < width){
+			else if(w+5 <= width){
 				x++;
 			}
 
@@ -149,17 +149,17 @@ public class AsciiFilter implements FilterInterface{
 
 
 		//Fill background with black
-		paint.setColor(Color.BLACK);
+		paint.setColor(Color.WHITE);
 		paint.setStyle(Style.FILL);
 		canvas.drawPaint(paint);
 
 		//Set color and stuff for drawing text
-		paint.setColor(Color.WHITE); 
+		paint.setColor(Color.BLACK); 
 		paint.setTextSize(fontSize);
 		//Monospace is needed for correct indentation
 		paint.setTypeface(Typeface.MONOSPACE);
 		//Scale or or will be shrimped in width, 1.7 seems to be the magical number. (1 is default)
-		paint.setTextScaleX((float)1.8);
+		paint.setTextScaleX((float)1);
 		//paint.setTextAlign(Paint.Align.CENTER);
 
 		float x = 0, y = 0;
