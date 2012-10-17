@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import edu.chl.asciicam.file.FileController;
 import edu.chl.asciicam.filter.AsciiFilter;
 import edu.chl.asciicam.filter.GrayScaleFilter;
+import edu.chl.asciicam.util.Convert;
 
 //Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
 //
@@ -89,16 +90,16 @@ public class ConvertedPicScreen extends Activity {
 
 		//**********
 		//TODO THIS SHOULD BE REMOVED WHEN ASCIIFILTER IS DONE
-		gFilter = new GrayScaleFilter();
-		bmp = loadPic();
-		bmp = gFilter.convert(bmp);
-		setBackground(bmp);
+//		gFilter = new GrayScaleFilter();
+//		bmp = loadPic();
+//		bmp = gFilter.convert(bmp);
+//		setBackground(bmp);
 		//**********
 
 		//This should be used when the Asciifilter is done
-		//		bmp = loadPic(); //Load the array that was privately saved from cameraScren
-		//		bmp = filter.convert(bmp); // Convert the picture with the asciifilter
-		//		setBackground(bmp);
+				bmp = loadPic(); //Load the array that was privately saved from cameraScren
+				bmp = filter.convert(bmp); // Convert the picture with the asciifilter
+				setBackground(bmp);
 	}
 
 	@Override
@@ -211,6 +212,7 @@ public class ConvertedPicScreen extends Activity {
 			e.printStackTrace();
 		}
 		// Decode and return the array as a bitmap
-		return (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
+		return Convert.compressPicture(picDataArray);	
+//		return (Bitmap) BitmapFactory.decodeByteArray(picDataArray, 0, picDataArray.length);
 	}
 }
