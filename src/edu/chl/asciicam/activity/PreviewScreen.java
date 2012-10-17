@@ -6,7 +6,6 @@ import edu.chl.asciicam.file.FileController;
 import edu.chl.asciicam.util.Convert;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -46,16 +45,14 @@ import android.widget.ImageView;
  */
 public class PreviewScreen extends Activity {
 
-	Button back_btn, save_pic_btn, convert_btn;
-	Bitmap bmp;
-	Bundle extras;
-	ImageView iv;
-	public static String DIRECTORY_PICTURES;
-	BroadcastReceiver mExternalStorageReceiver;
-	public FileController fc;
-	byte[] picDataArray = null;
-	AlertDialog dialog;
-	String id;
+	private Button back_btn, save_pic_btn, convert_btn;
+	private Bitmap bmp;
+	private Bundle extras;
+	private ImageView iv;
+	private FileController fc;
+	private byte[] picDataArray = null;
+	private AlertDialog dialog;
+	private String id;
 	/**
 	 * This is called automatically by the android system when the activity is
 	 * started.
@@ -111,7 +108,7 @@ public class PreviewScreen extends Activity {
 			e.printStackTrace();
 		}
 		//decode the bytearray to a Bitmap and set as background
-		bmp = Convert.compressPicture(picDataArray);		
+		bmp = Convert.compressPicture(picDataArray, 5);		
 		setBackground(bmp);
 	}
 
@@ -135,7 +132,7 @@ public class PreviewScreen extends Activity {
 		if (filePath != null) {			
 			//decode the file to a Bitmap and set as background
 			BitmapFactory.Options options = new BitmapFactory.Options();
-			options.inSampleSize = 4;
+			options.inSampleSize = 5;
 			bmp = (Bitmap) BitmapFactory.decodeFile(filePath, options); 
 			setBackground(bmp);
 		}
@@ -150,6 +147,7 @@ public class PreviewScreen extends Activity {
 		if (bg != null) {
 			bg = rotatePic(bg);
 			iv.setImageBitmap(bg);
+			
 
 			setBgBmp(bg); // Called for testing purposes
 		}

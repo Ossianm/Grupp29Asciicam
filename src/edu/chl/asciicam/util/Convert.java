@@ -57,12 +57,13 @@ public class Convert{
 	 * Converts a given array to a Bitmap and returns the result as a compressed bitmap. Does not change the 
 	 * byte array. This should be used for bitmaps to be displayed on screen.
 	 * @param byteArray The byte array to be converted into a Bitmap.
+	 * @param size How much to compress the bitmap
 	 * @return The resulting Bitmap.
 	 */
-	public static Bitmap compressPicture(byte[] byteArray) 	{
+	public static Bitmap compressPicture(byte[] byteArray, int size) 	{
 		//Compress picture, a power of 2 is fastest way for decoder.
 		BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inSampleSize = 8;
+		options.inSampleSize = size;
 
 		Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray , 0, byteArray.length, options);
 		return bitmap;
