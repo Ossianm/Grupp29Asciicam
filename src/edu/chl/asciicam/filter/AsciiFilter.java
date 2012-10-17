@@ -31,50 +31,23 @@ import edu.chl.asciicam.util.Convert;
 
 /**
  * A filter class that converts a picture to ASCII characters.
- * @author fredha
+ * @author Fredrik Hansson, Ossian Madisson, Robin Braaf
  * 
  */
 
 public class AsciiFilter implements FilterInterface{
 
 	//fontSize on the asciioutput. If changed it will change the size of the picture.
-	private static final int fontSize = 20;
-
-	/**
-	 * Takes a file object and reads one line at a time. The method separates the line at each occurance of "," and puts the two strings in a TreeMap as V,K.
-	 * @param input The file object to be read from.
-	 * @return The resulting TreeMap.
-	 */
-
-	/**
-	 * This function is currently not used and it's unsure if it will be again.
-	private TreeMap<Float, String> createValues(File input){
-		TreeMap<Float, String> map = new TreeMap<Float, String>();
-		String[] s = new String[1];
-		try{
-			Scanner sc = new Scanner(input);
-			s = sc.nextLine().split(",");
-			map.put(new Float(s[1]), s[0]);
-			while(sc.hasNextLine()){
-				s = sc.nextLine().split(",");
-				map.put(new Float(s[1]), s[0]);
-			}
-
-		}
-		catch(FileNotFoundException e){
-			System.out.println("Could not read file." + e);
-		}
-		return map;
-	}
-	 */
+	private static final int fontSize = 11;
+	private Bitmap bm;
 
 	/**
 	 * Converts a bitmap into ASCII characters and returns the result.
 	 * @param bm The Bitmap to be converted.
 	 * @return The resulting Bitmap (ASCII).
 	 */
-	public Bitmap convert (Bitmap bm) {
-
+	public Bitmap convert (Bitmap bmIn) {
+		bm = bmIn;
 		//Declare the array with ASCII-signs. The index is used to decide what sign to translate the 5x10 rectangle to.
 		//				String[] signs = {" ", ",", "-", "*", "/", "r", "m", "+", "(", "¿", "x", "w", "K", "O", "&", "9", "#", "W", "$", "@" };
 		//		String[] signs = {" ", " ", " ", "*", "*", "m", "m", "+", "+", "¿", "¿", "w", "w", "&", "&", "#", "#", "@", "@", "@", "H", "H", "H", "H" };
@@ -85,8 +58,6 @@ public class AsciiFilter implements FilterInterface{
 		int width = bm.getWidth();
 		int averageValue = 0;
 
-		System.out.println(height);
-		System.out.println(width);
 		//Set starting values for integers used in the for-loops iterating over 5x10 pixels.
 		int h = 0;
 		int w = 0;
@@ -143,7 +114,8 @@ public class AsciiFilter implements FilterInterface{
 	private Bitmap createBitmap(List<String> pic){
 		// Bitmap width = length
 		Paint paint = new Paint();
-		Bitmap bitmap = Bitmap.createBitmap(pic.get(0).length() * fontSize, pic.size() * fontSize, Bitmap.Config.RGB_565);
+		//		Bitmap bmp = Bitmap.createBitmap(0,0,pic.get(0).length() * fontSize, pic.size());// * fontSize/2, Bitmap.Config.RGB_565);
+		Bitmap bitmap = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(),bm.getConfig());
 		//Create canvas and put in bitmap as param so it will draw on it.
 		Canvas canvas = new Canvas(bitmap);
 
@@ -159,7 +131,7 @@ public class AsciiFilter implements FilterInterface{
 		//Monospace is needed for correct indentation
 		paint.setTypeface(Typeface.MONOSPACE);
 		//Scale or or will be shrimped in width, 1.7 seems to be the magical number. (1 is default)
-		paint.setTextScaleX((float)1);
+//		paint.setTextScaleX((float)1);
 		//paint.setTextAlign(Paint.Align.CENTER);
 
 		float x = 0, y = 0;
@@ -170,6 +142,7 @@ public class AsciiFilter implements FilterInterface{
 			canvas.drawText(string, 0, string.length, x, y, paint);
 			y += fontSize;
 		}
+
 		return bitmap;
 	}
 }
