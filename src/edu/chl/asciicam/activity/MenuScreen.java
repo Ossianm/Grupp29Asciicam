@@ -1,18 +1,5 @@
 package edu.chl.asciicam.activity;
 
-import android.net.Uri;
-
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.app.Activity;
-import android.content.Intent;
-import android.database.Cursor;
-import android.view.Menu;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
 //Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
 //
 //This file is part of Asciicam.
@@ -29,6 +16,20 @@ import android.widget.ImageView;
 //
 //You should have received a copy of the GNU General Public License
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
+
+import android.net.Uri;
+
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.view.Menu;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
 
 /**
  * This activity is the first one you see when you start the app.

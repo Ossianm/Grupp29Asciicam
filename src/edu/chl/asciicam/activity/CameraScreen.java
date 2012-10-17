@@ -1,19 +1,5 @@
 package edu.chl.asciicam.activity;
 
-import java.io.IOException;
-
-import edu.chl.asciicam.camera.CameraPreview;
-import edu.chl.asciicam.file.FileController;
-import android.app.Activity;
-import android.content.Intent;
-import android.hardware.Camera;
-import android.hardware.Camera.PictureCallback;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
 //Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
 //
 //This file is part of Asciicam.
@@ -30,6 +16,22 @@ import android.widget.FrameLayout;
 //
 //You should have received a copy of the GNU General Public License
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
+
+import java.io.IOException;
+
+import edu.chl.asciicam.camera.CameraPreview;
+import edu.chl.asciicam.file.FileController;
+import android.app.Activity;
+import android.content.Intent;
+import android.hardware.Camera;
+import android.hardware.Camera.PictureCallback;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+
 
 /**
  * This activity is for taking a picture. The background will be set to

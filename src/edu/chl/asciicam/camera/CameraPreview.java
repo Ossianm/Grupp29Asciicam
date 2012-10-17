@@ -1,14 +1,5 @@
 package edu.chl.asciicam.camera;
 
-import java.io.IOException;
-import java.util.List;
-
-import android.content.Context;
-import android.hardware.Camera;
-import android.hardware.Camera.Size;
-import android.util.Log;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 //Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
 //
 //This file is part of Asciicam.
@@ -25,6 +16,17 @@ import android.view.SurfaceView;
 //
 //You should have received a copy of the GNU General Public License
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
+
+import java.io.IOException;
+import java.util.List;
+
+import android.content.Context;
+import android.hardware.Camera;
+import android.hardware.Camera.Size;
+import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+
 
 /**
  * A basic camera preview class, base code from http://developer.android.com/guide/topics/media/camera.html#custom-camera

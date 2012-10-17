@@ -1,5 +1,5 @@
 <!-- 
-	Copyright 2012 Robin Braaf, Ossian Madisson, Marting Thörnesson, Fredrik Hansson and Jonas Åström.
+	Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
 	
 	This file is part of Asciicam.
 
@@ -15,6 +15,7 @@
 
     You should have received a copy of the GNU General Public License
     along with Asciicam.  If not, see <http://www.gnu.org/licenses/>. -->
+    
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
