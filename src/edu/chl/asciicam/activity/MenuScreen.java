@@ -38,9 +38,9 @@ import android.widget.ImageView;
  */
 public class MenuScreen extends Activity {
 
-	Button take_Pic_B, load_Pic_B, optionsB;
-	ImageView chosenPic;
-	Intent load;
+	private Button take_Pic_B, load_Pic_B, optionsB;
+	private ImageView chosenPic;
+	private Intent load;
 
 	/**
 	 * This is called automatically by the android system when the activity is started
