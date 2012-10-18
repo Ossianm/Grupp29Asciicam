@@ -44,7 +44,7 @@ public class AsciiFilter implements FilterInterface {
 	private int bgColor;
 	private int textColor;
 	
-	private String[] symbol = {"@", "@", "@", "#", "#", "&", "&", "w", "w", "¿", "¿", "+", "+", "m", "m", "*", "*", ".", ".", " ", " "};
+	private String[] symbol = {"@", "@", "#", "#", "#", "&", "&", "w", "w", "¿", "¿", "+", "+", "m", "m", "*", "*", ".", ".", " ", " "};
 	/**
 	 * Default constructor, sets default options which is 
 	 * compression : 6
@@ -53,7 +53,7 @@ public class AsciiFilter implements FilterInterface {
 	 */
 	public AsciiFilter(){
 		compression = 7;
-		fontSize = 20;
+		fontSize = 10;
 		bgColor = Color.WHITE;
 		textColor = Color.BLACK;
 	}
@@ -64,7 +64,7 @@ public class AsciiFilter implements FilterInterface {
 	 */
 	public AsciiFilter(int compression){
 		this.compression = compression;
-		fontSize = 20;
+		fontSize = 10;
 		bgColor = Color.WHITE;
 		textColor = Color.BLACK;
 	}
@@ -75,9 +75,9 @@ public class AsciiFilter implements FilterInterface {
 	 * @param bgColor Backgroundcolor for bitmap output.
 	 */
 	public AsciiFilter(int compression, int bgColor){
-		compression = 6;
+		this.compression = compression;
 		fontSize = 10;
-		bgColor = Color.WHITE;
+		this.bgColor = bgColor;
 		textColor = Color.BLACK;
 	}
 	
@@ -88,10 +88,10 @@ public class AsciiFilter implements FilterInterface {
 	 * @param textColor Textcolor on bitmap output.
 	 */
 	public AsciiFilter(int compression, int bgColor, int textColor){
-		compression = 6;
-		fontSize = 20;
-		bgColor = Color.WHITE;
-		textColor = Color.BLACK;
+		this.compression = compression;
+		fontSize = 10;
+		this.bgColor = bgColor;
+		this.textColor = textColor;
 	}
 	
 	/**
