@@ -16,20 +16,19 @@
     You should have received a copy of the GNU General Public License
     along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
 -->
-
-    
-<RelativeLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom" >
+    android:background="@style/AppTheme"
+    android:gravity="bottom"
+    android:orientation="vertical" >
 	
     <TextView
-	    android:id="@+id/textView1"
+	    android:id="@+id/option_head"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
+	    android:textSize="20dp"
 	    android:layout_alignParentTop="true"
 	    android:layout_centerHorizontal="true"
 	    android:layout_marginTop="20dp"
@@ -43,11 +42,12 @@
         android:layout_alignParentBottom="true"   />
 	
 	<TextView
-	    android:id="@+id/textView3"
+	    android:id="@+id/brightness_head"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:layout_alignLeft="@+id/filter_menu"
-	    android:layout_marginTop="50dp"
+	    android:layout_alignLeft="@+id/filter_spinner"
+	    android:layout_below="@+id/option_head"
+	    android:layout_marginTop="10dp"
 	    android:text="@string/brightness_head_string" />
 	
 	<ImageView 
@@ -56,7 +56,7 @@
 	    android:background="@drawable/brightness_temp"
 	    android:layout_width="30dp"
 	    android:layout_height="30dp"
-	    android:layout_below="@+id/textView3"
+	    android:layout_below="@+id/brightness_head"
 	    android:layout_marginTop="10dp"
 	    android:layout_marginLeft="50dp" />
 	
@@ -65,7 +65,7 @@
 	    android:layout_width="160dp"
 	    android:layout_height="30dp"
 	    android:layout_toRightOf="@+id/brightness_icon"
-	    android:layout_below="@+id/textView3"
+	    android:layout_below="@+id/brightness_head"
 	    android:layout_marginLeft="20dp"
 	    android:layout_marginTop="10dp" />
 	
@@ -73,17 +73,61 @@
 	    android:id="@+id/textView2"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:layout_alignLeft="@+id/filter_menu"
+	    android:layout_alignLeft="@+id/filter_spinner"
 	    android:layout_below="@+id/brightness_bar"
 	    android:layout_marginTop="20dp"
-	    android:text="@string/filter_head_string" />
+	    android:text="@string/filter_head" />
 	
 	<Spinner 
-	    android:id="@+id/filter_menu" 
+	    android:id="@+id/filter_spinner" 
 	    android:layout_width="250dp"
 	    android:layout_height="50dp"
 	    android:layout_centerHorizontal="true"
 	    android:layout_below="@+id/textView2"
 	    android:layout_marginTop="10dp" />
+	
+    <TextView
+	    android:id="@+id/colors_head"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	    android:layout_below="@+id/filter_spinner"
+	    android:layout_marginTop="20dp"
+	    android:textSize="15dp"
+	    android:text="@string/colors_head" />
+
+	<TextView
+	    android:id="@+id/background_head"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/filter_spinner"
+	    android:layout_below="@+id/colors_head"
+	    android:layout_marginTop="20dp"
+	    android:text="@string/background_head" />
+	
+	<Spinner 
+	    android:id="@+id/background_spinner" 
+	    android:layout_width="250dp"
+	    android:layout_height="50dp"
+	    android:layout_centerHorizontal="true"
+	    android:layout_below="@+id/background_head"
+	    android:layout_marginTop="10dp" />
+	
+	<TextView
+	    android:id="@+id/character_head"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/filter_spinner"
+	    android:layout_below="@+id/background_spinner"
+	    android:layout_marginTop="10dp"
+	    android:text="@string/character_head" />
+	
+	<Spinner 
+	    android:id="@+id/character_spinner" 
+	    android:layout_width="250dp"
+	    android:layout_height="50dp"
+	    android:layout_centerHorizontal="true"
+	    android:layout_below="@+id/character_head"
+	    android:layout_marginTop="10dp" />	
 	
 </RelativeLayout>

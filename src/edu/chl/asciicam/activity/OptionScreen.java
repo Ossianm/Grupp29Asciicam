@@ -22,12 +22,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 public class OptionScreen extends Activity {
 
-	Button back_btn;
-	ImageView brightness_icon;
-	//BrightnessView brightness_icon;
+	private Button back_btn;
+	private ImageView brightness_icon;
+	private Spinner filterSpinner, backgroundSpinner, characterSpinner;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,8 +36,15 @@ public class OptionScreen extends Activity {
         setContentView(R.layout.activity_option_screen);
 		back_btn = (Button) findViewById(R.id.back);
 		brightness_icon = (ImageView) findViewById(R.id.brightness_icon);
+		filterSpinner = (Spinner) findViewById(R.id.filter_spinner);
+		backgroundSpinner = (Spinner) findViewById(R.id.background_spinner);
+		characterSpinner = (Spinner) findViewById(R.id.character_spinner);
+		
+		
+		
 		initiateButtons();
-		initiateImageView();
+		initiateImageViews();
+//		initiateSpinners();
     }
 
 	
@@ -53,9 +61,11 @@ public class OptionScreen extends Activity {
 	}	
 	
 	//This is called by to initiate the imageviews.
-	private void initiateImageView(){
+	private void initiateImageViews(){
 		brightness_icon.setBackgroundResource(R.drawable.brightness_temp);
-		
 	}
 	
+//	private void initiateSpinners(){
+//		
+//	}
 }
