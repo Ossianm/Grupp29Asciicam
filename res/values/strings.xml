@@ -34,5 +34,11 @@
     <string name="desc">This is the taken picture</string>
     <string name="title_activity_option_screen">OptionScreen</string>
     <string name="option_head_string">Options</string>
+<<<<<<< HEAD
+    <string name="brightness_head_string">Brightness</string>
+    <string name="filter_head_string">Filters</string>
+=======
+	<string name="Logo">Logo</string>
+>>>>>>> 6e33173da28b33e43c714bf2afdb032582d3cb38
 
 </resources>
