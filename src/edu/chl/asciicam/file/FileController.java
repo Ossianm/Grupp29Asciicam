@@ -42,9 +42,9 @@ public class FileController {
 	private static final String OPTIONS_FILENAME = "OptionsAscii";
 	private static final String PRIV_PIC = "PrivatePictureAscii";
 	//Local filenames for saving options
-	public static final String ASCIICOMPRESSION = "";
-	public static final String ASCIIBGCOLOR = "";
-	public static final String ASCIITEXTCOLOR = "";
+	public static final String ASCIICOMPRESSION = "filtercompression";
+	public static final String ASCIIBGCOLOR = "filterbgcolor";
+	public static final String ASCIITEXTCOLOR = "filtertextcolor";
 
 	//Static names for sharedpreferense data
 	public static final String SEQUENCENUMBER = "sequence";
