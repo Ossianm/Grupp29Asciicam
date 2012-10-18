@@ -92,8 +92,6 @@ public class FileController {
 			context.sendBroadcast( new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
                     Uri.fromFile(file))
 			);
-			
-			picArray = null;
 
 		}else{
 			throw new IOException(UNMOUNTED_SD);
@@ -153,8 +151,6 @@ public class FileController {
 		buf.write(pic);
 		buf.flush();
 		buf.close();
-		
-		pic = null;
 	}
 
 	/**
