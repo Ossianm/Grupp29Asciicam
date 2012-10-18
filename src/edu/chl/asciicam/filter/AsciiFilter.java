@@ -126,7 +126,7 @@ public class AsciiFilter implements FilterInterface {
     			color = color / 255;
     			//color can be 0 - 21 here, so we need to remove 1 if its above 20 to
     			//avoid array out of bounds exception.
-    			if(color > 20)
+    			if(color >= symbol.length)
     				color -= 1;
     			s += symbol[(int)color]; //something from ascii
     		}
