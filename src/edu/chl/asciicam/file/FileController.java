@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Base64;
 //Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
 //
 //This file is part of Asciicam.
@@ -159,8 +160,7 @@ public class FileController {
 	 * @throws IOException Whenever an error occurs while reading data.
 	 */
 	public byte[] loadPicPrivate() throws IOException{
-
-		//Save the sequence to a local file here
+		
 		FileInputStream fis = context.openFileInput(PRIV_PIC);
 		BufferedInputStream bis = new BufferedInputStream(fis);
 		byte[] data = new byte[fis.available()];
@@ -182,36 +182,76 @@ public class FileController {
 	/**
 	 * Use this method to save options made by the user.
 	 * @param options A hashmap consisting of the options to be saved <String Key, String Value>.
+	 * @throws IOException If something goes wrong wile saving options.
 	 */
-	public void saveOptions(HashMap<String, String> options){
-		// TODO
+	public void saveOptions(HashMap<String, String> options) throws IOException{
+		Set<String> keySet = options.keySet();
+		
+		for(String s : keySet){
+			FileOutputStream fos = context.openFileOutput(s, Context.MODE_PRIVATE);
+			fos.write(Base64.decode(options.get(s), Base64.DEFAULT));
+			fos.flush();
+			fos.close();
+		}
+		
 	}
 	
 	/**
 	 * To save a single value locally on sd card.
 	 * @param key key for the option to be saved.
 	 * @param Value value to be saved
+	 * @throws IOException If something goes wrong wile saving option.
 	 */
-	public void saveOption(String key, String Value){
-		
+	public void saveOption(String key, String value) throws IOException{
+		FileOutputStream fos = context.openFileOutput(key, Context.MODE_PRIVATE);
+		fos.write(Base64.decode(value, Base64.DEFAULT));
+		fos.flush();
+		fos.close();
 	}
 
 	/**
 	 * Use this method to load options on application start.
+	 * @param values A list of all values to be read.
 	 * @return A map of all options saved.
+	 * @throws IOException If something goes wrong wile reading options.
 	 */
-	public HashMap<String, String> getOptions(){
-		// TODO
-		return new HashMap<String, String>();
+	public HashMap<String, String> getOptions(List<String> values) throws IOException{
+
+		//Create iteration over all values to be read here
+		HashMap<String, String> optionMap = new HashMap<String, String>();
+		for(String s : values){
+			//read value here
+			FileInputStream fis = context.openFileInput(s);
+			byte[] data = new byte[fis.available()];
+			byte[] valueArray = null;
+			while(fis.read(data) != -1){
+				valueArray = data;
+			}
+			fis.close();
+			optionMap.put(s, Base64.encodeToString(valueArray, Base64.DEFAULT));
+			data = null;
+		}
+		return optionMap;
 	}
 	
 	/**
 	 * Returns the value saved at key.
 	 * @param key key to find your value.
 	 * @return Value saved in app storage.
+	 * @throws IOException If something goes wrong wile reading option.
 	 */
-	public String getOption(String key){
-		return null;
+	public String getOption(String key) throws IOException{
+			//read value here
+			FileInputStream fis = context.openFileInput(key);
+			byte[] data = new byte[fis.available()];
+			byte[] valueArray = null;
+			while(fis.read(data) != -1){
+				valueArray = data;
+			}
+			fis.close();
+			String option = Base64.encodeToString(valueArray, Base64.DEFAULT);
+			data = null;
+			return option;
 	}
 
 }
