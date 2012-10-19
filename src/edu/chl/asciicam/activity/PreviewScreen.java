@@ -110,6 +110,8 @@ public class PreviewScreen extends Activity {
 		}
 		//decode the bytearray to a Bitmap and set as background
 		Display display = getWindowManager().getDefaultDisplay();
+		//display.getheight() and width is deprecated, but we need them to maintain backwards compatability
+		//for API 8 phones.
 		bmp = Convert.compressPicture(picDataArray, display.getHeight(), display.getWidth());		
 		setBackground(bmp);
 	}

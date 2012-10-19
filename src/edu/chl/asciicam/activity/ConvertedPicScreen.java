@@ -204,6 +204,8 @@ public class ConvertedPicScreen extends Activity {
 		}
 		// Decode and return the array as a bitmap
 		Display display = getWindowManager().getDefaultDisplay();
+		//display.getheight() and width is deprecated, but we need them to maintain backwards compatability
+		//for API 8 phones.
 		return Convert.compressPicture(picDataArray, display.getHeight(), display.getWidth());	
 	}
 
