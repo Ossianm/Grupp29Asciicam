@@ -140,7 +140,7 @@ public class OptionScreen extends Activity {
 		charSpinner.setPrompt(promptArray[2]);
 
 		//Creating lists of Spinner Entries
-		filterStrings = new String[] {"AsciiFilter","GrayScaleFilter", "BrightnessFilter"};
+		filterStrings = new String[] {"AsciiFilter","GrayScaleFilter"};
 		colorStrings = new String[] {"BLACK","WHITE","GRAY","CYAN","RED","BLUE","GREEN","MAGENTA","YELLOW"};
 		filterList = Arrays.asList(filterStrings);
 		colorList = Arrays.asList(colorStrings);
@@ -187,15 +187,7 @@ public class OptionScreen extends Activity {
 					charSpinner.setVisibility(View.INVISIBLE);
 					char_head.setVisibility(View.INVISIBLE);
 					colors_head.setVisibility(View.INVISIBLE);
-				}						
-				else if(filter.equals("BrightnessFilter")){
-					bgSpinner.setVisibility(View.INVISIBLE);
-					bg_head.setVisibility(View.INVISIBLE);
-					charSpinner.setVisibility(View.INVISIBLE);
-					char_head.setVisibility(View.INVISIBLE);
-					colors_head.setVisibility(View.INVISIBLE);
-					brightnessBar.setVisibility(View.VISIBLE);
-				}
+				}	
 				else{
 					bgSpinner.setVisibility(View.VISIBLE);
 					bg_head.setVisibility(View.VISIBLE);
