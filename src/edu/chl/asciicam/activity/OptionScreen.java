@@ -20,6 +20,8 @@ package edu.chl.asciicam.activity;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.chl.asciicam.util.SettingsController;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +30,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,12 +39,16 @@ public class OptionScreen extends Activity {
 
 	private Button back_btn;
 	private ImageView brightness_icon;
+	private SeekBar brightnessBar;
 	private Spinner filterSpinner, bgSpinner, charSpinner;
 	private List<String> filterList, colorList;
 	private String[] colorStrings, filterStrings;
 	private CharSequence promptArray[];
 	private ArrayAdapter<String> filterAdapter, colorAdapter;
 	private static final int FILTER_DEFAULT = 0, BG_DEFAULT = 1, CHAR_DEFAULT = 0;
+	private float brightness;
+	
+	protected SettingsController settings = new SettingsController();
 
 	
     @Override
@@ -65,6 +73,7 @@ public class OptionScreen extends Activity {
 		initiateButtons();
 		initiateImageViews();
 		initiateSpinners();
+		initiateBrightnessBar();
     }
 
 	
@@ -80,9 +89,34 @@ public class OptionScreen extends Activity {
 			
 	}	
 	
-	//This is called by to initiate the imageviews.
+	//This is called by to initiate the ImageViews
 	private void initiateImageViews(){
 		brightness_icon.setBackgroundResource(R.drawable.brightness_temp);
+	}
+	
+	private void initiateBrightnessBar(){
+
+		brightnessBar = (SeekBar)findViewById(R.id.brightness_bar);
+		brightnessBar.setMax(200);
+		brightnessBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+
+			public void onStopTrackingTouch(SeekBar arg0) {
+				// TODO Auto-generated method stub
+
+			}		         
+			public void onStartTrackingTouch(SeekBar arg0) {
+				// TODO Auto-generated method stub
+
+			}		         
+			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+				
+				brightness = progress-100;
+				settings.setBrigtness(brightness);
+			}
+		});
+
+
+
 	}
 	
 	private void initiateSpinners(){
