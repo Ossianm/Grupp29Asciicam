@@ -48,7 +48,7 @@ public class OptionScreen extends Activity {
 	private static final int FILTER_DEFAULT = 0, BG_DEFAULT = 1, CHAR_DEFAULT = 0;
 	private float brightness;
 	
-	protected SettingsController settings = new SettingsController();
+	protected static SettingsController settings = new SettingsController();
 
 	
     @Override
@@ -98,6 +98,7 @@ public class OptionScreen extends Activity {
 
 		brightnessBar = (SeekBar)findViewById(R.id.brightness_bar);
 		brightnessBar.setMax(200);
+		brightnessBar.setProgress(100);
 		brightnessBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			public void onStopTrackingTouch(SeekBar arg0) {
@@ -112,6 +113,7 @@ public class OptionScreen extends Activity {
 				
 				brightness = progress-100;
 				settings.setBrigtness(brightness);
+				
 			}
 		});
 
@@ -132,7 +134,7 @@ public class OptionScreen extends Activity {
 		charSpinner.setPrompt(promptArray[2]);
 		
 		//Creating lists of Spinner Entries
-		filterStrings = new String[] {"Ascii","Grayscale"};
+		filterStrings = new String[] {"AsciiFilter","GrayScale", "BrightnessFilter"};
 		colorStrings = new String[] {"WHITE","BLACK","GRAY","CYAN","RED","BLUE","GREEN","MAGENTA","YELLOW"};
 		filterList = Arrays.asList(filterStrings);
 		colorList = Arrays.asList(colorStrings);
@@ -157,4 +159,7 @@ public class OptionScreen extends Activity {
 		charSpinner.setSelection(CHAR_DEFAULT);
 	}
 
+	public static SettingsController getSettings(){
+		return settings;
+	}
 }

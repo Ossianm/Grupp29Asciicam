@@ -35,39 +35,40 @@ public class SettingsController {
 		
 	}
 	
-	// Take a string and turn it to a int that can be used as a Color.CONSTANT
-	private int stringToColorConstant(String color){
-		int colorint = Color.BLACK; //Setting default color to black
-//		switch(color){
-//		case "BLACK":
-//			colorint = Color.BLACK;
-//			break;
-//		case "WHITE":
-//			colorint = Color.WHITE;
-//			break;
-//		case "GRAY":
-//			colorint = Color.GRAY;
-//			break;
-//		case "CYAN": 
-//			colorint = Color.CYAN;
-//			break;
-//		case "RED":
-//			colorint = Color.RED;
-//			break;
-//		case "BLUE": 
-//			colorint = Color.BLUE;
-//			break;
-//		case "GREEN":
-//			colorint = Color.GREEN;
-//			break;
-//		case "MAGENTA":
-//			colorint = Color.MAGENTA;
-//			break;
-//		case "YELLOW":
-//			colorint = Color.YELLOW;
-//			break;		
-//		}
-		return colorint;
+	// Take a index from the list in OptionScreen and turn it to a int that can be used as a Color.CONSTANT
+	private int indexToColorConstant(int index){
+		int colorC = Color.BLACK; //Setting default color to black
+		
+		switch(index){
+		case 0:
+			colorC = Color.BLACK;
+			break;
+		case 1:
+			colorC = Color.WHITE;
+			break;
+		case 2:
+			colorC = Color.GRAY;
+			break;
+		case 3: 
+			colorC = Color.CYAN;
+			break;
+		case 4:
+			colorC = Color.RED;
+			break;
+		case 5: 
+			colorC = Color.BLUE;
+			break;
+		case 6:
+			colorC = Color.GREEN;
+			break;
+		case 7:
+			colorC = Color.MAGENTA;
+			break;
+		case 8:
+			colorC = Color.YELLOW;
+			break;		
+		}
+		return colorC;
 	}
 	
 	//////////////////////////
@@ -77,16 +78,16 @@ public class SettingsController {
 	 * Sets the background color
 	 * @param bgColor must be Color.constant
 	 */
-	public void setBgColor(String color){
-		bgColor = stringToColorConstant(color);
+	public void setBgColor(int index){
+		bgColor = indexToColorConstant(index);
 	}
 	
 	/**
 	 * Sets the color of the text
 	 * @param bgColor must be Color.constant
 	 */
-	public void setTextColor(String color){
-		textColor = stringToColorConstant(color);
+	public void setTextColor(int index){
+		textColor = indexToColorConstant(index);
 	}
 	
 	/**
@@ -101,7 +102,7 @@ public class SettingsController {
 	 * Sets the brightness value that should be used
 	 * @param brightness
 	 */
-	public void setBrigtness(float brightness){
+	public void setBrigtness(float brightness){		
 		this.brightnessValue = brightness;
 	}
 	
@@ -130,8 +131,8 @@ public class SettingsController {
 	}
 	
 	/**
-	 * Get the brightnessvalue
-	 * @return the current brightnessvalue
+	 * Get the brightnessValue
+	 * @return the current brightnessValue
 	 */
 	public float getBrightness(){
 		return brightnessValue;

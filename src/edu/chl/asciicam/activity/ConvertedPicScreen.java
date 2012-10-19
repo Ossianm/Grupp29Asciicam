@@ -60,8 +60,7 @@ public class ConvertedPicScreen extends Activity {
 	private Bundle extras;
 	private String id;
 	private boolean saved = false;
-	//This should be available from OptionScreen
-	protected SettingsController settings;
+	private SettingsController settings;
 
 	/**
 	 * This is called automatically by the android system when the activity is started
@@ -82,8 +81,7 @@ public class ConvertedPicScreen extends Activity {
 		fc = new FileController(getBaseContext());
 		//		filter = new AsciiFilter();
 		initiateButtons();
-		settings = new SettingsController();
-
+		settings = (SettingsController) OptionScreen.getSettings();
 		extras = this.getIntent().getExtras(); //get all the extras from intent to the Bundle extras
 		id = extras.getString("id"); //loads the id to check if the picture for conversion should be loaded from gallery
 
@@ -212,6 +210,7 @@ public class ConvertedPicScreen extends Activity {
 	/////////////////////////////////////////
 	private void convert(){
 		int bgcolor, textcolor; 
+		float brightness;
 		String filtertype;
 		GrayScaleFilter gFilter; 
 		AsciiFilter aFilter;
@@ -219,7 +218,6 @@ public class ConvertedPicScreen extends Activity {
 
 		bmp = loadPic(); //Load the picture that should be converted
 		//Get the settings set from OptionScreen
-
 		filtertype = settings.getFilter();
 
 		//The defaultfilter is set to AsciiFilter, filtertype should always be one of the following.
@@ -237,8 +235,9 @@ public class ConvertedPicScreen extends Activity {
 			gFilter = new GrayScaleFilter();
 			bmp = gFilter.convert(bmp);
 		}else if(filtertype == "BrightnessFilter"){// Check if the BrightnessFilter should be applied
-			
+			brightness = settings.getBrightness();
 			bFilter = new BrightnessFilter();
+			bFilter.setBrightness(brightness);
 			bmp = bFilter.convert(bmp);
 		}
 		//After one of the conversions id done, set the converted bitmap as background
