@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import edu.chl.asciicam.file.FileController;
 import edu.chl.asciicam.filter.AsciiFilter;
+import edu.chl.asciicam.filter.BrightnessFilter;
 import edu.chl.asciicam.filter.GrayScaleFilter;
 import edu.chl.asciicam.util.Convert;
 import edu.chl.asciicam.util.SettingsController;
@@ -81,6 +82,7 @@ public class ConvertedPicScreen extends Activity {
 		fc = new FileController(getBaseContext());
 		//		filter = new AsciiFilter();
 		initiateButtons();
+		settings = new SettingsController();
 
 		extras = this.getIntent().getExtras(); //get all the extras from intent to the Bundle extras
 		id = extras.getString("id"); //loads the id to check if the picture for conversion should be loaded from gallery
@@ -213,23 +215,33 @@ public class ConvertedPicScreen extends Activity {
 		String filtertype;
 		GrayScaleFilter gFilter; 
 		AsciiFilter aFilter;
+		BrightnessFilter bFilter;
 
 		bmp = loadPic(); //Load the picture that should be converted
 		//Get the settings set from OptionScreen
-		bgcolor = settings.getBgColor();
-		textcolor = settings.getTextColor();
+
 		filtertype = settings.getFilter();
 
 		//The defaultfilter is set to AsciiFilter, filtertype should always be one of the following.
 		if(filtertype == "AsciiFilter"){
+			//bgcolor and textcolor might be used outside this "if" when another filter is using them
+			bgcolor = settings.getBgColor();
+			textcolor = settings.getTextColor();
+			
 			aFilter = new AsciiFilter();
 			aFilter.setBgColor(bgcolor);
 			aFilter.setTextColor(textcolor);
 			bmp = aFilter.convert(bmp);
-		}else if(filtertype == "GrayScaleFilter"){
+			
+		}else if(filtertype == "GrayScaleFilter"){// Check if the GrayScaleFilter should be applied
 			gFilter = new GrayScaleFilter();
 			bmp = gFilter.convert(bmp);
-		}		
+		}else if(filtertype == "BrightnessFilter"){// Check if the BrightnessFilter should be applied
+			
+			bFilter = new BrightnessFilter();
+			bmp = bFilter.convert(bmp);
+		}
+		//After one of the conversions id done, set the converted bitmap as background
 		setBackground(bmp);
 	}
 }

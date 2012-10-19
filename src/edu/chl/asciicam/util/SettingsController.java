@@ -26,8 +26,8 @@ import android.graphics.Color;
 public class SettingsController {
 	
 	private String filter = "AsciiFilter"; //Setting AsciiFilter as default
-	private int bgcolor = Color.WHITE, textcolor = Color.BLACK; //Setting the default colors
-	
+	private int bgColor = Color.WHITE, textColor = Color.BLACK; //Setting the default colors
+	private float brightnessValue = 0; //Setting 0 as default brightness
 	/**
 	 * Default constructor
 	 */
@@ -75,18 +75,18 @@ public class SettingsController {
 	//////////////////////////
 	/**
 	 * Sets the background color
-	 * @param bgcolor must be Color.constant
+	 * @param bgColor must be Color.constant
 	 */
 	public void setBgColor(String color){
-		bgcolor = stringToColorConstant(color);
+		bgColor = stringToColorConstant(color);
 	}
 	
 	/**
 	 * Sets the color of the text
-	 * @param bgcolor must be Color.constant
+	 * @param bgColor must be Color.constant
 	 */
 	public void setTextColor(String color){
-		textcolor = stringToColorConstant(color);
+		textColor = stringToColorConstant(color);
 	}
 	
 	/**
@@ -98,11 +98,19 @@ public class SettingsController {
 	}
 	
 	/**
+	 * Sets the brightness value that should be used
+	 * @param brightness
+	 */
+	public void setBrigtness(float brightness){
+		this.brightnessValue = brightness;
+	}
+	
+	/**
 	 * Get the background color
 	 * @return the chosen background color
 	 */
 	public int getBgColor(){
-		return bgcolor;
+		return bgColor;
 	}
 	
 	/**
@@ -110,7 +118,7 @@ public class SettingsController {
 	 * @return the chosen text color
 	 */
 	public int getTextColor(){
-		return textcolor;
+		return textColor;
 	}
 	
 	/**
@@ -120,6 +128,16 @@ public class SettingsController {
 	public String getFilter(){
 		return filter;
 	}
+	
+	/**
+	 * Get the brightnessvalue
+	 * @return the current brightnessvalue
+	 */
+	public float getBrightness(){
+		return brightnessValue;
+	}
+	
+	
 	
 	
 	
