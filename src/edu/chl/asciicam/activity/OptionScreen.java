@@ -17,38 +17,58 @@ package edu.chl.asciicam.activity;
 //You should have received a copy of the GNU General Public License
 //along with Asciicam.  If not, see <http://www.gnu.org/licenses/>.
 
+import java.util.Arrays;
+import java.util.List;
+
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class OptionScreen extends Activity {
 
 	private Button back_btn;
 	private ImageView brightness_icon;
-	private Spinner filterSpinner, backgroundSpinner, characterSpinner;
+	private Spinner filterSpinner, bgSpinner, charSpinner;
+	private List<String> filterList, colorList;
+	private String[] colorStrings, filterStrings;
+	private CharSequence promptArray[];
+	private ArrayAdapter<String> filterAdapter, colorAdapter;
+	private static final int FILTER_DEFAULT = 0, BG_DEFAULT = 1, CHAR_DEFAULT = 0;
+
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option_screen);
+        
+        //Layouts
+        
+        //Views
+        brightness_icon = (ImageView) findViewById(R.id.brightness_icon);
+        
+        //Widgets
 		back_btn = (Button) findViewById(R.id.back);
-		brightness_icon = (ImageView) findViewById(R.id.brightness_icon);
+		
 		filterSpinner = (Spinner) findViewById(R.id.filter_spinner);
-		backgroundSpinner = (Spinner) findViewById(R.id.background_spinner);
-		characterSpinner = (Spinner) findViewById(R.id.character_spinner);
+		bgSpinner = (Spinner) findViewById(R.id.background_spinner);
+		charSpinner = (Spinner) findViewById(R.id.character_spinner);
 		
-		
-		
+		//Initiating objects in OptionScreen
 		initiateButtons();
 		initiateImageViews();
-//		initiateSpinners();
+		initiateSpinners();
     }
 
 	
-	//This is called by to initiate the buttons and add functionality
+//	This is called by to initiate the buttons and add functionality
 	private void initiateButtons() {
 		back_btn.setOnClickListener(new View.OnClickListener() {
 
@@ -65,7 +85,42 @@ public class OptionScreen extends Activity {
 		brightness_icon.setBackgroundResource(R.drawable.brightness_temp);
 	}
 	
-//	private void initiateSpinners(){
-//		
-//	}
+	private void initiateSpinners(){
+		
+		//Setting up an array for Spinner Prompts
+		promptArray = new String[3];
+		promptArray[0] = "Choose Filter";
+		promptArray[1] = "Choose Background Color";
+		promptArray[2] = "Choose Character Color";
+		
+		filterSpinner.setPrompt(promptArray[0]);
+		bgSpinner.setPrompt(promptArray[1]);
+		charSpinner.setPrompt(promptArray[2]);
+		
+		//Creating lists of Spinner Entries
+		filterStrings = new String[] {"Ascii","Grayscale"};
+		colorStrings = new String[] {"WHITE","BLACK","GRAY","CYAN","RED","BLUE","GREEN","MAGENTA","YELLOW"};
+		filterList = Arrays.asList(filterStrings);
+		colorList = Arrays.asList(colorStrings);
+		
+		//Creating layout for spinner entries
+		filterAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, filterList);
+		filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		
+		colorAdapter = new ArrayAdapter<String>(this,
+		        android.R.layout.simple_spinner_item, colorList);
+		colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);	
+			
+		//Setting up Entries
+		filterSpinner.setAdapter(filterAdapter);
+		filterSpinner.setSelection(FILTER_DEFAULT);
+		bgSpinner.setAdapter(colorAdapter);
+		charSpinner.setAdapter(colorAdapter);
+		
+		//Defining adding value to default entry for each spinner
+		bgSpinner.setSelection(BG_DEFAULT);
+		charSpinner.setSelection(CHAR_DEFAULT);
+	}
+
 }

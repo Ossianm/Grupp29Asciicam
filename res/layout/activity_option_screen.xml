@@ -20,7 +20,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@style/AppTheme"
+    android:background="#000000"
     android:gravity="bottom"
     android:orientation="vertical" >
 	
@@ -32,7 +32,8 @@
 	    android:layout_alignParentTop="true"
 	    android:layout_centerHorizontal="true"
 	    android:layout_marginTop="20dp"
-	    android:text="@string/option_head_string" />
+	    android:text="@string/option_head_string"
+	    android:textColor="#5C4BDB" />
     	
 	<Button
         android:id="@+id/back"
@@ -48,12 +49,12 @@
 	    android:layout_alignLeft="@+id/filter_spinner"
 	    android:layout_below="@+id/option_head"
 	    android:layout_marginTop="10dp"
-	    android:text="@string/brightness_head_string" />
+	    android:text="@string/brightness_head_string"
+	    android:textColor="#5C4BDB" />
 	
 	<ImageView 
 	    android:contentDescription="@string/desc"
 	    android:id="@+id/brightness_icon"
-	    android:background="@drawable/brightness_temp"
 	    android:layout_width="30dp"
 	    android:layout_height="30dp"
 	    android:layout_below="@+id/brightness_head"
@@ -70,20 +71,21 @@
 	    android:layout_marginTop="10dp" />
 	
 	<TextView
-	    android:id="@+id/textView2"
+	    android:id="@+id/filter_head"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignLeft="@+id/filter_spinner"
 	    android:layout_below="@+id/brightness_bar"
 	    android:layout_marginTop="20dp"
-	    android:text="@string/filter_head" />
+	    android:text="@string/filter_head"
+	    android:textColor="#5C4BDB" />
 	
 	<Spinner 
 	    android:id="@+id/filter_spinner" 
 	    android:layout_width="250dp"
 	    android:layout_height="50dp"
 	    android:layout_centerHorizontal="true"
-	    android:layout_below="@+id/textView2"
+	    android:layout_below="@+id/filter_head"
 	    android:layout_marginTop="10dp" />
 	
     <TextView
@@ -94,7 +96,8 @@
 	    android:layout_below="@+id/filter_spinner"
 	    android:layout_marginTop="20dp"
 	    android:textSize="15dp"
-	    android:text="@string/colors_head" />
+	    android:text="@string/colors_head"
+	    android:textColor="#5C4BDB" />
 
 	<TextView
 	    android:id="@+id/background_head"
@@ -103,7 +106,8 @@
 	    android:layout_alignLeft="@+id/filter_spinner"
 	    android:layout_below="@+id/colors_head"
 	    android:layout_marginTop="20dp"
-	    android:text="@string/background_head" />
+	    android:text="@string/background_head"
+	    android:textColor="#5C4BDB" />
 	
 	<Spinner 
 	    android:id="@+id/background_spinner" 
@@ -120,7 +124,8 @@
 	    android:layout_alignLeft="@+id/filter_spinner"
 	    android:layout_below="@+id/background_spinner"
 	    android:layout_marginTop="10dp"
-	    android:text="@string/character_head" />
+	    android:text="@string/character_head"
+	    android:textColor="#5C4BDB" />
 	
 	<Spinner 
 	    android:id="@+id/character_spinner" 
@@ -129,5 +134,5 @@
 	    android:layout_centerHorizontal="true"
 	    android:layout_below="@+id/character_head"
 	    android:layout_marginTop="10dp" />	
-	
-</RelativeLayout>
+	    
+	</RelativeLayout>
