@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -108,7 +109,8 @@ public class PreviewScreen extends Activity {
 			e.printStackTrace();
 		}
 		//decode the bytearray to a Bitmap and set as background
-		bmp = Convert.compressPicture(picDataArray, 5);		
+		Display display = getWindowManager().getDefaultDisplay();
+		bmp = Convert.compressPicture(picDataArray, display.getHeight(), display.getWidth());		
 		setBackground(bmp);
 	}
 

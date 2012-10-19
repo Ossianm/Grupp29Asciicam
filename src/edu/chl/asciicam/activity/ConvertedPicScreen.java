@@ -13,6 +13,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -202,7 +203,8 @@ public class ConvertedPicScreen extends Activity {
 			e.printStackTrace();
 		}
 		// Decode and return the array as a bitmap
-		return Convert.compressPicture(picDataArray, 5);	
+		Display display = getWindowManager().getDefaultDisplay();
+		return Convert.compressPicture(picDataArray, display.getHeight(), display.getWidth());	
 	}
 
 	/////////////////////////////////////////
