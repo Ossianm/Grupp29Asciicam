@@ -53,24 +53,33 @@ public class BrightnessFilter implements FilterInterface{
 				G = Color.green(pixel);
 				B = Color.blue(pixel);
 
-				//Increase or decrease each color
+				//Increase or decrease each color to adjust the brightness of the pixels
 				R += brightnessValue;
-				if(R > maxValue) { R = maxValue; }
-				else if(R < minValue) { R = minValue; }
 				G += brightnessValue;
-				if(G > maxValue) { G = maxValue; }
-				else if(G < minValue) { G = minValue; }
 				B += brightnessValue;
-				if(B > maxValue) { B = maxValue; }
-				else if(B < minValue) { B = minValue; }
 				
+				if(R > maxValue){
+					R = maxValue; 
+				}else if(R < minValue){
+					R = minValue; }
+
+				if(G > maxValue){
+					G = maxValue; 
+				}else if(G < minValue){
+					G = minValue; }
+
+				if(B > maxValue){
+					B = maxValue; 
+				}else if(B < minValue){
+					B = minValue; }
+
 				//Set the recolored pixel in the same position on the new bitmap
 				bmp.setPixel(x, y, Color.argb(A, R, G, B));
 			}		
 		}
 		return bmp;
 	}
-	
+
 	/**
 	 * Set the brightness setting, between -100 and 100
 	 * @param brightness
@@ -78,7 +87,7 @@ public class BrightnessFilter implements FilterInterface{
 	public void setBrightness(float brightness){
 		this.brightnessValue = brightness;
 	}
-	
+
 	/**
 	 * Get the current brightness setting, default = 0;
 	 * @return the current brightness setting

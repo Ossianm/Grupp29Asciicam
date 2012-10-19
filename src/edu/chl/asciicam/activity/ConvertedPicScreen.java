@@ -222,23 +222,26 @@ public class ConvertedPicScreen extends Activity {
 		bmp = loadPic(); //Load the picture that should be converted
 		//Get the settings set from OptionScreen
 		filtertype = settings.getFilter();
-
+		brightness = settings.getBrightness();
+		
 		//The defaultfilter is set to AsciiFilter, filtertype should always be one of the following.
 		if(filtertype == "AsciiFilter"){
-			//bgcolor and textcolor might be used outside this "if" when another filter is using them
+			//bgcolor and textcolor might be used outside this "if" when another filter is implemented that can use them
 			bgcolor = settings.getBgColor();
 			textcolor = settings.getTextColor();
 			
+			//make a new AsciiFilter and convert the picture with the current settings
 			aFilter = new AsciiFilter();
 			aFilter.setBgColor(bgcolor);
 			aFilter.setTextColor(textcolor);
-			bmp = aFilter.convert(bmp);
+			bmp = aFilter.convert(bmp);	
 			
 		}else if(filtertype == "GrayScaleFilter"){// Check if the GrayScaleFilter should be applied
 			gFilter = new GrayScaleFilter();
-			bmp = gFilter.convert(bmp);
-		}else if(filtertype == "BrightnessFilter"){// Check if the BrightnessFilter should be applied
-			brightness = settings.getBrightness();
+			bmp = gFilter.convert(bmp);	
+		}
+		
+		if(brightness != 0){ //If brighness have been changed, apply the changes to the picture before setting it as background
 			bFilter = new BrightnessFilter();
 			bFilter.setBrightness(brightness);
 			bmp = bFilter.convert(bmp);
