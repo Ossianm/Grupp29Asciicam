@@ -56,16 +56,12 @@ public class ConvertedPicScreen extends Activity {
 	private byte[] picDataArray = null;
 	private AlertDialog dialog;
 	private Bitmap bmp;
-	//	private AsciiFilter filter;
 	private Bundle extras;
 	private String id;
 	private boolean saved = false;
 	//This should be available from OptionScreen
 	protected SettingsController settings;
 
-	//TODO REMOVE LATER
-	//	GrayScaleFilter gFilter; //This should be removed when AsciiFilter is completed
-	//	AsciiFilter filter;
 	/**
 	 * This is called automatically by the android system when the activity is started
 	 */
@@ -87,29 +83,17 @@ public class ConvertedPicScreen extends Activity {
 		initiateButtons();
 
 		extras = this.getIntent().getExtras(); //get all the extras from intent to the Bundle extras
-		id = extras.getString("id"); //loads the id to check if the picture for convertion should be loaded from gallery
+		id = extras.getString("id"); //loads the id to check if the picture for conversion should be loaded from gallery
 
 		//Call for the actual conversion to happen
 		convert();
 
-
-		//**********
-		//TODO THIS SHOULD BE REMOVED WHEN ASCIIFILTER IS DONE
-		//		gFilter = new GrayScaleFilter();
-		//		bmp = loadPic();
-		//		bmp = gFilter.convert(bmp);
-		//		setBackground(bmp);
-		//**********
-
-		//This should be used when the Asciifilter is done
-		//				bmp = loadPic(); //Load the array that was privately saved from cameraScren
-		//				bmp = filter.convert(bmp); // Convert the picture with the asciifilter
-		//				setBackground(bmp);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
+		convert();
 	}
 
 	@Override
@@ -245,7 +229,6 @@ public class ConvertedPicScreen extends Activity {
 		}else if(filtertype == "GrayScaleFilter"){
 			gFilter = new GrayScaleFilter();
 			bmp = gFilter.convert(bmp);
-
 		}		
 		setBackground(bmp);
 	}
