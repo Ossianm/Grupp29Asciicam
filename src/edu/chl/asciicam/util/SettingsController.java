@@ -38,35 +38,35 @@ public class SettingsController {
 	// Take a string and turn it to a int that can be used as a Color.CONSTANT
 	private int stringToColorConstant(String color){
 		int colorint = Color.BLACK; //Setting default color to black
-		switch(color){
-		case "BLACK":
-			colorint = Color.BLACK;
-			break;
-		case "WHITE":
-			colorint = Color.WHITE;
-			break;
-		case "GRAY":
-			colorint = Color.GRAY;
-			break;
-		case "CYAN": 
-			colorint = Color.CYAN;
-			break;
-		case "RED":
-			colorint = Color.RED;
-			break;
-		case "BLUE": 
-			colorint = Color.BLUE;
-			break;
-		case "GREEN":
-			colorint = Color.GREEN;
-			break;
-		case "MAGENTA":
-			colorint = Color.MAGENTA;
-			break;
-		case "YELLOW":
-			colorint = Color.YELLOW;
-			break;		
-		}
+//		switch(color){
+//		case "BLACK":
+//			colorint = Color.BLACK;
+//			break;
+//		case "WHITE":
+//			colorint = Color.WHITE;
+//			break;
+//		case "GRAY":
+//			colorint = Color.GRAY;
+//			break;
+//		case "CYAN": 
+//			colorint = Color.CYAN;
+//			break;
+//		case "RED":
+//			colorint = Color.RED;
+//			break;
+//		case "BLUE": 
+//			colorint = Color.BLUE;
+//			break;
+//		case "GREEN":
+//			colorint = Color.GREEN;
+//			break;
+//		case "MAGENTA":
+//			colorint = Color.MAGENTA;
+//			break;
+//		case "YELLOW":
+//			colorint = Color.YELLOW;
+//			break;		
+//		}
 		return colorint;
 	}
 	
