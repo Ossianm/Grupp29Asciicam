@@ -35,6 +35,11 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author Martin
+ *
+ */
 public class OptionScreen extends Activity {
 
 	private Button back_btn;
