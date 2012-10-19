@@ -23,13 +23,13 @@ import java.util.List;
 import edu.chl.asciicam.util.SettingsController;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
@@ -47,37 +47,41 @@ public class OptionScreen extends Activity {
 	private ArrayAdapter<String> filterAdapter, colorAdapter;
 	private static final int FILTER_DEFAULT = 0, BG_DEFAULT = 1, CHAR_DEFAULT = 0;
 	private float brightness;
-	
+	private TextView bg_head, char_head, colors_head;
+
 	protected static SettingsController settings = new SettingsController();
 
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-    	
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_option_screen);
-        
-        //Layouts
-        
-        //Views
-        brightness_icon = (ImageView) findViewById(R.id.brightness_icon);
-        
-        //Widgets
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_option_screen);
+
+		//Views
+		brightness_icon = (ImageView) findViewById(R.id.brightness_icon);
+
+		bg_head = (TextView) findViewById(R.id.background_head);
+		char_head = (TextView) findViewById(R.id.character_head);
+		colors_head = (TextView) findViewById(R.id.colors_head);
+
+		//Widgets
 		back_btn = (Button) findViewById(R.id.back);
-		
+
 		filterSpinner = (Spinner) findViewById(R.id.filter_spinner);
 		bgSpinner = (Spinner) findViewById(R.id.background_spinner);
 		charSpinner = (Spinner) findViewById(R.id.character_spinner);
-		
+
 		//Initiating objects in OptionScreen
 		initiateButtons();
 		initiateImageViews();
 		initiateSpinners();
 		initiateBrightnessBar();
-    }
 
-	
-//	This is called by to initiate the buttons and add functionality
+	}
+
+
+	//	This is called to initiate the buttons and add functionality
 	private void initiateButtons() {
 		back_btn.setOnClickListener(new View.OnClickListener() {
 
@@ -86,79 +90,171 @@ public class OptionScreen extends Activity {
 				finish();
 			}
 		});
-			
+
 	}	
-	
-	//This is called by to initiate the ImageViews
+
+	//This is called to initiate the ImageViews
 	private void initiateImageViews(){
 		brightness_icon.setBackgroundResource(R.drawable.brightness_temp);
 	}
 	
+	//This is called to initiate the BrightnessBar
 	private void initiateBrightnessBar(){
 
 		brightnessBar = (SeekBar)findViewById(R.id.brightness_bar);
 		brightnessBar.setMax(200);
 		brightnessBar.setProgress(100);
 		brightnessBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-
+			
+			//Not used
 			public void onStopTrackingTouch(SeekBar arg0) {
 				// TODO Auto-generated method stub
 
-			}		         
+			}
+			//Not used
 			public void onStartTrackingTouch(SeekBar arg0) {
 				// TODO Auto-generated method stub
 
-			}		         
+			}		  
+			
+			//Listener for brightnessBar
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-				
+
 				brightness = progress-100;
 				settings.setBrigtness(brightness);
-				
 			}
 		});
-
-
-
 	}
 	
+	//This is called to initiate the Spinners
 	private void initiateSpinners(){
-		
+
 		//Setting up an array for Spinner Prompts
 		promptArray = new String[3];
 		promptArray[0] = "Choose Filter";
 		promptArray[1] = "Choose Background Color";
 		promptArray[2] = "Choose Character Color";
-		
+
 		filterSpinner.setPrompt(promptArray[0]);
 		bgSpinner.setPrompt(promptArray[1]);
 		charSpinner.setPrompt(promptArray[2]);
-		
+
 		//Creating lists of Spinner Entries
-		filterStrings = new String[] {"AsciiFilter","GrayScale", "BrightnessFilter"};
-		colorStrings = new String[] {"WHITE","BLACK","GRAY","CYAN","RED","BLUE","GREEN","MAGENTA","YELLOW"};
+		filterStrings = new String[] {"AsciiFilter","GrayScaleFilter", "BrightnessFilter"};
+		colorStrings = new String[] {"BLACK","WHITE","GRAY","CYAN","RED","BLUE","GREEN","MAGENTA","YELLOW"};
 		filterList = Arrays.asList(filterStrings);
 		colorList = Arrays.asList(colorStrings);
-		
+
 		//Creating layout for spinner entries
 		filterAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, filterList);
 		filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		
+
 		colorAdapter = new ArrayAdapter<String>(this,
-		        android.R.layout.simple_spinner_item, colorList);
+				android.R.layout.simple_spinner_item, colorList);
 		colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);	
-			
+
 		//Setting up Entries
-		filterSpinner.setAdapter(filterAdapter);
-		filterSpinner.setSelection(FILTER_DEFAULT);
+		filterSpinner.setAdapter(filterAdapter);		
 		bgSpinner.setAdapter(colorAdapter);
 		charSpinner.setAdapter(colorAdapter);
-		
-		//Defining adding value to default entry for each spinner
+
+		//Defining value for default entry to each spinner
+		filterSpinner.setSelection(FILTER_DEFAULT);
 		bgSpinner.setSelection(BG_DEFAULT);
 		charSpinner.setSelection(CHAR_DEFAULT);
-	}
 
+		//Defining visibility for spinners and textviews
+		bgSpinner.setVisibility(View.VISIBLE);
+		bg_head.setVisibility(View.VISIBLE);
+		charSpinner.setVisibility(View.VISIBLE);
+		char_head.setVisibility(View.VISIBLE);
+		colors_head.setVisibility(View.VISIBLE);		
+
+		//Listener for filterSpinner
+		filterSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+			
+			//Called when choosing an item from filterSpinner
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				int position = filterSpinner.getSelectedItemPosition();
+				String filter = filterList.get(position);
+				settings.setFilter(filter);
+
+				if(filter.equals("GrayScaleFilter")){
+					bgSpinner.setVisibility(View.INVISIBLE);
+					bg_head.setVisibility(View.INVISIBLE);
+					charSpinner.setVisibility(View.INVISIBLE);
+					char_head.setVisibility(View.INVISIBLE);
+					colors_head.setVisibility(View.INVISIBLE);
+				}						
+				else if(filter.equals("BrightnessFilter")){
+					bgSpinner.setVisibility(View.INVISIBLE);
+					bg_head.setVisibility(View.INVISIBLE);
+					charSpinner.setVisibility(View.INVISIBLE);
+					char_head.setVisibility(View.INVISIBLE);
+					colors_head.setVisibility(View.INVISIBLE);
+					brightnessBar.setVisibility(View.VISIBLE);
+				}
+				else{
+					bgSpinner.setVisibility(View.VISIBLE);
+					bg_head.setVisibility(View.VISIBLE);
+					charSpinner.setVisibility(View.VISIBLE);
+					char_head.setVisibility(View.VISIBLE);
+					colors_head.setVisibility(View.VISIBLE);
+				}
+
+			}
+
+			//Not used
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		//Listener for backgroundSpinner
+		bgSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+			
+			//Called when choosing an item from bgSpinner
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				int position = bgSpinner.getSelectedItemPosition();
+
+				settings.setBgColor(position);				
+			}
+
+			//Not used
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+
+		//Listener for characterSpinner
+		charSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+			
+			//Called when choosing an item from charSpinner
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				int position = charSpinner.getSelectedItemPosition();
+
+				settings.setTextColor(position);				
+			}
+
+			//Not used
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+			}
+
+		});
+	}
+	
+	/**
+	 * Retrieving settings from OptionScreen
+	 * @return the current settings
+	 */
 	public static SettingsController getSettings(){
 		return settings;
 	}
