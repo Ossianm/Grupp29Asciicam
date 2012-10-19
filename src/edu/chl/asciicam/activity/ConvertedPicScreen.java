@@ -186,14 +186,14 @@ public class ConvertedPicScreen extends Activity {
 	 */
 	private Bitmap loadPic(){
 		//Check if picture should be loaded from the gallery or if it's picture taken with the application 
+		Display display = getWindowManager().getDefaultDisplay();
 		if(id.equals("loaded")){
 			//Get the filepath and make a bitmap to return
 			String filePath = extras.getString("filePath");
 			if(filePath != null){
-				BitmapFactory.Options options = new BitmapFactory.Options();
-				options.inSampleSize = 4;
-				bmp = (Bitmap) BitmapFactory.decodeFile(filePath, options);
-				return bmp;
+				//display.getheight() and width is deprecated, but we need them to maintain backwards compatability
+				//for API 8 phones.
+				return Convert.compressPictureFromFile(filePath, display.getHeight(), display.getWidth());
 			}
 		}	
 
@@ -203,7 +203,6 @@ public class ConvertedPicScreen extends Activity {
 			e.printStackTrace();
 		}
 		// Decode and return the array as a bitmap
-		Display display = getWindowManager().getDefaultDisplay();
 		//display.getheight() and width is deprecated, but we need them to maintain backwards compatability
 		//for API 8 phones.
 		return Convert.compressPicture(picDataArray, display.getHeight(), display.getWidth());	

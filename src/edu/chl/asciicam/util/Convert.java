@@ -70,6 +70,20 @@ public class Convert{
 
 	}
 	
+	public static Bitmap compressPictureFromFile(String filePath, int height, int width){
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		//Lets us get image size without actually creating the image.
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filePath, options);
+		int imageHeight = options.outHeight;
+		int imageWidth = options.outWidth;
+		//Sample size if the factor to scale down bitmap with to fit view.
+		options.inSampleSize = calculateInSampleSize(imageHeight, imageWidth, height, width);
+		options.inJustDecodeBounds = false;
+		
+		return BitmapFactory.decodeFile(filePath, options);
+	}
+	
 	/**
 	 * Converts a given array to a Bitmap and returns the result as a compressed bitmap. Does not change the 
 	 * byte array. This should be used for bitmaps to be displayed on screen.
