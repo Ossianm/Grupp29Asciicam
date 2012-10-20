@@ -27,7 +27,7 @@ public class SettingsController {
 	
 	private String filter = "AsciiFilter"; //Setting AsciiFilter as default
 	private int bgColor = Color.WHITE, textColor = Color.BLACK; //Setting the default colors
-	private int bgPos = bgColor, textPos = textColor, filterPos = 0; //Variables to return the position of the current color for bg and text and filter
+	private int bgPos = 0, textPos = 1, filterPos = 0; //Variables to return the position of the current color for bg and text and filter
 	private int brightnessPos = 100; // THe default position should be 100, this position is equal to a brighntessvalue of 0
 	private float brightnessValue = 0; //Setting 0 as default brightness
 	
@@ -83,6 +83,16 @@ public class SettingsController {
 			filter = "GrayscaleFilter";
 		}
 			
+	}
+	
+	/**
+	 * Reset the settings to default
+	 */
+	public void resetToDefault(){
+		bgColor = 0;
+		textPos = 1;
+		filterPos = 0; 
+		brightnessPos = 100;
 	}
 	
 	//////////////////////////
