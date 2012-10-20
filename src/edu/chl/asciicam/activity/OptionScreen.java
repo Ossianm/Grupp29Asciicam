@@ -44,7 +44,7 @@ import android.widget.TextView;
  */
 public class OptionScreen extends Activity {
 
-	private Button back_btn;
+	private Button back_btn, reset_btn, apply_btn;
 	private SeekBar brightnessBar, densityBar;
 	private Spinner filterSpinner, bgSpinner, charSpinner;
 	private List<String> filterList, colorList;
@@ -79,6 +79,8 @@ public class OptionScreen extends Activity {
 
 		//Widgets
 		back_btn = (Button) findViewById(R.id.back);
+		reset_btn = (Button) findViewById(R.id.reset);
+		apply_btn = (Button) findViewById(R.id.apply);
 
 		filterSpinner = (Spinner) findViewById(R.id.filter_spinner);
 		bgSpinner = (Spinner) findViewById(R.id.background_spinner);
@@ -108,6 +110,16 @@ public class OptionScreen extends Activity {
 				finish();
 			}
 		});
+		
+		reset_btn.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				settings.resetToDefault();
+				initiateViews();
+				initiateSpinners();
+				initiateSeekBars();
+			}
+		});
 
 	}	
 
@@ -123,13 +135,9 @@ public class OptionScreen extends Activity {
 
 			//Not used
 			public void onStopTrackingTouch(SeekBar arg0) {
-				// TODO Auto-generated method stub
-
 			}
 			//Not used
 			public void onStartTrackingTouch(SeekBar arg0) {
-				// TODO Auto-generated method stub
-
 			}		  
 
 			//Listener for brightnessBar
