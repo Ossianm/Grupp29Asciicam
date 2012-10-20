@@ -231,6 +231,7 @@ public class ConvertedPicScreen extends Activity {
 			
 			//make a new AsciiFilter and convert the picture with the current settings
 			aFilter = new AsciiFilter();
+			aFilter.setCompression(settings.getCompression());
 			aFilter.setBgColor(bgcolor);
 			aFilter.setTextColor(textcolor);
 			bmp = aFilter.convert(bmp);	

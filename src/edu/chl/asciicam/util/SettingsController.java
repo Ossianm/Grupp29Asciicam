@@ -28,7 +28,7 @@ public class SettingsController {
 	private String filter = "AsciiFilter"; //Setting AsciiFilter as default
 	private int bgColor = Color.WHITE, textColor = Color.BLACK; //Setting the default colors
 	private int bgPos = 1, textPos = 0, filterPos = 0; //Variables to return the position of the current color for bg and text and filter
-	private int brightnessPos = 100; // THe default position should be 100, this position is equal to a brighntessvalue of 0
+	private int compression = 6; //The default compression is set to 6, this is the number of pixels to check before checking again during asciiconversion
 	private float brightnessValue = 0; //Setting 0 as default brightness
 	
 	/**
@@ -94,7 +94,8 @@ public class SettingsController {
 		bgPos = 1;
 		textPos = 0;
 		filterPos = 0; 
-		brightnessPos = 100;
+		brightnessValue = 0;
+		compression = 6;
 	}
 	
 	//////////////////////////
@@ -131,9 +132,17 @@ public class SettingsController {
 	 * Sets the brightness value that should be used
 	 * @param brightness
 	 */
-	public void setBrigtness(float brightness){		
+	public void setBrightness(float brightness){		
 		this.brightnessValue = brightness;
-		brightnessPos = (int) brightness + 100;
+	}
+
+	
+	/**
+	 * Sets the compress value that should be used
+	 * @param compression
+	 */
+	public void setCompression(int compression){
+		this.compression = compression;
 	}
 	
 	/**
@@ -195,10 +204,17 @@ public class SettingsController {
 	 * Get the position of the current brightness
 	 * @return the curent position of the brightnessbar according to the value
 	 */
-	public int getBrightnessPos(){
-		return brightnessPos;
+	
+	/**
+	 * Get the current compressionsetting
+	 * @return the current compressionvalue
+	 */
+	public int getCompression(){
+		return compression;
 	}
 	
-	
+	/**
+	 * 
+	 */
 	
 }

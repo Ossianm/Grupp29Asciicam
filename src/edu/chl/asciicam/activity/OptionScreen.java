@@ -53,7 +53,7 @@ public class OptionScreen extends Activity {
 	private ArrayAdapter<String> filterAdapter, colorAdapter;
 	private float brightness;
 	private TextView bg_head, char_head, colors_head, brightness_value, density_value;
-
+	private int bgPos, textPos, filterPos, density;
 	protected static SettingsController settings = new SettingsController();
 	protected static AsciiFilter asciiFilter = new AsciiFilter();
 
@@ -97,8 +97,8 @@ public class OptionScreen extends Activity {
 	// This is called to initiate the views that adjusted by java
 	private void initiateViews(){
 		//Default brightness and density values
-		brightness_value.setText(""+settings.getBrightnessPos());
-		density_value.setText(""+asciiFilter.getCompression());
+		brightness_value.setText(""+settings.getBrightness());
+		density_value.setText(""+settings.getCompression());
 	}
 
 	//	This is called to initiate the buttons and add functionality
@@ -120,6 +120,14 @@ public class OptionScreen extends Activity {
 				initiateSeekBars();
 			}
 		});
+		
+		apply_btn.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				applySettings();
+				finish();
+			}
+		});
 
 	}	
 
@@ -130,7 +138,7 @@ public class OptionScreen extends Activity {
 		brightnessBar = (SeekBar)findViewById(R.id.brightness_bar);
 		brightnessBar.setMax(200);
 		//Set the brightnessbar according to the current brightnessvalue, default is 100 (middle of the bar)
-		brightnessBar.setProgress(settings.getBrightnessPos());
+		brightnessBar.setProgress((int) settings.getBrightness()+100);
 		brightnessBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			//Not used
@@ -144,35 +152,29 @@ public class OptionScreen extends Activity {
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 				//Brightnessvalue can vary between -100 and 100
 				brightness = progress-100;
-				settings.setBrigtness(brightness);
-				brightness_value.setText(""+settings.getBrightnessPos());
+				brightness_value.setText(""+brightness);
 			}
 		});
 
 		//Initiating the Densitybar
 		densityBar = (SeekBar)findViewById(R.id.density_bar);
 		densityBar.setMax(15);
-		//Set the densitybar according to the current densityvalue, default is 7
-		densityBar.setProgress(asciiFilter.getCompression());
+		//Set the densitybar according to the current densityvalue, default is 6
+		densityBar.setProgress(settings.getCompression()-5); //TODO change this when density is implemented in settingscontroller
 		densityBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			//Not used
 			public void onStopTrackingTouch(SeekBar arg0) {
-				// TODO Auto-generated method stub
-
 			}
 			//Not used
 			public void onStartTrackingTouch(SeekBar arg0) {
-				// TODO Auto-generated method stub
-
 			}		  
 
 			//Listener for densityBar
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 				//densityvalue can vary between 5 and 20
-				int density = progress+5;
-				asciiFilter.setCompression(density);
-				density_value.setText(""+asciiFilter.getCompression());
+				density = progress+5;				
+				density_value.setText(""+density);
 			}
 		});
 	}
@@ -213,9 +215,7 @@ public class OptionScreen extends Activity {
 		//Defining value for default entry to each spinner
 		//And set the last settings used if returning to optionscreen again
 		filterSpinner.setSelection(settings.getFilterPos());
-		System.out.println("teeeestststtsstttttttttttttttttt1-"+settings.getBgPos());
 		bgSpinner.setSelection(settings.getBgPos());
-		System.out.println("teeeestststtsstttttttttttttttttt2-"+settings.getBgPos());
 		charSpinner.setSelection(settings.getTextPos());
 
 		//Defining visibility for spinners and textviews
@@ -231,9 +231,9 @@ public class OptionScreen extends Activity {
 			//Called when choosing an item from filterSpinner
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				int position = filterSpinner.getSelectedItemPosition();
-				String filter = filterList.get(position);
-				settings.setFilter(position);
+				filterPos = filterSpinner.getSelectedItemPosition();
+				String filter = filterList.get(filterPos);
+				
 
 				if(filter.equals("GrayscaleFilter")){
 					bgSpinner.setVisibility(View.INVISIBLE);
@@ -254,8 +254,6 @@ public class OptionScreen extends Activity {
 
 			//Not used
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 
@@ -265,19 +263,12 @@ public class OptionScreen extends Activity {
 			//Called when choosing an item from bgSpinner
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				System.out.println("1"+bgSpinner.getSelectedItemPosition());
-				int position = bgSpinner.getSelectedItemPosition();
-				System.out.println("teeeestststtsstttttttttttttttttt5-"+settings.getBgPos());
-				System.out.println("2"+position);
-				settings.setBgColor(position);
-				System.out.println("3"+position);
-				System.out.println("teeeestststtsstttttttttttttttttt6-"+settings.getBgPos());
+				bgPos = bgSpinner.getSelectedItemPosition();
 			}
 
 			//Not used
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-
+				
 			}
 
 		});
@@ -288,18 +279,25 @@ public class OptionScreen extends Activity {
 			//Called when choosing an item from charSpinner
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				int position = charSpinner.getSelectedItemPosition();
-				settings.setTextColor(position);				
+				textPos = charSpinner.getSelectedItemPosition();				
 			}
 
 			//Not used
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
 			}
 
 		});
 	}
 
+	//Called to apply the changes chosen with the widgets to the settingscontroller
+	private void applySettings(){
+		settings.setBgColor(bgPos);
+		settings.setTextColor(textPos);
+		settings.setFilter(filterPos); 
+		settings.setBrightness(brightness);
+		settings.setCompression(density);
+	}
+	
 	/**
 	 * Retrieving settings from OptionScreen
 	 * @return the current settings
