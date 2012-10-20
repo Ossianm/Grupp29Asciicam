@@ -27,7 +27,10 @@ public class SettingsController {
 	
 	private String filter = "AsciiFilter"; //Setting AsciiFilter as default
 	private int bgColor = Color.WHITE, textColor = Color.BLACK; //Setting the default colors
+	private int bgPos = bgColor, textPos = textColor, filterPos = 0; //Variables to return the position of the current color for bg and text and filter
+	private int brightnessPos = 100; // THe default position should be 100, this position is equal to a brighntessvalue of 0
 	private float brightnessValue = 0; //Setting 0 as default brightness
+	
 	/**
 	 * Default constructor
 	 */
@@ -71,6 +74,17 @@ public class SettingsController {
 		return colorC;
 	}
 	
+	private void indexToFilter(int index){
+		switch(index){
+		case 0:
+			filter = "AsciiFilter";
+			break;
+		case 1:
+			filter = "GrayscaleFilter";
+		}
+			
+	}
+	
 	//////////////////////////
 	// Setters and getters  //
 	//////////////////////////
@@ -80,6 +94,7 @@ public class SettingsController {
 	 */
 	public void setBgColor(int index){
 		bgColor = indexToColorConstant(index);
+		bgPos = index;
 	}
 	
 	/**
@@ -88,14 +103,16 @@ public class SettingsController {
 	 */
 	public void setTextColor(int index){
 		textColor = indexToColorConstant(index);
+		textPos = index;
 	}
 	
 	/**
 	 * Sets the filter that should be used
 	 * @param filter
 	 */
-	public void setFilter(String filter){
-		this.filter = filter;
+	public void setFilter(int index){
+		indexToFilter(index);
+		filterPos = index;
 	}
 	
 	/**
@@ -104,6 +121,7 @@ public class SettingsController {
 	 */
 	public void setBrigtness(float brightness){		
 		this.brightnessValue = brightness;
+		brightnessPos = (int) brightness + 100;
 	}
 	
 	/**
@@ -138,7 +156,36 @@ public class SettingsController {
 		return brightnessValue;
 	}
 	
+	/**
+	 * Get the position for the current background color
+	 * @return the position of the current background color
+	 */
+	public int getBgPos(){
+		return bgPos;
+	}
+	/**
+	 * Get the position of the current text color
+	 * @return the position of the current color of the text	
+	 */
+	public int getTextPos(){
+		return textPos;
+	}
 	
+	/**
+	 * Get the position of the current active filter
+	 * @return the position of the current filter
+	 */
+	public int getFilterPos(){
+		return filterPos;
+	}
+	
+	/**
+	 * Get the position of the current brightness
+	 * @return the curent position of the brightnessbar according to the value
+	 */
+	public int getBrightnessPos(){
+		return brightnessPos;
+	}
 	
 	
 	

@@ -52,7 +52,6 @@ public class OptionScreen extends Activity {
 	private String[] colorStrings, filterStrings;
 	private CharSequence promptArray[];
 	private ArrayAdapter<String> filterAdapter, colorAdapter;
-	private static final int FILTER_DEFAULT = 0, BG_DEFAULT = 1, CHAR_DEFAULT = 0;
 	private float brightness;
 	private TextView bg_head, char_head, colors_head;
 
@@ -116,7 +115,8 @@ public class OptionScreen extends Activity {
 
 		brightnessBar = (SeekBar)findViewById(R.id.brightness_bar);
 		brightnessBar.setMax(200);
-		brightnessBar.setProgress(100);
+		//Set the brightnessbar according to the current brightnessvalue, default is 100 (middle of the bar)
+		brightnessBar.setProgress(settings.getBrightnessPos()); 
 		brightnessBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			//Not used
@@ -132,7 +132,7 @@ public class OptionScreen extends Activity {
 			
 			//Listener for brightnessBar
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-
+				//Brightnessvalue can vary between -100 and 100
 				brightness = progress-100;
 				settings.setBrigtness(brightness);
 			}
@@ -153,7 +153,7 @@ public class OptionScreen extends Activity {
 		charSpinner.setPrompt(promptArray[2]);
 
 		//Creating lists of Spinner Entries
-		filterStrings = new String[] {"AsciiFilter","GrayScaleFilter"};
+		filterStrings = new String[] {"AsciiFilter","GrayscaleFilter"};
 		colorStrings = new String[] {"BLACK","WHITE","GRAY","CYAN","RED","BLUE","GREEN","MAGENTA","YELLOW"};
 		filterList = Arrays.asList(filterStrings);
 		colorList = Arrays.asList(colorStrings);
@@ -173,9 +173,10 @@ public class OptionScreen extends Activity {
 		charSpinner.setAdapter(colorAdapter);
 
 		//Defining value for default entry to each spinner
-		filterSpinner.setSelection(FILTER_DEFAULT);
-		bgSpinner.setSelection(BG_DEFAULT);
-		charSpinner.setSelection(CHAR_DEFAULT);
+		//And set the last settings used if returning to optionscreen again
+		filterSpinner.setSelection(settings.getFilterPos());
+		bgSpinner.setSelection(settings.getBgPos());
+		charSpinner.setSelection(settings.getTextPos());
 
 		//Defining visibility for spinners and textviews
 		bgSpinner.setVisibility(View.VISIBLE);
@@ -192,9 +193,9 @@ public class OptionScreen extends Activity {
 					int arg2, long arg3) {
 				int position = filterSpinner.getSelectedItemPosition();
 				String filter = filterList.get(position);
-				settings.setFilter(filter);
+				settings.setFilter(position);
 
-				if(filter.equals("GrayScaleFilter")){
+				if(filter.equals("GrayscaleFilter")){
 					bgSpinner.setVisibility(View.INVISIBLE);
 					bg_head.setVisibility(View.INVISIBLE);
 					charSpinner.setVisibility(View.INVISIBLE);
