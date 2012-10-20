@@ -35,6 +35,7 @@
     <string name="title_activity_option_screen">OptionScreen</string>
     <string name="option_head_string">Options</string>
     <string name="brightness_head_string">Brightness</string>
+    <string name="density_head_string">Particle Density</string>
     <string name="filter_head">Filter</string>
     <string name="colors_head">Colors</string>
     <string name="background_head">Background</string>

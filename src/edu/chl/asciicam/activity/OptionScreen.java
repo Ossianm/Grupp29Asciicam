@@ -20,6 +20,7 @@ package edu.chl.asciicam.activity;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.chl.asciicam.filter.AsciiFilter;
 import edu.chl.asciicam.util.SettingsController;
 
 import android.app.Activity;
@@ -31,7 +32,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
@@ -45,37 +45,37 @@ import android.widget.TextView;
 public class OptionScreen extends Activity {
 
 	private Button back_btn;
-	private ImageView brightness_icon;
-	private SeekBar brightnessBar;
+	private SeekBar brightnessBar, densityBar;
 	private Spinner filterSpinner, bgSpinner, charSpinner;
 	private List<String> filterList, colorList;
 	private String[] colorStrings, filterStrings;
 	private CharSequence promptArray[];
 	private ArrayAdapter<String> filterAdapter, colorAdapter;
 	private float brightness;
-	private TextView bg_head, char_head, colors_head;
+	private TextView bg_head, char_head, colors_head, brightness_value, density_value;
 
 	protected static SettingsController settings = new SettingsController();
+	protected static AsciiFilter asciiFilter = new AsciiFilter();
 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		
+
 		//Set fullscreen, must be before setContent!
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);	
-		
+
 		setContentView(R.layout.activity_option_screen);
 
 		//Views
-		brightness_icon = (ImageView) findViewById(R.id.brightness_icon);
-
 		bg_head = (TextView) findViewById(R.id.background_head);
 		char_head = (TextView) findViewById(R.id.character_head);
 		colors_head = (TextView) findViewById(R.id.colors_head);
+		brightness_value = (TextView) findViewById(R.id.brightness_value);
+		density_value = (TextView) findViewById(R.id.density_value);	
 
 		//Widgets
 		back_btn = (Button) findViewById(R.id.back);
@@ -85,13 +85,19 @@ public class OptionScreen extends Activity {
 		charSpinner = (Spinner) findViewById(R.id.character_spinner);
 
 		//Initiating objects in OptionScreen
+		initiateViews();
 		initiateButtons();
-		initiateImageViews();
 		initiateSpinners();
-		initiateBrightnessBar();
+		initiateSeekBars();
 
 	}
 
+	// This is called to initiate the views that adjusted by java
+	private void initiateViews(){
+		//Default brightness and density values
+		brightness_value.setText(""+settings.getBrightnessPos());
+		density_value.setText(""+asciiFilter.getCompression());
+	}
 
 	//	This is called to initiate the buttons and add functionality
 	private void initiateButtons() {
@@ -105,20 +111,16 @@ public class OptionScreen extends Activity {
 
 	}	
 
-	//This is called to initiate the ImageViews
-	private void initiateImageViews(){
-		brightness_icon.setBackgroundResource(R.drawable.brightness_temp);
-	}
-	
-	//This is called to initiate the BrightnessBar
-	private void initiateBrightnessBar(){
+	//This is called to initiate the Seekbars
+	private void initiateSeekBars(){
 
+		// nitiating Brightnessbar		
 		brightnessBar = (SeekBar)findViewById(R.id.brightness_bar);
 		brightnessBar.setMax(200);
 		//Set the brightnessbar according to the current brightnessvalue, default is 100 (middle of the bar)
-		brightnessBar.setProgress(settings.getBrightnessPos()); 
+		brightnessBar.setProgress(settings.getBrightnessPos());
 		brightnessBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-			
+
 			//Not used
 			public void onStopTrackingTouch(SeekBar arg0) {
 				// TODO Auto-generated method stub
@@ -129,16 +131,44 @@ public class OptionScreen extends Activity {
 				// TODO Auto-generated method stub
 
 			}		  
-			
+
 			//Listener for brightnessBar
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 				//Brightnessvalue can vary between -100 and 100
 				brightness = progress-100;
 				settings.setBrigtness(brightness);
+				brightness_value.setText(""+settings.getBrightnessPos());
+			}
+		});
+
+		//Initiating the Densitybar
+		densityBar = (SeekBar)findViewById(R.id.density_bar);
+		densityBar.setMax(15);
+		//Set the densitybar according to the current densityvalue, default is 7
+		densityBar.setProgress(asciiFilter.getCompression());
+		densityBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+
+			//Not used
+			public void onStopTrackingTouch(SeekBar arg0) {
+				// TODO Auto-generated method stub
+
+			}
+			//Not used
+			public void onStartTrackingTouch(SeekBar arg0) {
+				// TODO Auto-generated method stub
+
+			}		  
+
+			//Listener for densityBar
+			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+				//densityvalue can vary between 5 and 20
+				int density = progress+5;
+				asciiFilter.setCompression(density);
+				density_value.setText(""+asciiFilter.getCompression());
 			}
 		});
 	}
-	
+
 	//This is called to initiate the Spinners
 	private void initiateSpinners(){
 
@@ -175,7 +205,9 @@ public class OptionScreen extends Activity {
 		//Defining value for default entry to each spinner
 		//And set the last settings used if returning to optionscreen again
 		filterSpinner.setSelection(settings.getFilterPos());
+		System.out.println("teeeestststtsstttttttttttttttttt1-"+settings.getBgPos());
 		bgSpinner.setSelection(settings.getBgPos());
+		System.out.println("teeeestststtsstttttttttttttttttt2-"+settings.getBgPos());
 		charSpinner.setSelection(settings.getTextPos());
 
 		//Defining visibility for spinners and textviews
@@ -187,7 +219,7 @@ public class OptionScreen extends Activity {
 
 		//Listener for filterSpinner
 		filterSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-			
+
 			//Called when choosing an item from filterSpinner
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
@@ -221,13 +253,17 @@ public class OptionScreen extends Activity {
 
 		//Listener for backgroundSpinner
 		bgSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-			
+
 			//Called when choosing an item from bgSpinner
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				System.out.println("1"+bgSpinner.getSelectedItemPosition());
 				int position = bgSpinner.getSelectedItemPosition();
-
-				settings.setBgColor(position);				
+				System.out.println("teeeestststtsstttttttttttttttttt5-"+settings.getBgPos());
+				System.out.println("2"+position);
+				settings.setBgColor(position);
+				System.out.println("3"+position);
+				System.out.println("teeeestststtsstttttttttttttttttt6-"+settings.getBgPos());
 			}
 
 			//Not used
@@ -240,12 +276,11 @@ public class OptionScreen extends Activity {
 
 		//Listener for characterSpinner
 		charSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-			
+
 			//Called when choosing an item from charSpinner
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				int position = charSpinner.getSelectedItemPosition();
-
 				settings.setTextColor(position);				
 			}
 
@@ -256,12 +291,20 @@ public class OptionScreen extends Activity {
 
 		});
 	}
-	
+
 	/**
 	 * Retrieving settings from OptionScreen
 	 * @return the current settings
 	 */
 	public static SettingsController getSettings(){
 		return settings;
+	}
+
+	/**
+	 * Retrieving density from OptionScreen
+	 * @return the current asciiFilter
+	 */
+	public static AsciiFilter getDensity(){
+		return asciiFilter;
 	}
 }
