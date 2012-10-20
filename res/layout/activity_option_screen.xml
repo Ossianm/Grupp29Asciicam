@@ -44,6 +44,25 @@
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"   />
 
+	<!-- Resetbutton -->
+	<Button
+        android:id="@+id/reset"
+        android:background="@drawable/custom_reset"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"   />
+	
+	<!-- Applybutton -->	
+	<Button
+        android:id="@+id/apply"
+        android:background="@drawable/custom_apply"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/reset"
+        android:layout_marginLeft="40dp"  />
+	
 	<!-- Brightness Textview -->
 	<TextView
 	    android:id="@+id/brightness_head"
