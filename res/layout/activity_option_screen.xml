@@ -24,6 +24,7 @@
     android:gravity="bottom"
     android:orientation="vertical" >
 	
+    <!-- Options Textview -->
     <TextView
 	    android:id="@+id/option_head"
 	    android:layout_width="wrap_content"
@@ -31,108 +32,150 @@
 	    android:textSize="20dp"
 	    android:layout_alignParentTop="true"
 	    android:layout_centerHorizontal="true"
-	    android:layout_marginTop="20dp"
+	    android:layout_marginTop="10dp"
 	    android:text="@string/option_head_string"
 	    android:textColor="#5C4BDB" />
-    	
+    
+    <!-- Backbutton -->	
 	<Button
         android:id="@+id/back"
         android:background="@drawable/custom_back"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"   />
-	
+
+	<!-- Brightness Textview -->
 	<TextView
 	    android:id="@+id/brightness_head"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignLeft="@+id/filter_spinner"
 	    android:layout_below="@+id/option_head"
-	    android:layout_marginTop="10dp"
+	    android:layout_marginTop="5dp"
 	    android:text="@string/brightness_head_string"
 	    android:textColor="#5C4BDB" />
 	
-	<ImageView 
-	    android:contentDescription="@string/desc"
-	    android:id="@+id/brightness_icon"
-	    android:layout_width="30dp"
-	    android:layout_height="30dp"
-	    android:layout_below="@+id/brightness_head"
-	    android:layout_marginTop="10dp"
-	    android:layout_marginLeft="50dp" />
 	
+	<!-- Brightness value -->
+		<TextView
+	    android:id="@+id/brightness_value"
+	    android:layout_width="40dp"
+	    android:layout_height="20dp"
+	    android:layout_marginTop="72dp"
+	    android:layout_marginLeft="17dp"
+	    android:layout_toRightOf="@+id/option_head"
+	    android:textColor="#5C4BDB" />
+	
+	<!-- Brightnessbar -->	
 	<SeekBar
 	    android:id="@+id/brightness_bar"
 	    android:layout_width="160dp"
 	    android:layout_height="30dp"
-	    android:layout_toRightOf="@+id/brightness_icon"
+	    android:layout_alignLeft="@+id/filter_spinner"
 	    android:layout_below="@+id/brightness_head"
-	    android:layout_marginLeft="20dp"
-	    android:layout_marginTop="10dp" />
+	    android:layout_marginTop="5dp" />
 	
+		<!-- Density Textview -->
+	<TextView
+	    android:id="@+id/density_head"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/filter_spinner"
+	    android:layout_below="@+id/brightness_bar"
+	    android:layout_marginTop="5dp"
+	    android:text="@string/density_head_string"
+	    android:textColor="#5C4BDB" />
+	
+	<!-- Density value -->
+		<TextView
+	    android:id="@+id/density_value"
+	    android:layout_width="40dp"
+	    android:layout_height="20dp"
+	    android:layout_below="@+id/brightness_value"
+	    android:layout_marginTop="40dp"
+	    android:layout_marginLeft="17dp"
+	    android:layout_toRightOf="@+id/option_head"
+	    android:textColor="#5C4BDB" />
+	
+	<!-- Densitybar -->	
+	<SeekBar
+	    android:id="@+id/density_bar"
+	    android:layout_width="160dp"
+	    android:layout_height="30dp"
+	    android:layout_alignLeft="@+id/filter_spinner"
+	    android:layout_below="@+id/density_head"
+	    android:layout_marginTop="5dp" />
+
+	<!-- Filter TextView -->
 	<TextView
 	    android:id="@+id/filter_head"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignLeft="@+id/filter_spinner"
-	    android:layout_below="@+id/brightness_bar"
-	    android:layout_marginTop="20dp"
+	    android:layout_below="@+id/density_bar"
+	    android:layout_marginTop="5dp"
 	    android:text="@string/filter_head"
 	    android:textColor="#5C4BDB" />
 	
+	<!-- Filter Spinner -->
 	<Spinner 
 	    android:id="@+id/filter_spinner" 
 	    android:layout_width="250dp"
 	    android:layout_height="50dp"
 	    android:layout_centerHorizontal="true"
 	    android:layout_below="@+id/filter_head"
-	    android:layout_marginTop="10dp" />
+	    android:layout_marginTop="5dp" />
 	
+	<!-- Colors Textview -->
     <TextView
 	    android:id="@+id/colors_head"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_centerHorizontal="true"
 	    android:layout_below="@+id/filter_spinner"
-	    android:layout_marginTop="20dp"
+	    android:layout_marginTop="10dp"
 	    android:textSize="15dp"
 	    android:text="@string/colors_head"
 	    android:textColor="#5C4BDB" />
-
+	
+    <!-- Background Textview -->
 	<TextView
 	    android:id="@+id/background_head"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignLeft="@+id/filter_spinner"
 	    android:layout_below="@+id/colors_head"
-	    android:layout_marginTop="20dp"
+	    android:layout_marginTop="5dp"
 	    android:text="@string/background_head"
 	    android:textColor="#5C4BDB" />
 	
+	<!-- Background Spinner -->
 	<Spinner 
 	    android:id="@+id/background_spinner" 
 	    android:layout_width="250dp"
 	    android:layout_height="50dp"
 	    android:layout_centerHorizontal="true"
 	    android:layout_below="@+id/background_head"
-	    android:layout_marginTop="10dp" />
+	    android:layout_marginTop="5dp" />
 	
+	<!-- Character Head -->
 	<TextView
 	    android:id="@+id/character_head"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignLeft="@+id/filter_spinner"
 	    android:layout_below="@+id/background_spinner"
-	    android:layout_marginTop="10dp"
+	    android:layout_marginTop="5dp"
 	    android:text="@string/character_head"
 	    android:textColor="#5C4BDB" />
 	
+	<!-- Character Spinner -->
 	<Spinner 
 	    android:id="@+id/character_spinner" 
 	    android:layout_width="250dp"
 	    android:layout_height="50dp"
 	    android:layout_centerHorizontal="true"
 	    android:layout_below="@+id/character_head"
-	    android:layout_marginTop="10dp" />	
+	    android:layout_marginTop="5dp" />	
 	    
 	</RelativeLayout>

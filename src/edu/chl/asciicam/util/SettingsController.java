@@ -27,7 +27,11 @@ public class SettingsController {
 	
 	private String filter = "AsciiFilter"; //Setting AsciiFilter as default
 	private int bgColor = Color.WHITE, textColor = Color.BLACK; //Setting the default colors
+<<<<<<< HEAD
 	private int bgPos = 0, textPos = 1, filterPos = 0; //Variables to return the position of the current color for bg and text and filter
+=======
+	private int bgPos = 1, textPos = 0, filterPos = 0; //Variables to return the position of the current color for bg and text and filter
+>>>>>>> 4a5171f2576b01fba8a0d3ec0c3365c76493c729
 	private int brightnessPos = 100; // THe default position should be 100, this position is equal to a brighntessvalue of 0
 	private float brightnessValue = 0; //Setting 0 as default brightness
 	
