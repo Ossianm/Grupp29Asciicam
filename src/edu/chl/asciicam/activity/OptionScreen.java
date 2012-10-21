@@ -69,7 +69,7 @@ public class OptionScreen extends Activity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);	
 
 		setContentView(R.layout.activity_option_screen);
-
+		
 		//Views
 		bg_head = (TextView) findViewById(R.id.background_head);
 		char_head = (TextView) findViewById(R.id.character_head);
@@ -133,12 +133,16 @@ public class OptionScreen extends Activity {
 
 	//This is called to initiate the Seekbars
 	private void initiateSeekBars(){
-
+		
+		//Give brightness and density the current values, even if the bar is not changed
+		brightness = settings.getBrightness();
+		density = settings.getCompression();
+		
 		// nitiating Brightnessbar		
 		brightnessBar = (SeekBar)findViewById(R.id.brightness_bar);
 		brightnessBar.setMax(200);
 		//Set the brightnessbar according to the current brightnessvalue, default is 100 (middle of the bar)
-		brightnessBar.setProgress((int) settings.getBrightness()+100);
+		brightnessBar.setProgress((int) brightness+100);
 		brightnessBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			//Not used
@@ -160,7 +164,7 @@ public class OptionScreen extends Activity {
 		densityBar = (SeekBar)findViewById(R.id.density_bar);
 		densityBar.setMax(15);
 		//Set the densitybar according to the current densityvalue, default is 6
-		densityBar.setProgress(settings.getCompression()-5); //TODO change this when density is implemented in settingscontroller
+		densityBar.setProgress(density-5); 
 		densityBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			//Not used
@@ -173,6 +177,7 @@ public class OptionScreen extends Activity {
 			//Listener for densityBar
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 				//densityvalue can vary between 5 and 20
+				
 				density = progress+5;				
 				density_value.setText(""+density);
 			}
@@ -296,6 +301,8 @@ public class OptionScreen extends Activity {
 		settings.setFilter(filterPos); 
 		settings.setBrightness(brightness);
 		settings.setCompression(density);
+//		System.out.println("brightness:" + brightness);
+
 	}
 	
 	/**

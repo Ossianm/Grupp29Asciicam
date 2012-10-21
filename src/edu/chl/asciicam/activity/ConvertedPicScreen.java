@@ -211,7 +211,7 @@ public class ConvertedPicScreen extends Activity {
 	// Get the current options and convert //
 	/////////////////////////////////////////
 	private void convert(){
-		int bgcolor, textcolor; 
+		int bgcolor, textcolor, compression; 
 		float brightness;
 		String filtertype;
 		GrayScaleFilter gFilter; 
@@ -223,15 +223,17 @@ public class ConvertedPicScreen extends Activity {
 		filtertype = settings.getFilter();
 		brightness = settings.getBrightness();
 		
+		
 		//The defaultfilter is set to AsciiFilter, filtertype should always be one of the following.
 		if(filtertype == "AsciiFilter"){
 			//bgcolor and textcolor might be used outside this "if" when another filter is implemented that can use them
 			bgcolor = settings.getBgColor();
 			textcolor = settings.getTextColor();
+			compression = settings.getCompression();
 			
 			//make a new AsciiFilter and convert the picture with the current settings
 			aFilter = new AsciiFilter();
-			aFilter.setCompression(settings.getCompression());
+			aFilter.setCompression(compression);
 			aFilter.setBgColor(bgcolor);
 			aFilter.setTextColor(textcolor);
 			bmp = aFilter.convert(bmp);	
