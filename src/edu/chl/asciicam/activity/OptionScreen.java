@@ -92,15 +92,19 @@ public class OptionScreen extends Activity {
 		initiateSeekBars();
 
 	}
-
+	
+	//////////////////////////////////////////////////////////////
 	// This is called to initiate the views that adjusted by java
+	//////////////////////////////////////////////////////////////
 	private void initiateViews(){
 		//Default brightness and density values
 		brightness_value.setText(""+settings.getBrightness());
 		density_value.setText(""+settings.getCompression());
 	}
-
+	
+	/////////////////////////////////////////////////////////////////
 	//	This is called to initiate the buttons and add functionality
+	/////////////////////////////////////////////////////////////////
 	private void initiateButtons() {
 		back_btn.setOnClickListener(new View.OnClickListener() {
 
@@ -129,15 +133,17 @@ public class OptionScreen extends Activity {
 		});
 
 	}	
-
+	
+	///////////////////////////////////////////
 	//This is called to initiate the Seekbars
+	///////////////////////////////////////////
 	private void initiateSeekBars(){
 		
 		//Give brightness and density the current values, even if the bar is not changed
 		brightness = settings.getBrightness();
 		density = settings.getCompression();
 		
-		// nitiating Brightnessbar		
+		// Initiating Brightnessbar		
 		brightnessBar = (SeekBar)findViewById(R.id.brightness_bar);
 		brightnessBar.setMax(200);
 		//Set the brightnessbar according to the current brightnessvalue, default is 100 (middle of the bar)
@@ -182,8 +188,10 @@ public class OptionScreen extends Activity {
 			}
 		});
 	}
-
+	
+	//////////////////////////////////////////
 	//This is called to initiate the Spinners
+	//////////////////////////////////////////
 	private void initiateSpinners(){
 
 		//Setting up an array for Spinner Prompts
@@ -293,7 +301,9 @@ public class OptionScreen extends Activity {
 		});
 	}
 
-	//Called to apply the changes chosen with the widgets to the settingscontroller
+	////////////////////////////////////////////////////////////////////////////////
+	//Called to apply the changes chosen with the widgets to the SettingsController
+	////////////////////////////////////////////////////////////////////////////////
 	private void applySettings(){
 		settings.setBgColor(bgPos);
 		settings.setTextColor(textPos);
