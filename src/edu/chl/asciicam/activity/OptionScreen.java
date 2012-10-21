@@ -145,12 +145,8 @@ public class OptionScreen extends Activity {
 		//Give brightness and density the current values, even if the bar is not changed
 		brightness = settings.getBrightness();
 		density = settings.getCompression();
-		
-<<<<<<< HEAD
-		// Initiating Brightnessbar		
-=======
-		// initiating Brightnessbar		
->>>>>>> 83907c601a6b6ef0b49e037b84e6d8999f8c0353
+
+		// Initiating Brightnessbar
 		brightnessBar = (SeekBar)findViewById(R.id.brightness_bar);
 		brightnessBar.setMax(200);
 		//Set the brightnessbar according to the current brightnessvalue, default is 100 (middle of the bar)
