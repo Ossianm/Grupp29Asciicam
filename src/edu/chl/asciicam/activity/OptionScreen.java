@@ -55,9 +55,7 @@ public class OptionScreen extends Activity {
 	private TextView bg_head, char_head, colors_head, brightness_value, density_value;
 	private int bgPos, textPos, filterPos, density;
 	protected static SettingsController settings = new SettingsController();
-	protected static AsciiFilter asciiFilter = new AsciiFilter();
-
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -305,12 +303,5 @@ public class OptionScreen extends Activity {
 	public static SettingsController getSettings(){
 		return settings;
 	}
-
-	/**
-	 * Retrieving density from OptionScreen
-	 * @return the current asciiFilter
-	 */
-	public static AsciiFilter getDensity(){
-		return asciiFilter;
-	}
+	
 }
