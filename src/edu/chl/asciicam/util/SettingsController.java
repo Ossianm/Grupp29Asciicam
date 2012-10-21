@@ -21,6 +21,7 @@ import android.graphics.Color;
 
 /**
  * A class to store the settings for the conversion
+ * This is mainly used as a supportclass for Optionscreen and middlehand between Optionscreen and ConvertedPicScreen
  * @author Ossian
  */
 public class SettingsController {
@@ -37,11 +38,15 @@ public class SettingsController {
 	public SettingsController(){
 		
 	}
-	
-	// Take a index from the list in OptionScreen and turn it to a int that can be used as a Color.CONSTANT
+	/////////////////////////////////////////////////////////
+	// Take a index from the list in OptionScreen and turn //
+	// it to a int that can be used as a Color.CONSTANT    //
+	/////////////////////////////////////////////////////////
 	private int indexToColorConstant(int index){
 		int colorC = Color.BLACK; //Setting default color to black
 		
+		//These cases is taken from the list in OptionScreen
+		//String[] {"BLACK","WHITE","GRAY","CYAN","RED","BLUE","GREEN","MAGENTA","YELLOW"};
 		switch(index){
 		case 0:
 			colorC = Color.BLACK;
@@ -74,15 +79,21 @@ public class SettingsController {
 		return colorC;
 	}
 	
+	////////////////////////////////////////////////
+	// Take a index from the list in OptionScreen //
+	// and turn it to a string for a filter       //
+	////////////////////////////////////////////////
 	private void indexToFilter(int index){
 		switch(index){
+		
+		//These cases is taken from a list in OptionScreen
+		// String[] {"AsciiFilter","GrayscaleFilter"};
 		case 0:
 			filter = "AsciiFilter";
 			break;
 		case 1:
 			filter = "GrayscaleFilter";
-		}
-			
+		}			
 	}
 	
 	/**
@@ -101,13 +112,14 @@ public class SettingsController {
 	//////////////////////////
 	// Setters and getters  //
 	//////////////////////////
+	
 	/**
 	 * Sets the background color
 	 * @param bgColor must be Color.constant
 	 */
 	public void setBgColor(int index){
-		bgColor = indexToColorConstant(index);
-		bgPos = index;
+		bgColor = indexToColorConstant(index); //Set the color for the bg
+		bgPos = index; //Set the position for the color
 	}
 	
 	/**
@@ -115,8 +127,8 @@ public class SettingsController {
 	 * @param bgColor must be Color.constant
 	 */
 	public void setTextColor(int index){
-		textColor = indexToColorConstant(index);
-		textPos = index;
+		textColor = indexToColorConstant(index); //Set the color for the text
+		textPos = index; //Set the position for the text
 	}
 	
 	/**
@@ -124,8 +136,8 @@ public class SettingsController {
 	 * @param filter
 	 */
 	public void setFilter(int index){
-		indexToFilter(index);
-		filterPos = index;
+		indexToFilter(index); //Set the filter that should be used
+		filterPos = index; //Set the position for the filter
 	}
 	
 	/**
@@ -201,20 +213,11 @@ public class SettingsController {
 	}
 	
 	/**
-	 * Get the position of the current brightness
-	 * @return the curent position of the brightnessbar according to the value
-	 */
-	
-	/**
 	 * Get the current compressionsetting
 	 * @return the current compressionvalue
 	 */
 	public int getCompression(){
 		return compression;
 	}
-	
-	/**
-	 * 
-	 */
 	
 }

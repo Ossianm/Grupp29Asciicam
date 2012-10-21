@@ -109,10 +109,11 @@ public class CameraScreen extends Activity {
 	private void reconnectCam(){
 		if(mCamera == null){
 			mCamera = getCameraInstance();
+			//try reconnection of the camera
 			try{
 				mCamera.reconnect();
 			}catch(Exception e){
-				Log.d(TAG, "Error reconnecting camera: " + e.getMessage());
+				Log.d(TAG, "Error reconnecting camera: " + e.getMessage()); //put an errormessage in the log
 			}
 			mCamera.setDisplayOrientation(90);
 			mPreview.setCam(mCamera);
@@ -152,7 +153,7 @@ public class CameraScreen extends Activity {
 		public void onPictureTaken(byte[] data, Camera camera) {
 			//starting our previewScreen
 			Intent startPreview = new Intent(getBaseContext(), PreviewScreen.class);
-			startPreview.putExtra("id", "taken");
+			startPreview.putExtra("id", "taken"); //Set id to taken and send with extras for previewscreen to see where to load the picture from
 			try {
 				fc.savePicPrivate(data); //save pic temporary on memory to open from previewScreen
 			} catch (IOException e) {

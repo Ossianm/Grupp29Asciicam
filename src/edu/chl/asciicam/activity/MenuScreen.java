@@ -52,6 +52,7 @@ public class MenuScreen extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
 				             	WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
+		//Set the layout and buttons to ids
 		setContentView(R.layout.activity_menu_screen);
 		take_Pic_B = (Button) findViewById(R.id.Take_pic_B);
 		load_Pic_B = (Button) findViewById(R.id.Load_pic_B);
@@ -91,10 +92,12 @@ public class MenuScreen extends Activity {
 		if (result == RESULT_OK){
 			Uri selectedImage = data.getData();
 			String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
+			
+			//get the cursor to resolve what picture that the user shows
 			Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
 			cursor.moveToFirst();
-
+			
+			//Set the columnindex from the gallery for the picture that the user picks
 			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 			filePath = cursor.getString(columnIndex);  //set the filepath to locate the picture from previewScreen				
 			cursor.close();
@@ -103,8 +106,8 @@ public class MenuScreen extends Activity {
 		//If a picture is chosen, open PreviewScreen and make sure it can find the chosen picture
 		if (result != 0){
 			Intent startPreview = new Intent(MenuScreen.this, PreviewScreen.class);
-			startPreview.putExtra("filePath",filePath);
-			startPreview.putExtra("id", "loaded"); 
+			startPreview.putExtra("filePath",filePath); //Send the filepath as extras for prevewscreen to be able to find the chosen picture
+			startPreview.putExtra("id", "loaded");  //Send the id that the previewscreen is called from loaded and not from the camera
 			startActivity(startPreview);
 		}
 	}	
