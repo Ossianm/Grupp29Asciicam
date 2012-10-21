@@ -111,7 +111,7 @@ public class AsciiFilter implements FilterInterface {
     	
 		//List to populate with rows of strings
     	List<String> list = new ArrayList<String>();
-    	
+    	//Set height and width to the pictures height and width
     	int height = bmp.getHeight();
     	int width = bmp.getWidth();
     	
