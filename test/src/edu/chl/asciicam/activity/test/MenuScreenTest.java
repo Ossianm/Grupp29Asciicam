@@ -21,8 +21,9 @@ import android.app.Activity;
 import android.app.Instrumentation.ActivityMonitor;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
-import edu.chl.asciicam.activity.MenuScreen;
 import edu.chl.asciicam.activity.CameraScreen;
+import edu.chl.asciicam.activity.MenuScreen;
+import edu.chl.asciicam.activity.OptionScreen;
 import edu.chl.asciicam.activity.PreviewScreen;
 
 public class MenuScreenTest extends ActivityInstrumentationTestCase2<MenuScreen> {
@@ -87,6 +88,23 @@ public class MenuScreenTest extends ActivityInstrumentationTestCase2<MenuScreen>
 	}
 	
 	public void testOptionButton(){
-		// TODO Activity OptionScreen
+		
+		//Adding a monitor to OptionScreen
+		ActivityMonitor activityMonitor = getInstrumentation().addMonitor(OptionScreen.class.getName(), null, false);
+		
+		//Initiating the take_Pic_B to test if it works correctly
+		mActivity.runOnUiThread(new Runnable() {
+			Button button = ((MenuScreen) mActivity).getTakePicButton();
+			public void run(){
+				//Starting OptionScreen activity
+				button.performClick();				
+			}
+		});
+		
+		OptionScreen optionScreen = (OptionScreen) getInstrumentation().waitForMonitor(activityMonitor);
+		
+		//Determining that optionScreen != null
+		assertNotNull(optionScreen);
+		optionScreen.finish();
 	}
 }
