@@ -113,7 +113,9 @@ public class OptionScreen extends Activity {
 		reset_btn.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
+				//Reset the settings in the settingscontroller to default
 				settings.resetToDefault();
+				//Initiate the changed views again to update with default settings
 				initiateViews();
 				initiateSpinners();
 				initiateSeekBars();
@@ -123,6 +125,7 @@ public class OptionScreen extends Activity {
 		apply_btn.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
+				//Apply the settings that has been changed and return to the previous screen
 				applySettings();
 				finish();
 			}
@@ -137,7 +140,7 @@ public class OptionScreen extends Activity {
 		brightness = settings.getBrightness();
 		density = settings.getCompression();
 		
-		// nitiating Brightnessbar		
+		// initiating Brightnessbar		
 		brightnessBar = (SeekBar)findViewById(R.id.brightness_bar);
 		brightnessBar.setMax(200);
 		//Set the brightnessbar according to the current brightnessvalue, default is 100 (middle of the bar)
@@ -175,8 +178,7 @@ public class OptionScreen extends Activity {
 
 			//Listener for densityBar
 			public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-				//densityvalue can vary between 5 and 20
-				
+				//densityvalue can vary between 5 and 20				
 				density = progress+5;				
 				density_value.setText(""+density);
 			}
@@ -235,10 +237,12 @@ public class OptionScreen extends Activity {
 			//Called when choosing an item from filterSpinner
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				//Set the position for the chosen filter
 				filterPos = filterSpinner.getSelectedItemPosition();
 				String filter = filterList.get(filterPos);
 				
-
+				//Check if the filter is set to GrayscaleFilter
+				//If it is, then set the coloroptions to invisible
 				if(filter.equals("GrayscaleFilter")){
 					bgSpinner.setVisibility(View.INVISIBLE);
 					bg_head.setVisibility(View.INVISIBLE);
@@ -247,6 +251,8 @@ public class OptionScreen extends Activity {
 					colors_head.setVisibility(View.INVISIBLE);
 				}	
 				else{
+					//Else it is the Asciifilters since we only have two filters for now
+					//Set the coloroptions to visible
 					bgSpinner.setVisibility(View.VISIBLE);
 					bg_head.setVisibility(View.VISIBLE);
 					charSpinner.setVisibility(View.VISIBLE);
@@ -267,6 +273,7 @@ public class OptionScreen extends Activity {
 			//Called when choosing an item from bgSpinner
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				//Set the position that is chosen by the user
 				bgPos = bgSpinner.getSelectedItemPosition();
 			}
 
@@ -283,6 +290,7 @@ public class OptionScreen extends Activity {
 			//Called when choosing an item from charSpinner
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				//Set the position that is chosen by the user
 				textPos = charSpinner.getSelectedItemPosition();				
 			}
 
