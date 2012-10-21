@@ -69,6 +69,65 @@ public class Convert{
 		return bitmap;
 
 	}
+	
+	public static Bitmap compressPictureFromFile(String filePath, int height, int width){
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		//Lets us get image size without actually creating the image.
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filePath, options);
+		int imageHeight = options.outHeight;
+		int imageWidth = options.outWidth;
+		//Sample size if the factor to scale down bitmap with to fit view.
+		options.inSampleSize = calculateInSampleSize(imageHeight, imageWidth, height, width);
+		options.inJustDecodeBounds = false;
+		
+		return BitmapFactory.decodeFile(filePath, options);
+	}
+	
+	/**
+	 * Converts a given array to a Bitmap and returns the result as a compressed bitmap. Does not change the 
+	 * byte array. This should be used for bitmaps to be displayed on screen.
+	 * @param byteArray The byte array to be converted into a Bitmap.
+	 * @param height Height of the view the bitmap will be displayed in
+	 * @param width	Width of the view.
+	 * @return bitmap compressed for display in your view.
+	 */
+	public static Bitmap compressPicture(byte[] byteArray, int height, int width) 	{
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		//Lets us get image size without actually creating the image.
+		options.inJustDecodeBounds = true;
+		
+		BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length, options);
+		int imageHeight = options.outHeight;
+		int imageWidth = options.outWidth;
+		//Sample size if the factor to scale down bitmap with to fit view.
+		options.inSampleSize = calculateInSampleSize(imageHeight, imageWidth, height, width);
+		//Now we got a sample size, time to really create the bitmap.
+		options.inJustDecodeBounds = false;
+		
+		return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length, options);
+
+	}
+	
+	//Calculate a good sample size to use.
+	private static int calculateInSampleSize(
+            int imgHeight, int imgWidth, int reqHeight, int reqWidth) {
+    int inSampleSize = 1;
+    
+    //if image height or width is larger than input height or width
+    //we need to use some sort of sample size to scale it down to fit with
+    //input params.
+    if (imgHeight > reqHeight || imgWidth > reqWidth) {
+    	//If width > height, we should scale by width since we use portrait layout.
+    	//If it was landscape use height.
+        if (imgWidth > imgHeight) {
+            inSampleSize = Math.round((float)imgWidth / (float)reqWidth);
+        } else {
+        	inSampleSize = Math.round((float)imgHeight / (float)reqHeight);
+        }
+    }
+    return inSampleSize;
+	}
 
 	/**
 	 * Converts a given Bitmap to a byte array and returns the result.

@@ -10,9 +10,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,8 +20,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import edu.chl.asciicam.file.FileController;
 import edu.chl.asciicam.filter.AsciiFilter;
+import edu.chl.asciicam.filter.BrightnessFilter;
 import edu.chl.asciicam.filter.GrayScaleFilter;
 import edu.chl.asciicam.util.Convert;
+import edu.chl.asciicam.util.SettingsController;
 
 //Copyright 2012 Robin Braaf, Ossian Madisson, Martin Thörnesson, Fredrik Hansson and Jonas Åström.
 //
@@ -55,13 +57,10 @@ public class ConvertedPicScreen extends Activity {
 	private byte[] picDataArray = null;
 	private AlertDialog dialog;
 	private Bitmap bmp;
-	private AsciiFilter filter;
 	private Bundle extras;
 	private String id;
 	private boolean saved = false;
-
-	//TODO REMOVE LATER
-	GrayScaleFilter gFilter; //This should be removed when AsciiFilter is completed
+	private SettingsController settings;
 
 	/**
 	 * This is called automatically by the android system when the activity is started
@@ -80,31 +79,21 @@ public class ConvertedPicScreen extends Activity {
 		save_pic_btn = (Button) findViewById(R.id.converted_save);
 		iv = (ImageView) findViewById(R.id.preview_converted);
 		fc = new FileController(getBaseContext());
-		filter = new AsciiFilter();
+		//		filter = new AsciiFilter();
 		initiateButtons();
-
+		settings = (SettingsController) OptionScreen.getSettings();
 		extras = this.getIntent().getExtras(); //get all the extras from intent to the Bundle extras
-		id = extras.getString("id"); //loads the id to check if the picture for convertion should be loaded from gallery
+		id = extras.getString("id"); //loads the id to check if the picture for conversion should be loaded from gallery
 
+		//Call for the actual conversion to happen
+		convert();
 
-
-		//**********
-		//TODO THIS SHOULD BE REMOVED WHEN ASCIIFILTER IS DONE
-//		gFilter = new GrayScaleFilter();
-//		bmp = loadPic();
-//		bmp = gFilter.convert(bmp);
-//		setBackground(bmp);
-		//**********
-
-		//This should be used when the Asciifilter is done
-				bmp = loadPic(); //Load the array that was privately saved from cameraScren
-				bmp = filter.convert(bmp); // Convert the picture with the asciifilter
-				setBackground(bmp);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
+		convert();
 	}
 
 	@Override
@@ -126,6 +115,7 @@ public class ConvertedPicScreen extends Activity {
 			// Go to the optionsScreen when this is clicked to change the properties of the conversion
 			public void onClick(View v) {
 				Intent optionScreen = new Intent(getBaseContext(), OptionScreen.class);
+				optionScreen.putExtra("from", "converted");
 				startActivity(optionScreen);
 
 			}
@@ -138,7 +128,7 @@ public class ConvertedPicScreen extends Activity {
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				bmp.compress(CompressFormat.PNG, 0, out);
 				byte[] byteArray = out.toByteArray();
-				
+
 				if(!saved){
 					try {
 						fc.savePic(byteArray); //saves the picture on the phone
@@ -195,14 +185,14 @@ public class ConvertedPicScreen extends Activity {
 	 */
 	private Bitmap loadPic(){
 		//Check if picture should be loaded from the gallery or if it's picture taken with the application 
+		Display display = getWindowManager().getDefaultDisplay();
 		if(id.equals("loaded")){
 			//Get the filepath and make a bitmap to return
 			String filePath = extras.getString("filePath");
 			if(filePath != null){
-				BitmapFactory.Options options = new BitmapFactory.Options();
-				options.inSampleSize = 4;
-				bmp = (Bitmap) BitmapFactory.decodeFile(filePath, options);
-				return bmp;
+				//display.getheight() and width is deprecated, but we need them to maintain backwards compatability
+				//for API 8 phones.
+				return Convert.compressPictureFromFile(filePath, display.getHeight(), display.getWidth());
 			}
 		}	
 
@@ -212,6 +202,51 @@ public class ConvertedPicScreen extends Activity {
 			e.printStackTrace();
 		}
 		// Decode and return the array as a bitmap
-		return Convert.compressPicture(picDataArray, 5);	
+		//display.getheight() and width is deprecated, but we need them to maintain backwards compatability
+		//for API 8 phones.
+		return Convert.compressPicture(picDataArray, display.getHeight(), display.getWidth());	
+	}
+
+	/////////////////////////////////////////
+	// Get the current options and convert //
+	/////////////////////////////////////////
+	private void convert(){
+		int bgcolor, textcolor; 
+		float brightness;
+		String filtertype;
+		GrayScaleFilter gFilter; 
+		AsciiFilter aFilter;
+		BrightnessFilter bFilter;
+
+		bmp = loadPic(); //Load the picture that should be converted
+		//Get the settings set from OptionScreen
+		filtertype = settings.getFilter();
+		brightness = settings.getBrightness();
+		
+		//The defaultfilter is set to AsciiFilter, filtertype should always be one of the following.
+		if(filtertype == "AsciiFilter"){
+			//bgcolor and textcolor might be used outside this "if" when another filter is implemented that can use them
+			bgcolor = settings.getBgColor();
+			textcolor = settings.getTextColor();
+			
+			//make a new AsciiFilter and convert the picture with the current settings
+			aFilter = new AsciiFilter();
+			aFilter.setCompression(settings.getCompression());
+			aFilter.setBgColor(bgcolor);
+			aFilter.setTextColor(textcolor);
+			bmp = aFilter.convert(bmp);	
+			
+		}else if(filtertype == "GrayScaleFilter"){// Check if the GrayScaleFilter should be applied
+			gFilter = new GrayScaleFilter();
+			bmp = gFilter.convert(bmp);	
+		}
+		
+		if(brightness != 0){ //If brighness have been changed, apply the changes to the picture before setting it as background
+			bFilter = new BrightnessFilter();
+			bFilter.setBrightness(brightness);
+			bmp = bFilter.convert(bmp);
+		}
+		//After one of the conversions id done, set the converted bitmap as background
+		setBackground(bmp);
 	}
 }

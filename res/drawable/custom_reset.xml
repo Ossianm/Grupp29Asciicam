@@ -16,9 +16,11 @@
 
     You should have received a copy of the GNU General Public License
     along with Asciicam.  If not, see <http://www.gnu.org/licenses/>. -->
+    
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+   
 
-<resources>
-
-    <string name="app_name">AsciicamTestTest</string>
-
-</resources>
+        <item android:state_pressed="true" android:drawable="@drawable/reset_knapp_pressed"></item>
+   		<item android:state_focused="true" android:drawable="@drawable/reset_knapp_pressed"></item>
+ 	    <item android:drawable="@drawable/reset_knapp"></item> 
+</selector>

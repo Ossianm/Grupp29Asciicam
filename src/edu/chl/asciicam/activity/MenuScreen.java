@@ -29,7 +29,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 
 /**
  * This activity is the first one you see when you start the app.
@@ -39,7 +38,6 @@ import android.widget.ImageView;
 public class MenuScreen extends Activity {
 
 	private Button take_Pic_B, load_Pic_B, optionsB;
-	private ImageView chosenPic;
 	private Intent load;
 
 	/**

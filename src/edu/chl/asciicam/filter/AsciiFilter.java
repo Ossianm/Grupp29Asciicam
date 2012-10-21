@@ -44,7 +44,8 @@ public class AsciiFilter implements FilterInterface {
 	private int bgColor;
 	private int textColor;
 	
-	private String[] symbol = {"@", "@", "#", "#", "#", "&", "&", "w", "w", "¿", "¿", "+", "+", "m", "m", "*", "*", ".", ".", " ", " "};
+	private String[] symbol = {"@", "G", "L", "f", "t", "l", "i", ";", ":", ",", ",", ".", ".", ".", ".", ".",
+							   " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "};
 	/**
 	 * Default constructor, sets default options which is 
 	 * compression : 6
@@ -52,7 +53,7 @@ public class AsciiFilter implements FilterInterface {
 	 * textcolor : black.
 	 */
 	public AsciiFilter(){
-		compression = 7;
+		compression = 6;
 		fontSize = 10;
 		bgColor = Color.WHITE;
 		textColor = Color.BLACK;

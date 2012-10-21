@@ -9,10 +9,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -108,7 +108,10 @@ public class PreviewScreen extends Activity {
 			e.printStackTrace();
 		}
 		//decode the bytearray to a Bitmap and set as background
-		bmp = Convert.compressPicture(picDataArray, 5);		
+		Display display = getWindowManager().getDefaultDisplay();
+		//display.getheight() and width is deprecated, but we need them to maintain backwards compatability
+		//for API 8 phones.
+		bmp = Convert.compressPicture(picDataArray, display.getHeight(), display.getWidth());		
 		setBackground(bmp);
 	}
 
@@ -131,10 +134,10 @@ public class PreviewScreen extends Activity {
 		String filePath = extras.getString("filePath");
 		if (filePath != null) {			
 			//decode the file to a Bitmap and set as background
-			BitmapFactory.Options options = new BitmapFactory.Options();
-			options.inSampleSize = 5;
-			bmp = (Bitmap) BitmapFactory.decodeFile(filePath, options); 
-			setBackground(bmp);
+			Display display = getWindowManager().getDefaultDisplay();
+			//display.getheight() and width is deprecated, but we need them to maintain backwards compatability
+			//for API 8 phones.
+			setBackground(Convert.compressPictureFromFile(filePath, display.getHeight(), display.getWidth()));
 		}
 	}
 

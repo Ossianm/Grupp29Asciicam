@@ -37,9 +37,14 @@ import android.util.Base64;
 public class FileController {
 	//String for Exception case if SD card is unmounted when trying to save a picture
 	public static final String UNMOUNTED_SD = "SDCARD_NOT_MOUNTED";
+	
 	//Local filenames for private files
 	private static final String OPTIONS_FILENAME = "OptionsAscii";
 	private static final String PRIV_PIC = "PrivatePictureAscii";
+	//Local filenames for saving options
+	public static final String ASCIICOMPRESSION = "filtercompression";
+	public static final String ASCIIBGCOLOR = "filterbgcolor";
+	public static final String ASCIITEXTCOLOR = "filtertextcolor";
 
 	//Static names for sharedpreferense data
 	public static final String SEQUENCENUMBER = "sequence";

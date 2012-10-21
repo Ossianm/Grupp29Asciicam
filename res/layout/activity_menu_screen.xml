@@ -19,8 +19,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/bg_green"
-    android:layout_height="match_parent" 
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_green" 
     >
 
     <ImageView
@@ -42,7 +42,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_below="@+id/ascii_cam_logo"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/custom_take"
         android:clickable="true" />
 
