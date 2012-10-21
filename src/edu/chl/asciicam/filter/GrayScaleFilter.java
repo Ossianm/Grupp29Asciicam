@@ -36,7 +36,7 @@ public class GrayScaleFilter implements FilterInterface{
 	/**
 	 * This method converts the given Bitmap to a gray scale-bitmap and returns it.
 	 * @param bm The Bitmap to be converted.
-	 * 
+	 * @return The original bitmap converted to gray scale.
 	 */
 
 	public Bitmap convert(Bitmap bm) {
@@ -44,10 +44,12 @@ public class GrayScaleFilter implements FilterInterface{
 		width = bm.getWidth();
 		height = bm.getHeight();
 		
+		//Create a new bitmap using the properties of the original.
 		Bitmap bmGrayScale = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
 		Canvas can = new Canvas(bmGrayScale);
 		Paint paint = new Paint();
 		ColorMatrix cm = new ColorMatrix();
+		//By setting the saturation to 0 it maps the color to gray scale.
 		cm.setSaturation(0);
 		ColorMatrixColorFilter cmcf = new ColorMatrixColorFilter(cm);
 		paint.setColorFilter(cmcf);
