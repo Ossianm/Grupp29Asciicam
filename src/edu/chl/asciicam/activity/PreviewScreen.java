@@ -60,21 +60,26 @@ public class PreviewScreen extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		//Set fullscreen, must be before setContent!
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
-		                     	WindowManager.LayoutParams.FLAG_FULLSCREEN);		
+		                     	WindowManager.LayoutParams.FLAG_FULLSCREEN);	
+		
+		//Set the layout and buttons to ids
 		setContentView(R.layout.activity_preview_screen);
 		back_btn = (Button) findViewById(R.id.back);
 		save_pic_btn = (Button) findViewById(R.id.save);
 		convert_btn = (Button) findViewById(R.id.convert);
 		iv = (ImageView) findViewById(R.id.preview_pic);
-		fc = new FileController(getBaseContext());				
+		//Create a new filecontroller to use for loading and saving files
+		fc = new FileController(getBaseContext());
+		//Initiate the buttons used in this activity
 		initiateButtons();
 
 		extras = this.getIntent().getExtras(); //get all the extras from intent to the Bundle extras
 		id = extras.getString("id"); //loads the id to check if the background should be loaded from the taken picture or from gallery
-
+		
 		if (id.equals("taken")) {
 			loadFromCamera();
 		} else if (id.equals("loaded")) {
@@ -82,17 +87,11 @@ public class PreviewScreen extends Activity {
 		}
 	}
 
-	/**
-	 * Called automatically by android 
-	 */
 	@Override
 	public void onPause(){
 		super.onPause();
 	}
 
-	/**
-	 * Called automatically by android 
-	 */
 	@Override
 	public void onResume(){
 		super.onResume();
@@ -141,26 +140,26 @@ public class PreviewScreen extends Activity {
 		}
 	}
 
-	/**
-	 * This method takes a Bitmap and sets it as background
-	 * 
-	 * @param bg
-	 */
+	//////////////////////////////////////////////////////////
+	// This method takes a Bitmap and sets it as background //
+	//////////////////////////////////////////////////////////
 	private void setBackground(Bitmap bg) {
 		if (bg != null) {
+			//When the picture is set as background it is rotated so this rotates it to be shown as portrait. 
+			//This might conflict with some hardware, an option for rotating should be implemented in the application.
 			bg = rotatePic(bg);
-			iv.setImageBitmap(bg);
-			
+			iv.setImageBitmap(bg);			
 
 			setBgBmp(bg); // Called for testing purposes
 		}
 	}
 
-	/**
-	 * Opens a dialog to the user that says "The picture is saved!"
-	 */
+	//////////////////////////////////////////////////////////////////////////
+	// Opens a dialog to the user that says "The picture is already saved!" //
+	//////////////////////////////////////////////////////////////////////////
 	private void openDialog(){
 		dialog = new AlertDialog.Builder(PreviewScreen.this).create();
+		//Set the message for the dialog
 		dialog.setMessage("The picture is already saved!");
 		dialog.setButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
@@ -168,9 +167,9 @@ public class PreviewScreen extends Activity {
 		});
 		dialog.show();
 	}
-	/**
-	 * This is called by to initiate the buttons and add functionality
-	 */
+	/////////////////////////////////////////////////////////////////////
+	// This is called by to initiate the buttons and add functionality //
+	/////////////////////////////////////////////////////////////////////
 	private void initiateButtons() {
 		back_btn.setOnClickListener(new View.OnClickListener() {
 
@@ -185,7 +184,7 @@ public class PreviewScreen extends Activity {
 				if(picDataArray != null){
 					try {
 						fc.savePic(picDataArray); //saves the picture on the phone
-
+						
 						System.out.println("Bilden har sparats i" + 
 								Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));	
 					} catch (IOException e) {
@@ -195,7 +194,6 @@ public class PreviewScreen extends Activity {
 				}else{
 					openDialog(); //opens a dialog to tell the user that the picture is saved
 				}
-				//save_pic_btn.setEnabled(false); //set the button unclickable to prevent filling up the memory with copies of the same piture
 			}
 		});
 
@@ -203,8 +201,9 @@ public class PreviewScreen extends Activity {
 			// if click here, the picture will be converted with the current settings; not yet implemented
 			public void onClick(View v) {
 				Intent convertPicture = new Intent(getBaseContext(), ConvertedPicScreen.class);
-				convertPicture.putExtra("id", id);
-				convertPicture.putExtra("filePath", extras.getString("filePath"));
+				convertPicture.putExtra("id", id); //Add the id to extras for use in ConvertedPicScreen
+				//Add the filepath to extras to use if the user want to make some changes in options and reload it
+				convertPicture.putExtra("filePath", extras.getString("filePath")); 
 				startActivity(convertPicture);
 			}
 		}); 
@@ -214,18 +213,16 @@ public class PreviewScreen extends Activity {
 	//////Setters//&//Getters//////////////////////////////////////
 	///////////////////////////////////////////////////////////////
 
-	/**
-	 * Should probably only be used for testing
-	 * @param bg
-	 */
+	//////////////////////////////////////////////
+	// Should probably only be used for testing //
+	//////////////////////////////////////////////
 	private void setBgBmp(Bitmap bg){
 		bmp = bg;
 	}
 
-	/**
-	 * Should probably only be used for testing
-	 * @return the current background as bitmap
-	 */
+	//////////////////////////////////////////////
+	// Should probably only be used for testing //
+	//////////////////////////////////////////////
 	public Bitmap getBgBmp(){
 		return bmp;
 	}
