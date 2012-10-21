@@ -300,8 +300,6 @@ public class OptionScreen extends Activity {
 		settings.setFilter(filterPos); 
 		settings.setBrightness(brightness);
 		settings.setCompression(density);
-//		System.out.println("brightness:" + brightness);
-
 	}
 	
 	/**

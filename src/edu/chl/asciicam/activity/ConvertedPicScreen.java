@@ -93,6 +93,7 @@ public class ConvertedPicScreen extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		//When resuming to this activity, do the conversion again. This is useful when returning from optionscreen with new changes
 		convert();
 	}
 
@@ -101,12 +102,16 @@ public class ConvertedPicScreen extends Activity {
 		super.onPause();
 	}
 
+	//////////////////////////////////////////
+	// Initiate the buttons for this screen //
+	//////////////////////////////////////////
 	private void initiateButtons(){
 		menu_btn.setOnClickListener(new View.OnClickListener() {
 			//Go back to the menuScreen when this button is clicked
 			public void onClick(View v) {
+				//Create an intent for the MenuScreen
 				Intent menu = new Intent(getBaseContext(), MenuScreen.class);
-				menu.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //This closes the activities between this and menuscreen
+				menu.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //Closes the activities between this and menuscreen
 				startActivity(menu);				
 			}
 		});
@@ -114,8 +119,10 @@ public class ConvertedPicScreen extends Activity {
 		options_btn.setOnClickListener(new View.OnClickListener() {
 			// Go to the optionsScreen when this is clicked to change the properties of the conversion
 			public void onClick(View v) {
+				//Creates an intent for Optionscreen
 				Intent optionScreen = new Intent(getBaseContext(), OptionScreen.class);
-				optionScreen.putExtra("from", "converted");
+				//Send extra variable to optionscreen, so that it can find where the call came from
+				optionScreen.putExtra("from", "converted"); 
 				startActivity(optionScreen);
 
 			}
@@ -128,7 +135,8 @@ public class ConvertedPicScreen extends Activity {
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				bmp.compress(CompressFormat.PNG, 0, out);
 				byte[] byteArray = out.toByteArray();
-
+				
+				//Check if the picture is saved already, if it is not then save it
 				if(!saved){
 					try {
 						fc.savePic(byteArray); //saves the picture on the phone
@@ -137,28 +145,27 @@ public class ConvertedPicScreen extends Activity {
 					}
 					saved = true;
 				}else{
-					openDialog(); //opens a dialog to tell the user that the picture is saved
+					openDialog(); //opens a dialog to tell the user that the picture already is saved
 				}
 			}
 		});
 	}
-
-	/**
-	 * Set the Bitmap in param as background in the ImageView
-	 * @param bg
-	 */
+	
+	///////////////////////////////////////////////////////////////
+	// Set the Bitmap inparameter as background in the ImageView //
+	///////////////////////////////////////////////////////////////
 	private void setBackground(Bitmap bg){
 		if(bg != null){
+			//When the picture is set as background it is rotated so this rotates it to be shown as portrait. 
+			//This might conflict with some hardware, an option for rotating should be implemented in the application.
 			bg = rotatePic(bg);
 			iv.setImageBitmap(bg);
 		}
 	}
 
-	/**
-	 * Will rotate the Bitmap so it's shown as portrait
-	 * @param bg
-	 * @return a rotated Bitmap
-	 */
+	//////////////////////////////////////////////////////
+	// Will rotate the Bitmap so it's shown as portrait //
+	//////////////////////////////////////////////////////
 	private Bitmap rotatePic(Bitmap bg){ 
 		//this had to be implemented because the picture was shown turned 90 degrees when set as background, this is to prevent that
 		Matrix matrix = new Matrix();
@@ -166,11 +173,12 @@ public class ConvertedPicScreen extends Activity {
 		return Bitmap.createBitmap(bg, 0, 0, bg.getWidth(), bg.getHeight(), matrix, true);
 	}
 
-	/**
-	 * Opens a dialog to the user that says "The picture is saved!"
-	 */
+	/////////////////////////////////////////////////////////////////
+	// Opens a dialog to the user that says "The picture is already saved!"//
+	/////////////////////////////////////////////////////////////////
 	private void openDialog(){
 		dialog = new AlertDialog.Builder(ConvertedPicScreen.this).create();
+		//Set the message for the dialog
 		dialog.setMessage("The picture is already saved!");
 		dialog.setButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
@@ -179,10 +187,9 @@ public class ConvertedPicScreen extends Activity {
 		dialog.show();
 	}
 
-	/**
-	 * Check what picture to load and return it as a bitmap
-	 * @return a Bitmap ready for conversion
-	 */
+	//////////////////////////////////////////////////////////
+	// Check what picture to load and return it as a bitmap //
+	//////////////////////////////////////////////////////////
 	private Bitmap loadPic(){
 		//Check if picture should be loaded from the gallery or if it's picture taken with the application 
 		Display display = getWindowManager().getDefaultDisplay();
@@ -194,8 +201,8 @@ public class ConvertedPicScreen extends Activity {
 				//for API 8 phones.
 				return Convert.compressPictureFromFile(filePath, display.getHeight(), display.getWidth());
 			}
-		}	
-
+		}
+		//If the picture shouldn't be loaded from the gallery then load the picture that is saved from the camera
 		try{ //Read the privately saved array
 			picDataArray = fc.loadPicPrivate();
 		}catch(IOException e){
@@ -209,6 +216,7 @@ public class ConvertedPicScreen extends Activity {
 
 	/////////////////////////////////////////
 	// Get the current options and convert //
+	// the picture that is chosen.		   //	
 	/////////////////////////////////////////
 	private void convert(){
 		int bgcolor, textcolor, compression; 
@@ -219,14 +227,14 @@ public class ConvertedPicScreen extends Activity {
 		BrightnessFilter bFilter;
 
 		bmp = loadPic(); //Load the picture that should be converted
-		//Get the settings set from OptionScreen
+		//Get the filtertype set from OptionScreen
 		filtertype = settings.getFilter();
 		brightness = settings.getBrightness();
 		
 		
 		//The defaultfilter is set to AsciiFilter, filtertype should always be one of the following.
 		if(filtertype == "AsciiFilter"){
-			//bgcolor and textcolor might be used outside this "if" when another filter is implemented that can use them
+			//bgcolor, textcolor and compression might be used outside this "if" when another filter is implemented that can use them
 			bgcolor = settings.getBgColor();
 			textcolor = settings.getTextColor();
 			compression = settings.getCompression();
@@ -238,12 +246,12 @@ public class ConvertedPicScreen extends Activity {
 			aFilter.setTextColor(textcolor);
 			bmp = aFilter.convert(bmp);	
 			
-		}else if(filtertype == "GrayScaleFilter"){// Check if the GrayScaleFilter should be applied
+		}else if(filtertype == "GrayscaleFilter"){// Check if the GrayScaleFilter should be applied
 			gFilter = new GrayScaleFilter();
 			bmp = gFilter.convert(bmp);	
 		}
 		
-		if(brightness != 0){ //If brighness have been changed, apply the changes to the picture before setting it as background
+		if(brightness != 0){ //If brightness have been changed, apply the changes to the picture before setting it as background
 			bFilter = new BrightnessFilter();
 			bFilter.setBrightness(brightness);
 			bmp = bFilter.convert(bmp);
