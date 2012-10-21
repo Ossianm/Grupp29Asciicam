@@ -238,7 +238,7 @@ public class ConvertedPicScreen extends Activity {
 			aFilter.setTextColor(textcolor);
 			bmp = aFilter.convert(bmp);	
 			
-		}else if(filtertype == "GrayScaleFilter"){// Check if the GrayScaleFilter should be applied
+		}else if(filtertype == "GrayscaleFilter"){// Check if the GrayScaleFilter should be applied
 			gFilter = new GrayScaleFilter();
 			bmp = gFilter.convert(bmp);	
 		}
