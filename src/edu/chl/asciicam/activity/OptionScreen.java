@@ -20,7 +20,6 @@ package edu.chl.asciicam.activity;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.chl.asciicam.filter.AsciiFilter;
 import edu.chl.asciicam.util.SettingsController;
 
 import android.app.Activity;
