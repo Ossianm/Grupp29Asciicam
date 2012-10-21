@@ -52,16 +52,14 @@
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/convert"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="40dp" />
 
         <Button
         android:id="@+id/back"
         android:background="@drawable/custom_back"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@id/convert"
-        android:layout_marginRight="20dp" />
+        android:layout_alignParentBottom="true"/>
         
 </RelativeLayout>
 
