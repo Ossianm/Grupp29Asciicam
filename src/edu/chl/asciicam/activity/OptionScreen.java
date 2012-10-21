@@ -37,7 +37,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 /**
- * 
+ * This activity called from both the MenuScreen and ConvertedPicScreen 
+ * and gives features for manipulating the pictures, such as brightness, particle density,
+ * filters and colors for the AsciiFilter.
  * @author Martin
  *
  */
