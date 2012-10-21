@@ -136,59 +136,7 @@ public class AsciiFilter implements FilterInterface {
     	return list;
     }
 	
-	/////////////////////////////////////////////////////
-	// The old filter, might be used later as an option//
-	/////////////////////////////////////////////////////
-	private List<String> filter2(Bitmap bmp){
-		List<String> rows = new ArrayList<String>();
-		String line = "";
-		int averageValue = 0;
-		
-		int h = 0;
-		int w = 0;
-		int x = 1;
-		int y = 1;
-		int height = bmp.getHeight();
-		int width = bmp.getWidth();
-		
-		while(true){
-			//Iterate over 10 rows.
-			for(h=10*(y-1); h<10*y; h++){
-				//For each row, iterate over 5 in width.
-				for (w=5*(x-1); w<5*x; w++){	
-					//Add the average value of each pixel into the variable in order to calculate appropriate ASCII-sign.
-					averageValue += Convert.averageRGB(bmp.getPixel(w, h));
-				}
-			}
 
-			averageValue = ((20*averageValue/50)/255); //Calculates what index to use as the ASCII sign.
-			line+=symbol[averageValue];
-			averageValue = 0; //Reset the averageValue for the next 5 by 10 rectangle.
-
-			//If width is less than the next rectangle, start on a new row,
-			if(w+5 >= width && h+10 < height){
-				x = 1;
-				y++;
-				rows.add(line);
-				line = "";
-			}
-
-			//If width allows one more rectangle, increase x.
-			else if(w+5 <= width){
-				x++;
-			}
-
-			//If there's no room for a new row or further to the right, break.
-			else{
-				break;
-			}
-		}
-
-		//Return a list with strings, each string is a row in the picture
-		return rows;
-		
-	}
-	
 	//
     //This method creates the output bitmap from a List<String>.
     //
