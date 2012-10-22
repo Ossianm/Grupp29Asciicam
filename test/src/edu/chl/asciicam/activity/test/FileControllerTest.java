@@ -62,11 +62,10 @@ public class FileControllerTest extends AndroidTestCase {
 	public void testSavePic() throws IOException{
 
 		
-		int i = checkSeq();
+		
 		fc.savePic(data);
-		//Make sure sequence is increased
-		i++;
-		assertEquals(i, checkSeq());
+		//Init sequence now
+		int i = checkSeq();
 		File path = new File(Environment.getExternalStorageDirectory(), "DCIM" + File.separator + "AsciiCAM");
 		File file = new File(path.getPath() + File.separator + "ASCIIPIC_" + (i-1) + ".jpg");
 		//Make sure file is created
@@ -75,6 +74,8 @@ public class FileControllerTest extends AndroidTestCase {
 		fc.savePic(data);
 		i++;
 		File file2 = new File(path.getPath() + File.separator + "ASCIIPIC_" + (i-1) + ".jpg");
+		//check sequence increment (could possibly turn out false by mistake if a picture with number i
+		//already existed).
 		assertEquals(i, checkSeq());
 		assertTrue(file2.exists());
 		

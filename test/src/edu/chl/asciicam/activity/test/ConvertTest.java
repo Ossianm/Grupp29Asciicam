@@ -19,8 +19,6 @@ package edu.chl.asciicam.activity.test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.ByteBuffer;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.test.AndroidTestCase;
