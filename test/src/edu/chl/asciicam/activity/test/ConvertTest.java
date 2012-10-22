@@ -19,26 +19,42 @@ package edu.chl.asciicam.activity.test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.test.AndroidTestCase;
 import edu.chl.asciicam.util.Convert;
 
+/**
+ * Test class for Convert class in edu.chl.asciicam.util package.
+ * 
+ *
+ */
 public class ConvertTest extends AndroidTestCase {
 	
-	Context c;
+	private Context c;
+	private byte[] data;
 	
-	public void testConversions() throws IOException{
-		InputStream strin = c.getResources().openRawResource(R.drawable.dsc_8219);
-		byte[] data = new byte[strin.available()];
+	@Override
+	protected void setUp() throws Exception {
+		
+		super.setUp();
+		c = getContext();
+		InputStream strin = c.getResources().openRawResource(R.drawable.test);
+		data = new byte[strin.available()];
 		strin.read(data);
 		strin.close();
 		
-		Bitmap bm = Bitmap.createBitmap(Convert.byteArrayToBitmap(data));
-		byte[] modified = Convert.bitmapToByteArray(bm);
+	}
+	
+	public void testConversions() throws IOException{
 		
-		assertEquals(data, modified);
+		Bitmap bmp1 = Convert.byteArrayToBitmap(data);
+		Bitmap bmp2 = Convert.compressPicture(data, 2);
+		//bmp2 should be half the size of bmp1 now.
+		assertEquals((int)bmp1.getHeight()/2 , bmp2.getHeight());
+		assertEquals((int)bmp1.getWidth()/2 , bmp2.getWidth());
 		
 	}
 }
